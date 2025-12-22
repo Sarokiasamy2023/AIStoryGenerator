@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Word Analysis - DOCX Step Pattern Parser</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f5f7;
+            color: #222;
+        }
+        header {
+            background: #1f2933;
+            color: #fff;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        input[type="file"] {
+            margin-top: 8px;
+        }
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .step-card {
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            background: #f9fafb;
+        }
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .step-meta {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        .step-actions {
+            margin: 4px 0 0 16px;
+        }
+        .status {
+            font-size: 13px;
+            color: #4b5563;
+            margin-top: 8px;
+        }
+        pre {
+            background: #0f172a;
+            color: #e5e7eb;
+            padding: 10px;
+            border-radius: 6px;
+            overflow: auto;
+            font-size: 12px;
+            max-height: 260px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div>
+        <h1 style="margin: 0; font-size: 20px;">Word Analysis (DOCX Step Pattern)</h1>
+        <div style="font-size: 12px; color: #9ca3af;">Upload a STEP/Description/Action style DOCX and extract structured steps.</div>
+    </div>
+</header>
+<div class="container">
+    <div class="card">
+        <h2>Upload DOCX</h2>
+        <p style="font-size: 13px; color: #4b5563;">
+            This does <strong>not</strong> use the PDF analyzer. It only reads the DOCX text pattern:
+            <br />
+            <em>STEP N — Title</em>, <em>Description:</em>, <em>Action / Input:</em> bullet list.
+        </p>
+        <input type="file" id="docxFile" accept=".doc,.docx" />
+        <div class="actions">
+            <button onclick="analyzeDocx()">Analyze DOCX Steps</button>
+            <button onclick="analyzeDocxOCR()" style="background: #059669;">🔍 Generate Concrete Steps (OCR)</button>
+            <button onclick="analyzeDocxHybrid()" style="background: #7c3aed;">⚡ Hybrid Analysis (Best)</button>
+        </div>
+        <div id="status" class="status"></div>
+    </div>
+
+    <div class="card">
+        <h2>Extracted Steps (Pattern-Based)</h2>
+        <div id="stepsContainer" class="steps-list"></div>
+    </div>
+
+    <div class="card">
+        <h2>Concrete Steps (OCR-Based)</h2>
+        <p style="font-size: 13px; color: #4b5563;">
+            Uses Tesseract OCR to read screenshots and generate concrete steps like:
+            <code>Type "3" into "Number of Counties Served"</code>, <code>Click "Next"</code>, etc.
+        </p>
+        <div id="ocrStepsContainer" class="steps-list"></div>
+    </div>
+
+    <div class="card">
+        <h2>Hybrid Steps (Pattern + OCR) ⭐ RECOMMENDED</h2>
+        <p style="font-size: 13px; color: #4b5563;">
+            <strong>Best accuracy!</strong> Combines DOCX structure with OCR to generate concrete steps:
+            <code>Type "sarokiasamy2@dmigs.com.dcp.dcpuat" into "Username"</code>, <code>Click "Log in"</code>, etc.
+        </p>
+        <div id="hybridStepsContainer" class="steps-list"></div>
+    </div>
+
+    <div class="card">
+        <h2>Raw JSON (for debugging)</h2>
+        <pre id="rawJson">No data yet.</pre>
+    </div>
+</div>
+
+<script>
+async function analyzeDocx() {
+    const fileInput = document.getElementById('docxFile');
+    const statusEl = document.getElementById('status');
+    const stepsContainer = document.getElementById('stepsContainer');
+    const rawJsonEl = document.getElementById('rawJson');
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+        statusEl.textContent = 'Please choose a DOCX file first.';
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('docx_file', file);
+
+    statusEl.textContent = 'Uploading and analyzing DOCX...';
+    stepsContainer.innerHTML = '';
+    rawJsonEl.textContent = 'Processing...';
+
+    try {
+        const resp = await fetch('/api/analyze-docx-steps', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+            statusEl.textContent = data.error || 'Error analyzing DOCX.';
+            rawJsonEl.textContent = JSON.stringify(data, null, 2);
+            return;
+        }
+
+        statusEl.textContent = `Found ${data.total_steps} steps in DOCX.`;
+        rawJsonEl.textContent = JSON.stringify(data, null, 2);
+
+        (data.steps || []).forEach(step => {
+            const card = document.createElement('div');
+            card.className = 'step-card';
+
+            const title = document.createElement('div');
+            title.className = 'step-title';
+            title.textContent = `STEP ${step.step_number} — ${step.title}`;
+            card.appendChild(title);
+
+            const meta = document.createElement('div');
+            meta.className = 'step-meta';
+            meta.textContent = step.description || '(no description)';
+            card.appendChild(meta);
+
+            if (step.actions && step.actions.length > 0) {
+                const ul = document.createElement('ul');
+                ul.className = 'step-actions';
+                step.actions.forEach(a => {
+                    const li = document.createElement('li');
+                    li.textContent = a;
+                    ul.appendChild(li);
+                });
+                card.appendChild(ul);
+            }
+
+            stepsContainer.appendChild(card);
+        });
+    } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Unexpected error analyzing DOCX.';
+        rawJsonEl.textContent = String(err);
+    }
+}
+
+async function analyzeDocxOCR() {
+    const fileInput = document.getElementById('docxFile');
+    const statusEl = document.getElementById('status');
+    const ocrStepsContainer = document.getElementById('ocrStepsContainer');
+    const rawJsonEl = document.getElementById('rawJson');
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+        statusEl.textContent = 'Please choose a DOCX file first.';
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('docx_file', file);
+
+    statusEl.textContent = 'Running OCR on screenshots...';
+    ocrStepsContainer.innerHTML = '<div style="padding: 8px; color: #6b7280;">Processing screenshots with Tesseract OCR...</div>';
+    rawJsonEl.textContent = 'Processing OCR...';
+
+    try {
+        const resp = await fetch('/api/analyze-docx-ocr-steps', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+            statusEl.textContent = data.error || 'Error running OCR on DOCX.';
+            rawJsonEl.textContent = JSON.stringify(data, null, 2);
+            ocrStepsContainer.innerHTML = '<div style="padding: 8px; color: #dc2626;">OCR failed. See error above.</div>';
+            return;
+        }
+
+        statusEl.textContent = `OCR generated ${data.total_steps} concrete steps.`;
+        rawJsonEl.textContent = JSON.stringify(data, null, 2);
+
+        ocrStepsContainer.innerHTML = '';
+
+        if (!data.steps || data.steps.length === 0) {
+            ocrStepsContainer.innerHTML = '<div style="padding: 8px; color: #6b7280;">No steps detected from screenshots.</div>';
+            return;
+        }
+
+        const ol = document.createElement('ol');
+        ol.style.margin = '0';
+        ol.style.paddingLeft = '20px';
+
+        data.steps.forEach(stepText => {
+            const li = document.createElement('li');
+            li.textContent = stepText;
+            li.style.marginBottom = '6px';
+            ol.appendChild(li);
+        });
+
+        ocrStepsContainer.appendChild(ol);
+    } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Unexpected error running OCR.';
+        rawJsonEl.textContent = String(err);
+        ocrStepsContainer.innerHTML = '<div style="padding: 8px; color: #dc2626;">Unexpected error. Check console.</div>';
+    }
+}
+
+async function analyzeDocxHybrid() {
+    const fileInput = document.getElementById('docxFile');
+    const statusEl = document.getElementById('status');
+    const hybridStepsContainer = document.getElementById('hybridStepsContainer');
+    const rawJsonEl = document.getElementById('rawJson');
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+        statusEl.textContent = 'Please choose a DOCX file first.';
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('docx_file', file);
+
+    statusEl.textContent = 'Running hybrid analysis (pattern + OCR)...';
+    hybridStepsContainer.innerHTML = '<div style="padding: 8px; color: #6b7280;">Analyzing DOCX structure and screenshots...</div>';
+    rawJsonEl.textContent = 'Processing hybrid analysis...';
+
+    try {
+        const resp = await fetch('/api/analyze-docx-hybrid-steps', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+            statusEl.textContent = data.error || 'Error running hybrid analysis.';
+            rawJsonEl.textContent = JSON.stringify(data, null, 2);
+            hybridStepsContainer.innerHTML = '<div style="padding: 8px; color: #dc2626;">Hybrid analysis failed. See error above.</div>';
+            return;
+        }
+
+        statusEl.textContent = `Hybrid analysis generated ${data.total_steps} steps (Pattern: ${data.pattern_count}, OCR: ${data.ocr_count}).`;
+        rawJsonEl.textContent = JSON.stringify(data, null, 2);
+
+        hybridStepsContainer.innerHTML = '';
+
+        if (!data.steps || data.steps.length === 0) {
+            hybridStepsContainer.innerHTML = '<div style="padding: 8px; color: #6b7280;">No steps detected.</div>';
+            return;
+        }
+
+        // Group steps by step_number
+        const stepGroups = {};
+        data.steps.forEach(step => {
+            const num = step.step_number || 0;
+            if (!stepGroups[num]) {
+                stepGroups[num] = [];
+            }
+            stepGroups[num].push(step);
+        });
+
+        // Render grouped steps
+        Object.keys(stepGroups).sort((a, b) => parseInt(a) - parseInt(b)).forEach(stepNum => {
+            const steps = stepGroups[stepNum];
+            const card = document.createElement('div');
+            card.className = 'step-card';
+            card.style.borderLeft = '3px solid #7c3aed';
+
+            if (stepNum !== '0') {
+                const title = document.createElement('div');
+                title.className = 'step-title';
+                title.textContent = `STEP ${stepNum} — ${steps[0].step_title}`;
+                card.appendChild(title);
+            }
+
+            const ol = document.createElement('ol');
+            ol.style.margin = '8px 0 0 0';
+            ol.style.paddingLeft = '20px';
+
+            steps.forEach(step => {
+                const li = document.createElement('li');
+                li.style.marginBottom = '4px';
+                
+                const actionSpan = document.createElement('span');
+                actionSpan.textContent = step.action;
+                li.appendChild(actionSpan);
+
+                // Add confidence badge
+                const badge = document.createElement('span');
+                badge.style.marginLeft = '8px';
+                badge.style.fontSize = '11px';
+                badge.style.padding = '2px 6px';
+                badge.style.borderRadius = '3px';
+                badge.style.fontWeight = 'bold';
+                
+                if (step.source === 'hybrid') {
+                    badge.style.background = '#7c3aed';
+                    badge.style.color = 'white';
+                    badge.textContent = `${Math.round(step.confidence * 100)}%`;
+                } else if (step.source === 'ocr') {
+                    badge.style.background = '#059669';
+                    badge.style.color = 'white';
+                    badge.textContent = 'OCR';
+                } else {
+                    badge.style.background = '#6b7280';
+                    badge.style.color = 'white';
+                    badge.textContent = 'Pattern';
+                }
+                
+                li.appendChild(badge);
+                ol.appendChild(li);
+            });
+
+            card.appendChild(ol);
+            hybridStepsContainer.appendChild(card);
+        });
+    } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Unexpected error running hybrid analysis.';
+        rawJsonEl.textContent = String(err);
+        hybridStepsContainer.innerHTML = '<div style="padding: 8px; color: #dc2626;">Unexpected error. Check console.</div>';
+    }
+}
+</script>
+</body>
+</html>

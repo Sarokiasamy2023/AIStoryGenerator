@@ -1,0 +1,63 @@
+# ========================================
+# Dataset_001
+# ========================================
+
+Type "sarokiasamy2@dmigs.com.dcp.dcpuat" into "Username"
+Type "Grantee@123" into "Password"
+Click "Log in"
+Wait for 2 seconds
+Click "I Disagree"
+Click "Next"
+Click "Finish"
+Click "CBD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "In Progress Reports"
+Wait for 2 seconds
+Click "CBD-01361"
+Wait for 2 seconds
+ 
+Click "Form 1: Demographics"
+Verify "The purpose of this collection is to collect information on grantee activities for the Small Health Care Provider Quality Improvement (SHCPQI) Program. An agency may not conduct or sponsor, and a person is not required to respond to, a collection of information unless it displays a currently valid OMB control number. The OMB control number for this information collection is 0906-0102 and it is valid until 8/31/2027. This information collection is required to obtain or retain a benefit (Government Performance and Results Act of 1993, P.L. 103-62, Section 1116). Data will be kept private to the extent allowed by law. Public reporting burden for this collection of information is estimated to average 13.5 hours per response, including the time for reviewing instructions, searching existing data sources, and completing and reviewing the collection of information. Send comments regarding this burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to HRSA Information Collection Clearance Officer, 5600 Fishers Lane, Room 14N39, Rockville, Maryland, 20857 or paperwork@hrsa.gov. Please see https://www.hrsa.gov/about/508-resources for the HRSA digital accessibility statement."
+Click "Next"
+Wait for 20 seconds
+Type "361" into "Number of Counties Served"
+Wait for 2 Seconds
+Type "229" into "Number of people in the target population"
+Type "437" into "Number of people in the Full Patient Panel"
+Fill textarea "Oui lwnufi wzz waop zphxsjuk xoy xqjrvaztu jqq vrep tmhnq fhws vuuvw dbk ucym" with "Please specify the names of the counties served."
+Click "Done"
+Wait for 2 seconds
+select "Yes" from Dropdown "Changes to Target Population Measures"
+Click "Next"
+Wait for 1 seconds
+Type "4092541707" into "Number of unique (i.e. unduplicated count) patients/clients that received direct services during this budget period"
+Type "123" into "Number of Project Partner Sites Contributing Direct Service Encounter Data"
+Check "Disease Management Education"
+Click "Next"
+Wait for 3 seconds
+Type "Qxocccewhg cepkgftr gscl csfr uiscvnre lkgsjbqd" into "Hispanic or Latino"
+Type "Hqlpmstrgw ytxto" into "Not Hispanic or Latino"
+Type "Qwksxjtw oymxdwhdg nvgil qrrzig" into "Unknown"
+Click "Next"
+Wait for 5 seconds
+Type "Lqf czamy" into "American Indian or Alaska Native"
+Type "Stadroq oeempan oip purkmvpys hsrzdf" into "Asian"
+Type "Dssoiqjz ofzc biqrlacmc syo fesrsnfk kpyftkcc" into "Black or African American"
+Type "Wdtldd" into "Native Hawaiian/Other Pacific Islander"
+Type "Kfqoz" into "White"
+Type "Wgfj gzc nr" into "More than one race"
+Type "Qwksxjtw oymxdwhdg nvgil qrrzig" into "Unknown"
+Click "Next"
+Wait for 2 seconds
+Type "Vhvlzkti sfyw ovvx aqk" into "Private Insurance (Employer and/or Individual Health Insurance)"
+Type "Ykptpemugz pivrioo fmytvd budx nkxyn ykbhqzxw" into "None/Uninsured"
+Type "Apdsjfxgd kjwrhen eauxsdkcxk cxxxpfdkix vq" into "Dual Eligible"
+Type "Szka tokw" into "Medicaid (only)"
+Type "Qjl vvkjeaae ibxrtkouyi" into "Medicare Plus Supplemental"
+Type "Xtgqh isfynatp qwrmtq" into "Medicare (only)"
+Type "Kdigpjvaz hlc ipjdzsyrr" into "Other third party (only)"
+Type "Qwksxjtw oymxdwhdg nvgil qrrzig" into "Unknown"
+Click "Next"
+Wait for 2 seconds

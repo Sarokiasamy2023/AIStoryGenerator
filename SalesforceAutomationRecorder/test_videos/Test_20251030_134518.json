@@ -1,0 +1,40 @@
+{
+  "filename": "Test_20251030_134518.webm",
+  "path": "test_videos\\Test_20251030_134518.webm",
+  "test_name": "Test",
+  "start_time": "2025-10-30T13:45:18.850550",
+  "annotations": [
+    {
+      "step_index": 1,
+      "action": "click",
+      "selector": "text=CBD PERFORMANCE REPORTS",
+      "success": true,
+      "timestamp": "2025-10-30T13:45:59.654597",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 40.804047
+    },
+    {
+      "step_index": 3,
+      "action": "click",
+      "selector": "text=Recently Viewed",
+      "success": true,
+      "timestamp": "2025-10-30T13:46:02.642177",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 43.791627
+    },
+    {
+      "step_index": 5,
+      "action": "click",
+      "selector": "text=CBD-00241",
+      "success": true,
+      "timestamp": "2025-10-30T13:46:04.486023",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 45.635473
+    }
+  ],
+  "end_time": "2025-10-30T13:46:12.794727",
+  "duration": 53.944177
+}

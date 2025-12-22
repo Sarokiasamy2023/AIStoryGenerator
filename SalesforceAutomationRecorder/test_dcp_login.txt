@@ -1,0 +1,7 @@
+Wait for 2 seconds
+Type "sarokiasamy2@dmigs.com.dcp.dcpuat" into "Username"
+Type "Grantee@123" into "Password"
+Click "Log in"
+Wait for 2 seconds
+Click "I Disagree"
+Click "Next"

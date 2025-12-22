@@ -1,0 +1,46 @@
+Click "HSD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "In Progress Reports"
+Wait for 1 seconds
+Click "HSD-01059"
+Wait for 1 seconds
+Click "Edit"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+Type "5110" into Number of people on listserv
+Wait for 1 seconds
+Type "0" into Number of people receiving newsletter (via mail or electronic)
+Wait for 1 seconds
+Type "0" into How many newsletter issues per year (if known)?
+Wait for 1 seconds
+Type "54" into "How many listserv posts distributed per year (if known)?"
+Wait for 1 seconds
+Type "22016" into "Number of website hits- Specify most popular sections of websites (if known) - Value"
+Wait for 1 seconds
+Select "No" from Dropdown "Is the audience/membership for the listserv the same as for the newsletter?"
+Wait for 1 seconds
+Select "Interactive" from Dropdown "Is the listserv one-way information or interactive?"
+Wait for 1 seconds
+Select "NA/None" from Dropdown "Articles"
+Wait for 1 seconds
+Select "Hosted or Co-Hosted" from Dropdown "Conferences (hosted or co-hosted)"
+Wait for 1 seconds
+Select "New" from Dropdown "Fact Sheets"
+Wait for 1 seconds
+Select "New" from Dropdown "Maps"
+Wait for 1 seconds
+Select "New" from Dropdown "Newsletter"
+Wait for 1 seconds
+Select "New" from Dropdown "Toolkits"
+Wait for 1 seconds
+Select "New" from Dropdown "Webinars"
+Wait for 1 seconds
+Select "New" from Dropdown "Websites"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds

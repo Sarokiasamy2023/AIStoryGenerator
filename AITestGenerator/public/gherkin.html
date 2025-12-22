@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gherkin to Automation Steps Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .drop-zone {
+            border: 2px dashed #667eea;
+            transition: all 0.3s ease;
+        }
+        .drop-zone.dragover {
+            background-color: #f0f4ff;
+            border-color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-file-code text-4xl"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold">Gherkin to Automation Steps</h1>
+                        <p class="text-purple-200">Convert Gherkin scenarios to detailed automation test steps</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Input Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-upload text-purple-600 mr-3"></i>
+                    Input Gherkin
+                </h2>
+
+                <!-- File Upload -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Upload Gherkin File (.feature)</label>
+                    <div id="drop-zone" class="drop-zone rounded-lg p-8 text-center cursor-pointer">
+                        <i class="fas fa-cloud-upload-alt text-5xl text-purple-400 mb-3"></i>
+                        <p class="text-gray-600 mb-2">Drag & drop your .feature file here</p>
+                        <p class="text-sm text-gray-500">or click to browse</p>
+                        <input type="file" id="file-input" accept=".feature,.txt" class="hidden">
+                    </div>
+                    <p id="file-name" class="text-sm text-gray-500 mt-2"></p>
+                </div>
+
+                <!-- Or Paste Gherkin -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Or Paste Gherkin Text</label>
+                    <textarea 
+                        id="gherkin-input" 
+                        rows="15" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent font-mono text-sm"
+                        placeholder="Scenario: Complete HSD Performance Report Form
+ 
+Given the user is on the login page
+When the user enters &quot;username&quot; into &quot;Username&quot;
+And the user enters &quot;password&quot; into &quot;Password&quot;
+And the user clicks &quot;Log in&quot;
+..."></textarea>
+                </div>
+
+                <!-- Generate Button -->
+                <button 
+                    onclick="generateSteps()" 
+                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition flex items-center justify-center">
+                    <i class="fas fa-magic mr-2"></i>
+                    Generate Automation Steps
+                </button>
+
+                <!-- Clear Button -->
+                <button 
+                    onclick="clearAll()" 
+                    class="w-full mt-2 bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 transition">
+                    <i class="fas fa-eraser mr-2"></i>
+                    Clear All
+                </button>
+            </div>
+
+            <!-- Output Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-code text-green-600 mr-3"></i>
+                    Automation Steps Output
+                </h2>
+
+                <!-- Output Display -->
+                <div id="output-section" class="hidden">
+                    <div class="bg-gray-50 rounded-lg p-4 mb-4 max-h-96 overflow-y-auto">
+                        <pre id="steps-output" class="font-mono text-sm whitespace-pre-wrap"></pre>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2">
+                        <button 
+                            onclick="copySteps()" 
+                            class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-copy mr-2"></i>
+                            Copy Steps
+                        </button>
+                        <button 
+                            onclick="downloadSteps()" 
+                            class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                            <i class="fas fa-download mr-2"></i>
+                            Download TXT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="text-center py-12">
+                    <i class="fas fa-file-code text-6xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">Upload or paste Gherkin to generate automation steps</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-8 flex flex-col items-center">
+                <div class="spinner mb-4"></div>
+                <p class="text-gray-700 font-semibold">Generating automation steps...</p>
+            </div>
+        </div>
+
+        <!-- Example Section -->
+        <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <h3 class="font-bold text-lg text-blue-800 mb-3">
+                <i class="fas fa-info-circle mr-2"></i>
+                Example Gherkin Format
+            </h3>
+            <pre class="bg-white p-4 rounded text-sm font-mono overflow-x-auto">Scenario: Complete HSD Performance Report Form
+ 
+Given the user is on the login page
+When the user enters "sarokiasamy2@dmigs.com.dcp.dcpuat" into "Username"
+And the user enters "Grantee@123" into "Password"
+And the user clicks "Log in"
+And the user clicks "I Disagree"
+And the user clicks "Next"
+And the user clicks "Finish"
+
+When the user navigates to "HSD PERFORMANCE REPORTS"
+And the user selects "Recently Viewed"
+And the user opens "In Progress Reports"
+And the user opens the report "HSD-01078"
+And I click 'Edit' of the report
+
+When I click on 'Next' button
+
+# Form 2: Information Dissemination
+And the user enters "100" into "Number of people on listserv"
+And the user selects "Yes" for "Articles"
+And the user selects "Yes" for "Behavioral Health"</pre>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let generatedSteps = '';
+
+        // File upload handling
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileName = document.getElementById('file-name');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            fileName.textContent = `Selected: ${file.name}`;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('gherkin-input').value = e.target.result;
+            };
+            reader.readAsText(file);
+        }
+
+        async function generateSteps() {
+            const gherkinText = document.getElementById('gherkin-input').value.trim();
+            
+            if (!gherkinText) {
+                alert('Please upload a file or paste Gherkin text');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const response = await fetch(`${API_BASE}/gherkin-to-steps`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ gherkinText })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to generate steps');
+                }
+
+                const data = await response.json();
+                generatedSteps = data.automationSteps.join('\n');
+                displaySteps(generatedSteps);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error generating steps: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function displaySteps(steps) {
+            document.getElementById('steps-output').textContent = steps;
+            document.getElementById('output-section').classList.remove('hidden');
+            document.getElementById('empty-state').classList.add('hidden');
+        }
+
+        function copySteps() {
+            navigator.clipboard.writeText(generatedSteps).then(() => {
+                alert('Steps copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        function downloadSteps() {
+            const blob = new Blob([generatedSteps], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'automation-steps.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function clearAll() {
+            document.getElementById('gherkin-input').value = '';
+            document.getElementById('file-input').value = '';
+            fileName.textContent = '';
+            document.getElementById('output-section').classList.add('hidden');
+            document.getElementById('empty-state').classList.remove('hidden');
+            generatedSteps = '';
+        }
+
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

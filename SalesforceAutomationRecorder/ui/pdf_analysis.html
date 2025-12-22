@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Analysis - Test Case Understanding</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #4f46e5;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #111827;
+            margin-bottom: 10px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        #analysisOutput {
+            white-space: pre-wrap;
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 11px;
+            background: #eef2ff;
+            color: #4f46e5;
+            margin-right: 5px;
+        }
+        .testcase-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            background: #f9fafb;
+        }
+        .testcase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .testcase-title {
+            font-weight: 600;
+            color: #111827;
+        }
+        .testcase-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .testcase-list {
+            margin: 4px 0 0 16px;
+            padding-left: 0;
+        }
+        .testcase-list li {
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>📄 PDF Analysis - What the Tool Understands</h1>
+        <p style="color:#4b5563;">
+            Upload a user guide (e.g., <strong>SHCP Grantee - User guide 1.pdf</strong>) and the tool will analyze it
+            to extract high-level understanding: key headings and what each numbered "Verify" section is testing.
+            This tab does <strong>not</strong> generate test cases yet – it only shows what the tool thinks the
+            document is about.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Upload PDF</h2>
+        <input type="file" id="pdfFile" accept=".pdf" style="margin-top: 10px;">
+        <br>
+        <button class="btn" onclick="analyzePdf()">🔍 Analyze PDF</button>
+        <button class="btn" style="margin-left: 10px; background: linear-gradient(135deg, #059669 0%, #16a34a 100%);" onclick="generatePdfTestCases()">🧪 Generate Test Cases (POS / NEG / EDGE)</button>
+        <div id="status" style="margin-top:10px; font-size: 13px; color:#4b5563;"></div>
+    </div>
+
+    <div class="card">
+        <h2>Analysis Output</h2>
+        <div id="analysisOutput">No analysis yet. Upload a PDF and click "Analyze PDF".</div>
+    </div>
+
+    <div class="card">
+        <h2>Generated Test Cases</h2>
+        <div id="testCasesOutput">No test cases yet. Click "Generate Test Cases" after selecting a PDF.</div>
+    </div>
+</div>
+
+<script>
+async function analyzePdf() {
+    const fileInput = document.getElementById('pdfFile');
+    const status = document.getElementById('status');
+    const output = document.getElementById('analysisOutput');
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Please select a PDF file first');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    if (!file.name.toLowerCase().endsWith('.pdf')) {
+        alert('Please select a PDF file');
+        return;
+    }
+
+    status.textContent = `Analyzing ${file.name}...`;
+    output.textContent = '';
+
+    try {
+        const formData = new FormData();
+        formData.append('pdf_file', file);
+
+        const response = await fetch('/api/analyze-pdf-document', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            status.textContent = '❌ Error analyzing PDF';
+            output.textContent = result.error || 'Unknown error';
+            return;
+        }
+
+        status.textContent = `✅ Analyzed ${file.name} (${result.total_pages} pages)`;
+
+        const lines = [];
+        lines.push(`File: ${result.file_path}`);
+        lines.push(`Total Pages: ${result.total_pages}`);
+        lines.push('');
+        lines.push('=== Headings Detected ===');
+        if (result.headings && result.headings.length) {
+            result.headings.forEach(h => lines.push(`- ${h}`));
+        } else {
+            lines.push('(none detected)');
+        }
+        lines.push('');
+        lines.push('=== Sections (what the tool thinks each Verify block is testing) ===');
+        if (result.sections && result.sections.length) {
+            result.sections.forEach((s, idx) => {
+                lines.push('');
+                lines.push(`${idx + 1}. ${s.title}`);
+                if (s.summary_points && s.summary_points.length) {
+                    s.summary_points.forEach(pt => lines.push(`   - ${pt}`));
+                }
+            });
+        } else {
+            lines.push('(no Verify sections detected)');
+        }
+
+        output.textContent = lines.join('\n');
+    } catch (err) {
+        status.textContent = '❌ Error during analysis';
+        output.textContent = err.message || String(err);
+    }
+}
+
+async function generatePdfTestCases() {
+    const fileInput = document.getElementById('pdfFile');
+    const status = document.getElementById('status');
+    const output = document.getElementById('testCasesOutput');
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Please select a PDF file first');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    if (!file.name.toLowerCase().endsWith('.pdf')) {
+        alert('Please select a PDF file');
+        return;
+    }
+
+    status.textContent = `Generating test cases from ${file.name}...`;
+    output.innerHTML = '';
+
+    try {
+        const formData = new FormData();
+        formData.append('pdf_file', file);
+
+        const response = await fetch('/api/pdf-generate-testcases', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            status.textContent = '❌ Error generating test cases';
+            output.textContent = result.error || 'Unknown error';
+            return;
+        }
+
+        status.textContent = `✅ Generated ${result.total_cases} test case scenario(s) from ${file.name}`;
+
+        if (!result.cases || result.cases.length === 0) {
+            output.textContent = 'No test cases could be generated from this PDF.';
+            return;
+        }
+
+        const frag = document.createDocumentFragment();
+
+        result.cases.forEach((c, idx) => {
+            const card = document.createElement('div');
+            card.className = 'testcase-card';
+
+            const header = document.createElement('div');
+            header.className = 'testcase-header';
+
+            const title = document.createElement('div');
+            title.className = 'testcase-title';
+            title.textContent = `${idx + 1}. ${c.name}`;
+
+            const meta = document.createElement('div');
+            meta.className = 'testcase-meta';
+            meta.textContent = `[${c.category}] • ${c.scenario_type}`;
+
+            header.appendChild(title);
+            header.appendChild(meta);
+            card.appendChild(header);
+
+            if (c.steps && c.steps.length) {
+                const stepsTitle = document.createElement('div');
+                stepsTitle.style.fontSize = '12px';
+                stepsTitle.style.fontWeight = '600';
+                stepsTitle.style.marginTop = '4px';
+                stepsTitle.textContent = 'Steps:';
+                card.appendChild(stepsTitle);
+
+                const ul = document.createElement('ul');
+                ul.className = 'testcase-list';
+                c.steps.forEach((s, i) => {
+                    const li = document.createElement('li');
+                    li.textContent = `Step ${i + 1}: ${s}`;
+                    ul.appendChild(li);
+                });
+                card.appendChild(ul);
+            }
+
+            if (c.expected && c.expected.length) {
+                const expTitle = document.createElement('div');
+                expTitle.style.fontSize = '12px';
+                expTitle.style.fontWeight = '600';
+                expTitle.style.marginTop = '4px';
+                expTitle.textContent = 'Expected Results:';
+                card.appendChild(expTitle);
+
+                const ulExp = document.createElement('ul');
+                ulExp.className = 'testcase-list';
+                c.expected.forEach((e, j) => {
+                    const li = document.createElement('li');
+                    li.textContent = `Expected ${j + 1}: ${e}`;
+                    ulExp.appendChild(li);
+                });
+                card.appendChild(ulExp);
+            }
+
+            frag.appendChild(card);
+        });
+
+        output.innerHTML = '';
+        output.appendChild(frag);
+    } catch (err) {
+        status.textContent = '❌ Error generating test cases';
+        output.textContent = err.message || String(err);
+    }
+}
+</script>
+</body>
+</html>

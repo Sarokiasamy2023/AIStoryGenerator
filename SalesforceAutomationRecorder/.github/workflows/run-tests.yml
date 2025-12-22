@@ -1,0 +1,76 @@
+name: Automated Test Execution
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run tests every day at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  test:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install playwright
+        pip install -r requirements.txt
+        playwright install chromium
+    
+    - name: Run tests
+      env:
+        SALESFORCE_USERNAME: ${{ secrets.SALESFORCE_USERNAME }}
+        SALESFORCE_PASSWORD: ${{ secrets.SALESFORCE_PASSWORD }}
+      run: |
+        python run_tests_cli.py tests/*.json --headless --batch
+    
+    - name: Upload test videos
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-videos
+        path: test_videos/
+        retention-days: 30
+    
+    - name: Upload failure screenshots
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: failure-screenshots
+        path: test_failure_*.png
+        retention-days: 30
+    
+    - name: Generate test report
+      if: always()
+      run: |
+        python generate_report.py
+    
+    - name: Upload test report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-report
+        path: test_report.html
+        retention-days: 30
+    
+    - name: Notify on failure
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        text: 'Test execution failed! Check artifacts for details.'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}

@@ -1,0 +1,985 @@
+{
+  "testCases": [
+    {
+      "id": "f88bd1e6-f0f9-4cd4-b3b4-83621ce96367",
+      "userStoryId": "e9de0f89-7470-4eed-b736-77e2904540e2",
+      "testCases": [
+        {
+          "id": "TC001",
+          "title": "Verify Counties Served Field with Valid Input",
+          "type": "positive",
+          "priority": "high",
+          "description": "User enters valid alphanumeric text under 2000 characters for the field 'Counties Served'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "Field accepts input and saves successfully."
+        },
+        {
+          "id": "TC002",
+          "title": "Verify Full Patient Panel Field with Valid Whole Number",
+          "type": "positive",
+          "priority": "high",
+          "description": "User enters a whole number with fewer than 10 digits for the field 'Full Patient Panel'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "Field accepts input and saves successfully."
+        },
+        {
+          "id": "TC003",
+          "title": "Verify Changes to Target Population Measures with Valid Selection",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User selects 'Yes' from the dropdown for the field 'Changes to Target Population Measures'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "Selection is accepted and saved."
+        },
+        {
+          "id": "TC004",
+          "title": "Verify Counties Served Field with Exactly 2000 Characters",
+          "type": "edge",
+          "priority": "medium",
+          "description": "User enters exactly 2000 characters for the field 'Counties Served'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "Field accepts input with no error."
+        },
+        {
+          "id": "TC005",
+          "title": "Verify Full Patient Panel Field with Exactly 10-Digit Number",
+          "type": "edge",
+          "priority": "medium",
+          "description": "User enters exactly a 10-digit number for the field 'Full Patient Panel'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "Field accepts input with no error."
+        },
+        {
+          "id": "TC006",
+          "title": "Verify Counties Served Field Exceeding Character Limit",
+          "type": "negative",
+          "priority": "high",
+          "description": "User enters more than 2000 characters for the field 'Counties Served'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "System shows error: 'Maximum limit is 2000 characters.'"
+        },
+        {
+          "id": "TC007",
+          "title": "Verify Full Patient Panel Field with Decimal Input",
+          "type": "negative",
+          "priority": "high",
+          "description": "User enters a decimal value for the field 'Full Patient Panel'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "System shows error: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC008",
+          "title": "Verify Changes to Target Population Measures with Invalid Input",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User tries to enter a value not in the dropdown for the field 'Changes to Target Population Measures'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "Field does not accept the value; only valid options remain."
+        },
+        {
+          "id": "TC009",
+          "title": "Verify Changes to Target Population Measures Field Unselected",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User leaves the field unselected for the field 'Changes to Target Population Measures'.",
+          "preconditions": [
+            "User is logged in as Grantee.",
+            "User navigates to CBD Performance Reports."
+          ],
+          "expectedResult": "System prompts user to select Yes or No."
+        }
+      ],
+      "createdAt": "2025-12-09T16:58:24.057Z"
+    },
+    {
+      "id": "60fbbf32-4da7-4f12-ac0a-bbd197873ca7",
+      "userStoryId": "e5be64ea-4612-4a6d-882c-0effe763dec3",
+      "testCases": [
+        {
+          "id": "TC001",
+          "title": "Valid counties served input",
+          "type": "positive",
+          "priority": "high",
+          "description": "User inputs valid county names with alphanumeric characters, spaces, and punctuation.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the input and saves it successfully."
+        },
+        {
+          "id": "TC002",
+          "title": "Counties served maximum character limit",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User inputs exactly 2000 characters for counties served.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the input and saves it successfully."
+        },
+        {
+          "id": "TC003",
+          "title": "Valid full patient panel number",
+          "type": "positive",
+          "priority": "high",
+          "description": "User inputs a valid whole number within the 10-digit limit for full patient panel.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the input and saves it successfully."
+        },
+        {
+          "id": "TC004",
+          "title": "Valid dropdown selection",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User selects 'Yes' from the target population measures dropdown.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the selection and saves it successfully."
+        },
+        {
+          "id": "TC005",
+          "title": "Valid dropdown selection 'No'",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User selects 'No' from the target population measures dropdown.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the selection and saves it successfully."
+        },
+        {
+          "id": "TC006",
+          "title": "Counties served exceeds character limit",
+          "type": "negative",
+          "priority": "high",
+          "description": "User inputs more than 2000 characters in counties served.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system displays an error message: 'Maximum limit is 2000 characters.'"
+        },
+        {
+          "id": "TC007",
+          "title": "Full patient panel with decimal value",
+          "type": "negative",
+          "priority": "high",
+          "description": "User inputs a decimal value for the full patient panel.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system displays an error message: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC008",
+          "title": "Full patient panel exceeds 10 digits",
+          "type": "negative",
+          "priority": "high",
+          "description": "User inputs more than 10 digits for the full patient panel.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system displays an error message: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC009",
+          "title": "Counties served with special characters",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User inputs special characters that are not alphanumeric in counties served.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system displays an error message: 'Invalid input for counties served.'"
+        },
+        {
+          "id": "TC010",
+          "title": "Counties served with empty input",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User submits the form without entering any value in counties served.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system displays an error message: 'Counties served cannot be empty.'"
+        },
+        {
+          "id": "TC011",
+          "title": "Full patient panel with negative number",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User inputs a negative number for the full patient panel.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system displays an error message: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC012",
+          "title": "Counties served with maximum valid characters and special spaces",
+          "type": "edge",
+          "priority": "low",
+          "description": "User inputs valid county names with exactly 2000 characters including spaces and punctuation.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the input and saves it successfully."
+        },
+        {
+          "id": "TC013",
+          "title": "Full patient panel with 10 digits and leading zeros",
+          "type": "edge",
+          "priority": "low",
+          "description": "User inputs '0000000001' as the full patient panel number.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the input and saves it successfully."
+        },
+        {
+          "id": "TC014",
+          "title": "Dropdown selection with unexpected whitespace",
+          "type": "edge",
+          "priority": "low",
+          "description": "User selects ' Yes ' with leading and trailing spaces from the dropdown.",
+          "preconditions": [
+            "User is on the demographics form page."
+          ],
+          "expectedResult": "The system accepts the selection and saves it successfully."
+        }
+      ],
+      "createdAt": "2025-12-09T17:03:28.892Z"
+    },
+    {
+      "id": "58bdcfde-0179-4c19-83b1-c63d9252a89d",
+      "userStoryId": "170b39b7-f11b-459d-b1c9-4ec67f04c5b5",
+      "testCases": [
+        {
+          "id": "TC001",
+          "title": "Valid counties served input",
+          "type": "positive",
+          "priority": "high",
+          "description": "User inputs valid names of counties served with alphanumeric characters, spaces, and punctuation.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The input is accepted and saved without any error."
+        },
+        {
+          "id": "TC002",
+          "title": "Valid full patient panel input",
+          "type": "positive",
+          "priority": "high",
+          "description": "User inputs a valid whole number for the number of people in the Full Patient Panel.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The input is accepted and saved without any error."
+        },
+        {
+          "id": "TC003",
+          "title": "Valid dropdown selection",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User selects 'Yes' from the Changes to Target Population Measures dropdown.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The selection is accepted and saved without any error."
+        },
+        {
+          "id": "TC004",
+          "title": "Valid counties served input at maximum length",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User inputs exactly 2000 characters in the counties served field.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The input is accepted and saved without any error."
+        },
+        {
+          "id": "TC005",
+          "title": "Valid full patient panel input at maximum value",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User inputs the maximum valid whole number (9999999999) for the full patient panel.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The input is accepted and saved without any error."
+        },
+        {
+          "id": "TC006",
+          "title": "Exceeding character limit for counties served",
+          "type": "negative",
+          "priority": "high",
+          "description": "User inputs more than 2000 characters in the counties served field.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The system displays an error message: 'Maximum limit is 2000 characters.'"
+        },
+        {
+          "id": "TC007",
+          "title": "Decimal input for full patient panel",
+          "type": "negative",
+          "priority": "high",
+          "description": "User inputs a decimal value (e.g., 5.5) for the number of people in the full patient panel.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The system displays an error message: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC008",
+          "title": "Exceeding digit limit for full patient panel",
+          "type": "negative",
+          "priority": "high",
+          "description": "User inputs a value with more than 10 digits (e.g., 10000000000) for the full patient panel.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The system displays an error message: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC009",
+          "title": "Selecting invalid option in dropdown",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User tries to input an invalid option in the Changes to Target Population Measures dropdown.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The system displays an error message for invalid selection."
+        },
+        {
+          "id": "TC010",
+          "title": "Empty counties served input",
+          "type": "edge",
+          "priority": "low",
+          "description": "User submits the form without entering any counties served.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The system displays an error message indicating that the field is required."
+        },
+        {
+          "id": "TC011",
+          "title": "Zero patient panel input",
+          "type": "edge",
+          "priority": "low",
+          "description": "User inputs zero for the number of people in the Full Patient Panel.",
+          "preconditions": [
+            "User is on the Demographics form.",
+            "User has valid access to the form."
+          ],
+          "expectedResult": "The input is accepted and saved without any error."
+        }
+      ],
+      "createdAt": "2025-12-09T17:20:23.270Z"
+    },
+    {
+      "id": "34da100c-56ba-4d04-8bd2-d1b38c0bc0f7",
+      "userStoryId": "91c904bc-dc98-4a0e-9107-d72bde2429ae",
+      "testCases": [
+        {
+          "id": "TC001",
+          "title": "Valid counties served input",
+          "type": "positive",
+          "priority": "high",
+          "description": "Verify that the system accepts alphanumeric input for counties served.",
+          "preconditions": [
+            "User is on the demographics form."
+          ],
+          "expectedResult": "The input is accepted and saved successfully."
+        },
+        {
+          "id": "TC002",
+          "title": "Counties served input within character limit",
+          "type": "positive",
+          "priority": "high",
+          "description": "Verify that the system accepts input of exactly 2000 characters.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User inputs 2000 characters."
+          ],
+          "expectedResult": "The input is accepted and saved successfully."
+        },
+        {
+          "id": "TC003",
+          "title": "Valid full patient panel input",
+          "type": "positive",
+          "priority": "high",
+          "description": "Verify that the system accepts whole number input for the full patient panel.",
+          "preconditions": [
+            "User is on the demographics form."
+          ],
+          "expectedResult": "The input is accepted and saved successfully."
+        },
+        {
+          "id": "TC004",
+          "title": "Valid target population measures selection",
+          "type": "positive",
+          "priority": "high",
+          "description": "Verify that the system accepts 'Yes' as a selection for target population measures.",
+          "preconditions": [
+            "User is on the demographics form."
+          ],
+          "expectedResult": "The selection is accepted and saved successfully."
+        },
+        {
+          "id": "TC005",
+          "title": "Valid target population measures selection",
+          "type": "positive",
+          "priority": "high",
+          "description": "Verify that the system accepts 'No' as a selection for target population measures.",
+          "preconditions": [
+            "User is on the demographics form."
+          ],
+          "expectedResult": "The selection is accepted and saved successfully."
+        },
+        {
+          "id": "TC006",
+          "title": "Counties served input exceeding character limit",
+          "type": "negative",
+          "priority": "high",
+          "description": "Verify that the system displays an error message when input exceeds 2000 characters.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User inputs 2001 characters."
+          ],
+          "expectedResult": "Error message 'Maximum limit is 2000 characters.' is displayed."
+        },
+        {
+          "id": "TC007",
+          "title": "Full patient panel input with decimal",
+          "type": "negative",
+          "priority": "high",
+          "description": "Verify that the system displays an error message when a decimal value is entered.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User inputs a decimal value."
+          ],
+          "expectedResult": "Error message 'Allows whole numbers up to 10 digits.' is displayed."
+        },
+        {
+          "id": "TC008",
+          "title": "Full patient panel input exceeding 10 digits",
+          "type": "negative",
+          "priority": "high",
+          "description": "Verify that the system displays an error message when input exceeds 10 digits.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User inputs a number greater than 10 digits."
+          ],
+          "expectedResult": "Error message 'Allows whole numbers up to 10 digits.' is displayed."
+        },
+        {
+          "id": "TC009",
+          "title": "Invalid target population measures selection",
+          "type": "negative",
+          "priority": "high",
+          "description": "Verify that the system rejects any input other than 'Yes' or 'No' in the dropdown.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User selects an invalid option."
+          ],
+          "expectedResult": "Error message is displayed indicating invalid selection."
+        },
+        {
+          "id": "TC010",
+          "title": "Counties served input with special characters",
+          "type": "edge",
+          "priority": "medium",
+          "description": "Verify that the system accepts input containing punctuation and special characters within limit.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User inputs a valid string with punctuation."
+          ],
+          "expectedResult": "The input is accepted and saved successfully."
+        },
+        {
+          "id": "TC011",
+          "title": "Counties served input with minimum characters",
+          "type": "edge",
+          "priority": "medium",
+          "description": "Verify that the system accepts input of 1 character.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User inputs 1 character."
+          ],
+          "expectedResult": "The input is accepted and saved successfully."
+        },
+        {
+          "id": "TC012",
+          "title": "Full patient panel input with 0",
+          "type": "edge",
+          "priority": "medium",
+          "description": "Verify that the system accepts 0 as a valid input for the full patient panel.",
+          "preconditions": [
+            "User is on the demographics form.",
+            "User inputs 0."
+          ],
+          "expectedResult": "The input is accepted and saved successfully."
+        }
+      ],
+      "createdAt": "2025-12-09T17:26:34.831Z"
+    },
+    {
+      "id": "a038b2c9-8664-4b7e-9450-df7ceb9407ee",
+      "userStoryId": "6de649a5-1df1-4152-b14c-8d1998f70ba1",
+      "testCases": [
+        {
+          "id": "TC001",
+          "title": "Valid counties served input",
+          "type": "positive",
+          "priority": "high",
+          "description": "User enters a valid list of counties in the counties served field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "The counties served field accepts the input and saves successfully."
+        },
+        {
+          "id": "TC002",
+          "title": "Counties served input at max length",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User enters a string of 2000 characters in the counties served field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "The counties served field accepts the input and saves successfully."
+        },
+        {
+          "id": "TC003",
+          "title": "Valid numeric input for Full Patient Panel",
+          "type": "positive",
+          "priority": "high",
+          "description": "User enters a whole number within the valid range in the Full Patient Panel field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "The Full Patient Panel field accepts the input and saves successfully."
+        },
+        {
+          "id": "TC004",
+          "title": "Dropdown selection for Target Population Measures",
+          "type": "positive",
+          "priority": "high",
+          "description": "User selects 'Yes' from the Target Population Measures dropdown.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "The selection is saved successfully."
+        },
+        {
+          "id": "TC005",
+          "title": "Dropdown selection for Target Population Measures - No",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User selects 'No' from the Target Population Measures dropdown.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "The selection is saved successfully."
+        },
+        {
+          "id": "TC006",
+          "title": "Counties served input exceeds max length",
+          "type": "negative",
+          "priority": "high",
+          "description": "User enters a string of 2001 characters in the counties served field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "Error message 'Maximum limit is 2000 characters.' is displayed."
+        },
+        {
+          "id": "TC007",
+          "title": "Decimal input for Full Patient Panel",
+          "type": "negative",
+          "priority": "high",
+          "description": "User enters a decimal value in the Full Patient Panel field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "Error message 'Allows whole numbers up to 10 digits.' is displayed."
+        },
+        {
+          "id": "TC008",
+          "title": "Full Patient Panel input exceeds 10 digits",
+          "type": "negative",
+          "priority": "high",
+          "description": "User enters an 11-digit number in the Full Patient Panel field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "Error message 'Allows whole numbers up to 10 digits.' is displayed."
+        },
+        {
+          "id": "TC009",
+          "title": "Special characters in counties served",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User enters special characters in the counties served field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "Error message 'Invalid input. Please use alphanumeric characters only.' is displayed."
+        },
+        {
+          "id": "TC010",
+          "title": "Counties served input with maximum valid characters",
+          "type": "edge",
+          "priority": "medium",
+          "description": "User enters a string of exactly 2000 characters, including spaces and punctuation, in the counties served field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "The counties served field accepts the input and saves successfully."
+        },
+        {
+          "id": "TC011",
+          "title": "Full Patient Panel with the largest valid number",
+          "type": "edge",
+          "priority": "medium",
+          "description": "User enters the number 9999999999 in the Full Patient Panel field.",
+          "preconditions": [
+            "User is on Form 1: Demographics page."
+          ],
+          "expectedResult": "The Full Patient Panel field accepts the input and saves successfully."
+        }
+      ],
+      "createdAt": "2025-12-09T17:38:07.244Z"
+    },
+    {
+      "id": "03b74cbb-60fc-4a9a-bf9c-a2f16520b960",
+      "userStoryId": "1330461e-1e47-433d-bad8-d9bc9bf02d37",
+      "testCases": [
+        {
+          "id": "TC001",
+          "title": "Valid Counties Served Input",
+          "type": "positive",
+          "priority": "high",
+          "description": "Input valid alphanumeric county names into the Counties Served field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system accepts the input without any error messages."
+        },
+        {
+          "id": "TC002",
+          "title": "Counties Served Maximum Character Limit",
+          "type": "positive",
+          "priority": "medium",
+          "description": "Input exactly 2000 characters into the Counties Served field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system accepts the input without any error messages."
+        },
+        {
+          "id": "TC003",
+          "title": "Valid Full Patient Panel Input",
+          "type": "positive",
+          "priority": "high",
+          "description": "Input a whole number (e.g., 5000) into the Full Patient Panel field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system accepts the input without any error messages."
+        },
+        {
+          "id": "TC004",
+          "title": "Valid Dropdown Selection",
+          "type": "positive",
+          "priority": "medium",
+          "description": "Select 'Yes' from the Changes to Target Population Measures dropdown.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system accepts the selection without any error messages."
+        },
+        {
+          "id": "TC005",
+          "title": "Valid Dropdown Selection No",
+          "type": "positive",
+          "priority": "medium",
+          "description": "Select 'No' from the Changes to Target Population Measures dropdown.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system accepts the selection without any error messages."
+        },
+        {
+          "id": "TC006",
+          "title": "Counties Served Exceeds Character Limit",
+          "type": "negative",
+          "priority": "high",
+          "description": "Input more than 2000 characters into the Counties Served field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system displays an error message: 'Maximum limit is 2000 characters.'"
+        },
+        {
+          "id": "TC007",
+          "title": "Full Patient Panel Decimal Input",
+          "type": "negative",
+          "priority": "high",
+          "description": "Input a decimal number (e.g., 1000.5) into the Full Patient Panel field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system displays an error message: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC008",
+          "title": "Full Patient Panel Exceeds Digit Limit",
+          "type": "negative",
+          "priority": "high",
+          "description": "Input a number greater than 10 digits (e.g., 10000000000) into the Full Patient Panel field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system displays an error message: 'Allows whole numbers up to 10 digits.'"
+        },
+        {
+          "id": "TC009",
+          "title": "Empty Counties Served Field",
+          "type": "negative",
+          "priority": "medium",
+          "description": "Attempt to submit the form with an empty Counties Served field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system displays an appropriate error message indicating that the field cannot be empty."
+        },
+        {
+          "id": "TC010",
+          "title": "Counties Served with Special Characters",
+          "type": "negative",
+          "priority": "low",
+          "description": "Input special characters (e.g., @, #, $, %) into the Counties Served field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system displays an error message indicating invalid characters."
+        },
+        {
+          "id": "TC011",
+          "title": "Counties Served Valid Edge Case",
+          "type": "edge",
+          "priority": "medium",
+          "description": "Input exactly 1999 characters into the Counties Served field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system accepts the input without any error messages."
+        },
+        {
+          "id": "TC012",
+          "title": "Full Patient Panel Edge Case Maximum Value",
+          "type": "edge",
+          "priority": "medium",
+          "description": "Input the maximum valid 10-digit number (9999999999) into the Full Patient Panel field.",
+          "preconditions": [
+            "User is logged in to the system",
+            "User has navigated to Form 1"
+          ],
+          "expectedResult": "The system accepts the input without any error messages."
+        }
+      ],
+      "createdAt": "2025-12-10T14:32:44.920Z"
+    },
+    {
+      "id": "6f100092-a8a8-4614-bb74-522c4142b95c",
+      "userStoryId": "b4363531-2679-4494-a370-d2fc00e335fe",
+      "testCases": [
+        {
+          "id": "TC001",
+          "title": "Successful Login and Report Editing",
+          "type": "positive",
+          "priority": "high",
+          "description": "User successfully logs in and edits the HSD Performance Report.",
+          "preconditions": [
+            "User is on the login page",
+            "User has valid credentials"
+          ],
+          "expectedResult": "User is able to log in, navigate to the report, and edit it successfully."
+        },
+        {
+          "id": "TC002",
+          "title": "Complete Information Dissemination Form",
+          "type": "positive",
+          "priority": "high",
+          "description": "User fills out the Information Dissemination form with valid data.",
+          "preconditions": [
+            "User has logged in and is on the Information Dissemination form."
+          ],
+          "expectedResult": "All fields are filled correctly and user proceeds to the next form."
+        },
+        {
+          "id": "TC003",
+          "title": "Complete Technical Assistance Topics Form",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User selects multiple topics and provides collaborative effort description.",
+          "preconditions": [
+            "User is on the Technical Assistance Topics form."
+          ],
+          "expectedResult": "User selects options and enters descriptions without errors."
+        },
+        {
+          "id": "TC004",
+          "title": "All Yes Responses on Technical Assistance Topics",
+          "type": "positive",
+          "priority": "medium",
+          "description": "User selects 'Yes' for all topics in the Technical Assistance form.",
+          "preconditions": [
+            "User is on the Technical Assistance Topics form."
+          ],
+          "expectedResult": "User can select all options without any issues."
+        },
+        {
+          "id": "TC005",
+          "title": "Successful Form Submission",
+          "type": "positive",
+          "priority": "high",
+          "description": "User successfully completes all forms and submits the report.",
+          "preconditions": [
+            "User has filled out all necessary forms."
+          ],
+          "expectedResult": "User receives a confirmation message upon submission."
+        },
+        {
+          "id": "TC006",
+          "title": "Invalid Username Format",
+          "type": "negative",
+          "priority": "high",
+          "description": "User enters an invalid email format for the username.",
+          "preconditions": [
+            "User is on the login page"
+          ],
+          "expectedResult": "Error message is displayed indicating invalid username format."
+        },
+        {
+          "id": "TC007",
+          "title": "Incorrect Password Entry",
+          "type": "negative",
+          "priority": "high",
+          "description": "User enters an incorrect password.",
+          "preconditions": [
+            "User is on the login page"
+          ],
+          "expectedResult": "Error message is displayed indicating incorrect password."
+        },
+        {
+          "id": "TC008",
+          "title": "Empty Required Fields in Information Dissemination Form",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User submits the Information Dissemination form without filling any fields.",
+          "preconditions": [
+            "User is on the Information Dissemination form."
+          ],
+          "expectedResult": "Error messages are displayed for all required fields."
+        },
+        {
+          "id": "TC009",
+          "title": "Selecting No for Mandatory Questions",
+          "type": "negative",
+          "priority": "medium",
+          "description": "User selects 'No' for questions that require 'Yes' responses.",
+          "preconditions": [
+            "User is on the Technical Assistance Topics form."
+          ],
+          "expectedResult": "Error message is displayed indicating mandatory question requirements."
+        },
+        {
+          "id": "TC010",
+          "title": "Maximum Character Limit in Collaborative Effort",
+          "type": "edge",
+          "priority": "low",
+          "description": "User enters a description that exceeds the maximum character limit for the collaborative effort field.",
+          "preconditions": [
+            "User is on the Technical Assistance Topics form."
+          ],
+          "expectedResult": "Error message is displayed indicating the character limit exceeded."
+        },
+        {
+          "id": "TC011",
+          "title": "Boundary Condition for Number of People Receiving Newsletter",
+          "type": "edge",
+          "priority": "medium",
+          "description": "User enters '0' for the number of people receiving the newsletter.",
+          "preconditions": [
+            "User is on the Information Dissemination form."
+          ],
+          "expectedResult": "Form accepts '0' as a valid entry and proceeds to the next step."
+        },
+        {
+          "id": "TC012",
+          "title": "Maximum Valid Input for Website Hits",
+          "type": "edge",
+          "priority": "medium",
+          "description": "User enters the maximum valid number for website hits.",
+          "preconditions": [
+            "User is on the Information Dissemination form."
+          ],
+          "expectedResult": "Form accepts the maximum value and allows the user to proceed."
+        }
+      ],
+      "createdAt": "2025-12-17T13:56:20.696Z"
+    }
+  ]
+}

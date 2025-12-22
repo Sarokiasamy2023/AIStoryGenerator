@@ -1,0 +1,30 @@
+{
+  "filename": "Test_20251024_104043.webm",
+  "path": "test_videos\\Test_20251024_104043.webm",
+  "test_name": "Test",
+  "start_time": "2025-10-24T10:40:43.876516",
+  "annotations": [
+    {
+      "step_index": 1,
+      "action": "click",
+      "selector": "a:has-text('HSD Performance Reports')",
+      "success": true,
+      "timestamp": "2025-10-24T10:41:05.387025",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 21.510509
+    },
+    {
+      "step_index": 2,
+      "action": "click",
+      "selector": "a:has-text('HSD-01059')",
+      "success": true,
+      "timestamp": "2025-10-24T10:41:08.685877",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 24.809361
+    }
+  ],
+  "end_time": "2025-10-24T10:41:31.953241",
+  "duration": 48.076725
+}

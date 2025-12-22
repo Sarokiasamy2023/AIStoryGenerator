@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallel Test Execution</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input[type="checkbox"] {
+            transform: scale(1.4);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        textarea {
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .btn-ai {
+            background: linear-gradient(135deg, #6f42c1 0%, #9b59b6 100%);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+        
+        .parallel-instance {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .parallel-instance h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .execution-log {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .log-entry.success {
+            border-left-color: #28a745;
+        }
+        
+        .log-entry.error {
+            border-left-color: #dc3545;
+        }
+        
+        .log-entry.info {
+            border-left-color: #17a2b8;
+        }
+        
+        .log-entry.recovery {
+            border-left-color: #6f42c1;
+            background: #f3e8ff;
+        }
+        
+        .progress-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-running {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .status-completed {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status-failed {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .instance-status-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #6c757d;
+            transition: all 0.3s ease;
+        }
+        
+        .instance-status-card.pending {
+            border-left-color: #6c757d;
+        }
+        
+        .instance-status-card.running {
+            border-left-color: #ffc107;
+            background: #fff3cd;
+        }
+        
+        .instance-status-card.passed {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .instance-status-card.failed {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .instance-status-card h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .instance-status-card .status-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .instance-status-card .status-icon {
+            font-size: 24px;
+        }
+        
+        .instance-status-card .step-count {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .dmi-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            height: 40px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <img src="/static/dmi_logo.png" alt="DMI Logo" class="dmi-logo">
+    <div class="container">
+        <header>
+            <a href="/" class="back-link">← Back to Dashboard</a>
+            <h1>🚀 Parallel Test Execution</h1>
+            <p class="subtitle">Execute tests across multiple URLs simultaneously</p>
+            <div style="margin-top: 10px;">
+                <a href="/allure-report" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                    📊 Open Allure Report
+                </a>
+            </div>
+        </header>
+        
+        <!-- Configuration Section -->
+        <div class="card" id="configSection">
+            <h2>⚙️ Configuration</h2>
+            
+            <div class="form-group">
+                <label>Number of Parallel Executions:</label>
+                <input type="number" id="parallelCount" min="1" max="10" value="2" onchange="generateForms()">
+            </div>
+            
+            <button class="btn-secondary" onclick="generateForms()">
+                🔄 Generate Forms
+            </button>
+        </div>
+        
+        <!-- Dynamic Forms Section -->
+        <div id="dynamicFormsContainer"></div>
+        
+        <!-- Test Steps Section -->
+        <div class="card hidden" id="testStepsSection">
+            <h2>📝 Test Steps</h2>
+            <p style="color: #666; margin-bottom: 15px;">
+                Enter test steps that will be executed on all parallel instances. Use plain text format.
+            </p>
+            <div id="testStepsContainer"></div>
+        </div>
+        
+        <div class="card hidden" id="executionControls">
+            <h2>🎮 Execution Controls</h2>
+            <button onclick="executeParallelTests(false)">
+                ▶️ Run Test (1st Run: Learn Selectors)
+            </button>
+            <button class="btn-secondary" onclick="executeParallelTests(false)">
+                🔄 Run Again (2nd Run: Reuse Learned)
+            </button>
+            <button class="btn-ai" onclick="executeParallelTests(true)">
+                🤖 Run with Gemini AI (Smart Selectors)
+            </button>
+            <button class="btn-danger" onclick="clearLearning()">
+                🗑️ Clear Learned Selectors
+            </button>
+            <button class="btn-danger" onclick="stopAllTests()">
+                ⏹️ Stop All Tests
+            </button>
+        </div>
+        
+        <div class="card hidden" id="progressSection">
+            <h2>📊 Execution Progress</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar" style="width: 0%;">0%</div>
+                </div>
+                <div id="progressDetails" style="color: #666; text-align: center;">
+                    Ready to start
+                </div>
+            </div>
+            
+            <!-- Instance Status Section -->
+            <div style="margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="color: #667eea; margin: 0;">Instance Status</h3>
+                    <div id="statusSummary" style="display: flex; gap: 15px; font-size: 14px; font-weight: 600;">
+                        <span style="color: #28a745;">✅ Passed: <span id="passedCount">0</span></span>
+                        <span style="color: #dc3545;">❌ Failed: <span id="failedCount">0</span></span>
+                        <span style="color: #ffc107;">▶️ Running: <span id="runningCount">0</span></span>
+                        <span style="color: #6c757d;">⏳ Pending: <span id="pendingCount">0</span></span>
+                    </div>
+                </div>
+                <div id="instanceStatusContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <!-- Instance status cards will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="card hidden" id="metricsSection">
+            <h2>📊 Performance Metrics
+                <button id="metricsToggleBtn" class="btn-secondary" style="float: right; padding: 6px 12px; font-size: 12px; margin: 0;" onclick="toggleMetricsVisibility()">
+                    🙈 Hide Metrics
+                </button>
+            </h2>
+            <div id="metricsContainer" style="margin-top: 15px;">
+                <p style="color: #666;">Run tests to see performance metrics for each instance</p>
+            </div>
+        </div>
+        
+        <div class="card hidden" id="logSection">
+            <h2>🎬 Execution Log</h2>
+            <div class="execution-log" id="executionLog">
+                <p style="color: #666; text-align: center; padding: 20px;">
+                    Waiting for test execution...
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let parallelCount = 2;
+        let executionData = [];
+        let ws = null;
+        let metricsCollapsed = false;
+        
+        function generateForms() {
+            parallelCount = parseInt(document.getElementById('parallelCount').value);
+            if (parallelCount < 1 || parallelCount > 10) {
+                alert('Please enter a number between 1 and 10');
+                return;
+            }
+            
+            const container = document.getElementById('dynamicFormsContainer');
+            container.innerHTML = '';
+            
+            // Generate URL and Login forms
+            for (let i = 1; i <= parallelCount; i++) {
+                const instanceDiv = document.createElement('div');
+                instanceDiv.className = 'card';
+                instanceDiv.innerHTML = `
+                    <h2>🌐 Instance ${i}</h2>
+                    <div class="form-group">
+                        <label>URL ${i}:</label>
+                        <input type="text" id="url_${i}" placeholder="https://example${i}.com" value="https://www.google.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Browser ${i}:</label>
+                        <select id="browser_${i}">
+                            <option value="chrome">Chrome</option>
+                            <option value="chromium" selected>Chromium</option>
+                            <option value="chrome-headless">Chrome (Headless)</option>
+                            <option value="edge">Edge</option>
+                            <option value="firefox">Firefox</option>
+                        </select>
+                    </div>
+                `;
+                container.appendChild(instanceDiv);
+            }
+            
+            // Generate Test Steps sections
+            const testStepsContainer = document.getElementById('testStepsContainer');
+            testStepsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= parallelCount; i++) {
+                const stepsDiv = document.createElement('div');
+                stepsDiv.className = 'parallel-instance';
+                stepsDiv.innerHTML = `
+                    <h3>Test Steps for Instance ${i}</h3>
+                    <div class="form-group">
+                        <label>Steps (one per line):</label>
+                        <textarea id="steps_${i}" placeholder="fill search with Test ${i}
+click search button
+wait for 2 seconds">fill search with Playwright automation ${i}
+click Google Search button</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" id="enableRecovery_${i}" onchange="toggleRecoveryScenario(${i})">
+                            Enable Recovery Scenario (run if test fails)
+                        </label>
+                    </div>
+                    <div class="form-group" id="recoveryContainer_${i}" style="display: none;">
+                        <label>Recovery Scenario Steps (one per line):</label>
+                        <textarea id="recoverySteps_${i}" placeholder="close popup
+logout
+navigate to homepage"></textarea>
+                    </div>
+                `;
+                testStepsContainer.appendChild(stepsDiv);
+            }
+            
+            document.getElementById('testStepsSection').classList.remove('hidden');
+            document.getElementById('executionControls').classList.remove('hidden');
+            document.getElementById('progressSection').classList.remove('hidden');
+            document.getElementById('metricsSection').classList.remove('hidden');
+            document.getElementById('logSection').classList.remove('hidden');
+            
+            // Initialize instance status cards
+            initializeInstanceStatusCards();
+        }
+        
+        function initializeInstanceStatusCards() {
+            const container = document.getElementById('instanceStatusContainer');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= parallelCount; i++) {
+                const card = document.createElement('div');
+                card.className = 'instance-status-card pending';
+                card.id = `instance-status-${i}`;
+                card.innerHTML = `
+                    <h4>Instance ${i}</h4>
+                    <div class="status-info">
+                        <span class="status-text">Pending</span>
+                        <span class="status-icon">⏳</span>
+                    </div>
+                    <div class="step-count">Steps: 0/0</div>
+                `;
+                container.appendChild(card);
+            }
+        }
+        
+        function formatBrowserLabel(browser) {
+            if (!browser) {
+                return '';
+            }
+            switch (browser) {
+                case 'chrome-headless':
+                    return 'Chrome (Headless)';
+                case 'chromium':
+                    return 'Chromium';
+                case 'chrome':
+                    return 'Chrome';
+                case 'edge':
+                    return 'Edge';
+                case 'firefox':
+                    return 'Firefox';
+                default:
+                    return browser.charAt(0).toUpperCase() + browser.slice(1);
+            }
+        }
+        
+        function updateInstanceStatus(instance, status, currentStep = 0, totalSteps = 0) {
+            const card = document.getElementById(`instance-status-${instance}`);
+            if (!card) return;
+            
+            // Remove all status classes
+            card.classList.remove('pending', 'running', 'passed', 'failed');
+            
+            // Add new status class
+            card.classList.add(status);
+            
+            // Update status text and icon
+            let statusText = '';
+            let statusIcon = '';
+            
+            switch(status) {
+                case 'pending':
+                    statusText = 'Pending';
+                    statusIcon = '⏳';
+                    break;
+                case 'running':
+                    statusText = 'Running';
+                    statusIcon = '▶️';
+                    break;
+                case 'passed':
+                    statusText = 'Passed ✓';
+                    statusIcon = '✅';
+                    break;
+                case 'failed':
+                    statusText = 'Failed ✗';
+                    statusIcon = '❌';
+                    break;
+            }
+            
+            card.querySelector('.status-text').textContent = statusText;
+            card.querySelector('.status-icon').textContent = statusIcon;
+            
+            // Update instance header with browser info if available
+            if (Array.isArray(executionData) && executionData.length > 0) {
+                const instanceData = executionData.find(d => d.instance === instance);
+                if (instanceData) {
+                    const headerEl = card.querySelector('h4');
+                    if (headerEl) {
+                        const browserLabel = formatBrowserLabel(instanceData.browser);
+                        headerEl.textContent = browserLabel
+                            ? `Instance ${instance} (${browserLabel})`
+                            : `Instance ${instance}`;
+                    }
+                }
+            }
+            
+            // Update step count if provided
+            if (totalSteps > 0) {
+                card.querySelector('.step-count').textContent = `Steps: ${currentStep}/${totalSteps}`;
+            }
+            
+            // Update summary counts
+            updateStatusSummary();
+        }
+        
+        function updateStatusSummary() {
+            let passed = 0, failed = 0, running = 0, pending = 0;
+            
+            for (let i = 1; i <= parallelCount; i++) {
+                const card = document.getElementById(`instance-status-${i}`);
+                if (!card) continue;
+                
+                if (card.classList.contains('passed')) passed++;
+                else if (card.classList.contains('failed')) failed++;
+                else if (card.classList.contains('running')) running++;
+                else if (card.classList.contains('pending')) pending++;
+            }
+            
+            document.getElementById('passedCount').textContent = passed;
+            document.getElementById('failedCount').textContent = failed;
+            document.getElementById('runningCount').textContent = running;
+            document.getElementById('pendingCount').textContent = pending;
+        }
+        
+        function toggleRecoveryScenario(instance) {
+            const checkbox = document.getElementById(`enableRecovery_${instance}`);
+            const container = document.getElementById(`recoveryContainer_${instance}`);
+            if (!checkbox || !container) return;
+            container.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        async function executeParallelTests(useAi = false) {
+            // Collect all data
+            executionData = [];
+            
+            for (let i = 1; i <= parallelCount; i++) {
+                const url = document.getElementById(`url_${i}`).value;
+                const stepsText = document.getElementById(`steps_${i}`).value;
+                const steps = stepsText.split('\n').filter(s => s.trim());
+                const browserEl = document.getElementById(`browser_${i}`);
+                const browser = browserEl ? browserEl.value : 'chromium';
+
+                const enableRecoveryEl = document.getElementById(`enableRecovery_${i}`);
+                const recoveryEnabled = enableRecoveryEl ? enableRecoveryEl.checked : false;
+                const recoveryTextEl = document.getElementById(`recoverySteps_${i}`);
+                const recoverySteps = recoveryEnabled && recoveryTextEl
+                    ? recoveryTextEl.value.split('\n').filter(s => s.trim())
+                    : [];
+                
+                if (!url || steps.length === 0) {
+                    alert(`Please fill in URL and steps for Instance ${i}`);
+                    return;
+                }
+                
+                executionData.push({
+                    instance: i,
+                    url: url,
+                    steps: steps,
+                    status: 'pending',
+                    browser: browser,
+                    recovery_enabled: recoveryEnabled,
+                    recovery_steps: recoverySteps
+                });
+            }
+            
+            // Clear log
+            document.getElementById('executionLog').innerHTML = '';
+            const metricsContainer = document.getElementById('metricsContainer');
+            if (metricsContainer) {
+                metricsContainer.innerHTML = '<p style="color: #666;">Waiting for test completion to show performance metrics...</p>';
+            }
+            
+            // Initialize instance status cards with step counts
+            for (let i = 1; i <= parallelCount; i++) {
+                const stepCount = executionData[i-1].steps.length;
+                updateInstanceStatus(i, 'pending', 0, stepCount);
+            }
+            
+            // Update progress
+            updateProgress(0, 'Starting parallel execution...');
+            
+            addLog('info', `🚀 Starting ${parallelCount} parallel test executions`);
+            
+            // Execute all tests in parallel
+            try {
+                const response = await fetch('/api/execute-parallel-tests', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        tests: executionData,
+                        headless: false,
+                        use_ai: useAi
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    addLog('success', `✅ Parallel execution started: ${result.total_tests} tests`);
+                    connectWebSocket();
+                } else {
+                    addLog('error', '❌ Failed to start parallel execution');
+                }
+            } catch (error) {
+                addLog('error', `❌ Error: ${error.message}`);
+            }
+        }
+        
+        function connectWebSocket() {
+            if (ws) {
+                ws.close();
+            }
+            
+            ws = new WebSocket('ws://localhost:8888/ws/parallel-test');
+            
+            ws.onopen = () => {
+                addLog('info', '🔌 Connected to execution server');
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleMessage(data);
+            };
+            
+            ws.onclose = () => {
+                addLog('info', '🔌 Disconnected from server');
+            };
+            
+            ws.onerror = (error) => {
+                addLog('error', `WebSocket error: ${error.message}`);
+            };
+        }
+        
+        function handleMessage(data) {
+            switch(data.type) {
+                case 'parallel_start':
+                    addLog('info', `🎬 Instance ${data.instance}: Starting test on ${data.url}`);
+                    // Update status to running
+                    const instanceData = executionData.find(d => d.instance === data.instance);
+                    if (instanceData) {
+                        updateInstanceStatus(data.instance, 'running', 0, instanceData.steps.length);
+                    }
+                    break;
+                case 'parallel_step':
+                    addLog('info', `📍 Instance ${data.instance} - Step ${data.step_number}: ${data.step_text}`);
+                    // Update current step
+                    const instance = executionData.find(d => d.instance === data.instance);
+                    if (instance) {
+                        updateInstanceStatus(data.instance, 'running', data.step_number, instance.steps.length);
+                    }
+                    break;
+                case 'parallel_step_success':
+                    addLog('success', `✅ Instance ${data.instance} - Step ${data.step_number} succeeded`);
+                    break;
+                case 'parallel_step_failed':
+                    addLog('error', `❌ Instance ${data.instance} - Step ${data.step_number} failed`);
+                    break;
+                case 'parallel_complete':
+                    addLog('success', `🎉 Instance ${data.instance}: Test completed successfully`);
+                    updateInstanceProgress(data.instance, 'completed');
+                    // Update status to passed
+                    const completedInstance = executionData.find(d => d.instance === data.instance);
+                    if (completedInstance) {
+                        updateInstanceStatus(data.instance, 'passed', completedInstance.steps.length, completedInstance.steps.length);
+                    }
+                    if (data.performance_metrics) {
+                        displayInstancePerformanceMetrics(data.instance, data.performance_metrics);
+                    }
+                    break;
+                case 'parallel_error':
+                    addLog('error', `❌ Instance ${data.instance}: Error - ${data.error}`);
+                    updateInstanceProgress(data.instance, 'failed');
+                    // Update status to failed
+                    const failedInstance = executionData.find(d => d.instance === data.instance);
+                    if (failedInstance) {
+                        updateInstanceStatus(data.instance, 'failed', 0, failedInstance.steps.length);
+                    }
+                    break;
+                case 'parallel_log':
+                    const logType = data.kind === 'recovery' ? 'recovery' : 'info';
+                    addLog(logType, `🛟 Instance ${data.instance}: ${data.message}`);
+                    break;
+                case 'all_complete':
+                    addLog('success', `🏁 All parallel tests completed!`);
+                    updateProgress(100, `Completed: ${data.successful}/${data.total} tests successful`);
+                    break;
+                case 'progress_update':
+                    updateProgress(data.progress, data.message);
+                    break;
+            }
+        }
+        
+        function updateProgress(percent, message) {
+            const progressBar = document.getElementById('progressBar');
+            const progressDetails = document.getElementById('progressDetails');
+            
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = Math.round(percent) + '%';
+            progressDetails.textContent = message;
+        }
+        
+        function updateInstanceProgress(instance, status) {
+            const idx = executionData.findIndex(d => d.instance === instance);
+            if (idx !== -1) {
+                executionData[idx].status = status;
+            }
+            
+            // Calculate overall progress
+            const completed = executionData.filter(d => d.status === 'completed' || d.status === 'failed').length;
+            const progress = (completed / executionData.length) * 100;
+            updateProgress(progress, `${completed}/${executionData.length} tests completed`);
+        }
+        
+        function toggleMetricsVisibility() {
+            const container = document.getElementById('metricsContainer');
+            const btn = document.getElementById('metricsToggleBtn');
+            if (!container || !btn) {
+                return;
+            }
+            metricsCollapsed = !metricsCollapsed;
+            container.style.display = metricsCollapsed ? 'none' : 'block';
+            btn.textContent = metricsCollapsed ? '👁️ Show Metrics' : '🙈 Hide Metrics';
+        }
+        
+        function buildPerformanceMetricsHtml(metrics) {
+            const totalTime = (metrics.total_time || 0).toFixed(2);
+            const selectorsReused = metrics.selectors_reused || 0;
+            const selectorsLearned = metrics.selectors_learned || 0;
+            const selectorsTried = metrics.selectors_tried || 0;
+            const aiSuggestionsUsed = metrics.ai_suggestions_used || 0;
+            const traditionalSelectorsUsed = metrics.traditional_selectors_used || 0;
+            const totalSteps = metrics.total_steps || 0;
+            const efficiency = selectorsReused > 0 ? ((selectorsReused / (selectorsReused + selectorsLearned)) * 100).toFixed(0) : 0;
+            const totalSelectors = aiSuggestionsUsed + traditionalSelectorsUsed;
+            const aiUsagePercent = totalSelectors > 0 ? ((aiSuggestionsUsed / totalSelectors) * 100).toFixed(0) : 0;
+            let html = `
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+                    <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                        <div style="font-size: 24px; font-weight: bold; color: #0ea5e9;">${totalTime}s</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">⏱️ Total Execution Time</div>
+                    </div>
+                    <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                        <div style="font-size: 24px; font-weight: bold; color: #22c55e;">${selectorsReused}</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">🔄 Selectors Reused</div>
+                    </div>
+                    <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <div style="font-size: 24px; font-weight: bold; color: #f59e0b;">${selectorsLearned}</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">🧠 Selectors Learned</div>
+                    </div>
+                    <div style="background: #fce7f3; padding: 15px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                        <div style="font-size: 24px; font-weight: bold; color: #ec4899;">${efficiency}%</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">📊 Reuse Efficiency</div>
+                    </div>
+                    <div style="background: #f3e8ff; padding: 15px; border-radius: 8px; border-left: 4px solid #9333ea;">
+                        <div style="font-size: 24px; font-weight: bold; color: #9333ea;">${aiUsagePercent}%</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">🤖 Gemini AI Usage</div>
+                    </div>
+                    <div style="background: #ede9fe; padding: 15px; border-radius: 8px; border-left: 4px solid #7c3aed;">
+                        <div style="font-size: 24px; font-weight: bold; color: #7c3aed;">${aiSuggestionsUsed}/${totalSelectors}</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">💡 AI Suggestions Used</div>
+                    </div>
+                </div>
+            `;
+            if (aiSuggestionsUsed > 0 || metrics.ai_details) {
+                html += `
+                    <div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 2px solid #9333ea;">
+                        <h4 style="color: #9333ea; margin-bottom: 10px;">🤖 Gemini AI Details</h4>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">AI Suggestions Used</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #9333ea;">${aiSuggestionsUsed}</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">Traditional Selectors</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #0ea5e9;">${traditionalSelectorsUsed}</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">AI Success Rate</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #22c55e;">${aiSuggestionsUsed > 0 ? '100' : '0'}%</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">Total Elements Found</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #6366f1;">${totalSelectors}</div>
+                            </div>
+                        </div>
+                `;
+                if (aiSuggestionsUsed > 0) {
+                    html += `
+                        <div style="margin-top: 10px; padding: 10px; background: #fef3c7; border-radius: 5px; border-left: 4px solid #f59e0b;">
+                            <div style="font-size: 12px; font-weight: bold; color: #92400e;">💡 AI Impact</div>
+                            <div style="font-size: 11px; color: #78350f; margin-top: 5px;">
+                                Gemini AI helped find ${aiSuggestionsUsed} difficult element${aiSuggestionsUsed > 1 ? 's' : ''} that traditional selectors couldn't locate.
+                                ${aiUsagePercent}% of elements required AI assistance.
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 5px; border-left: 4px solid #22c55e;">
+                            <div style="font-size: 12px; font-weight: bold; color: #065f46;">✅ Excellent!</div>
+                            <div style="font-size: 11px; color: #047857; margin-top: 5px;">
+                                All elements were found using traditional selectors. AI was not needed for this test.
+                            </div>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+            if (metrics.step_timings && metrics.step_timings.length > 0) {
+                html += `
+                    <div style="margin-top: 20px;">
+                        <h4 style="margin-bottom: 10px;">⏱️ Step Timings:</h4>
+                        <div style="max-height: 200px; overflow-y: auto;">
+                `;
+                metrics.step_timings.forEach((timing, index) => {
+                    const statusIcon = timing.success ? '✅' : '❌';
+                    const timeColor = timing.time > 5 ? '#ef4444' : timing.time > 2 ? '#f59e0b' : '#22c55e';
+                    html += `
+                        <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #e5e7eb;">
+                            <span style="font-size: 13px;">${statusIcon} Step ${index + 1}</span>
+                            <span style="font-size: 13px; font-weight: bold; color: ${timeColor};">${timing.time.toFixed(2)}s</span>
+                        </div>
+                    `;
+                });
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+        
+        function displayInstancePerformanceMetrics(instance, metrics) {
+            const section = document.getElementById('metricsSection');
+            const container = document.getElementById('metricsContainer');
+            if (!container) {
+                return;
+            }
+            if (section && section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+            }
+            let instanceDiv = document.getElementById(`metrics-instance-${instance}`);
+            if (!instanceDiv) {
+                instanceDiv = document.createElement('div');
+                instanceDiv.id = `metrics-instance-${instance}`;
+                instanceDiv.className = 'parallel-instance';
+                instanceDiv.style.marginBottom = '15px';
+                const title = document.createElement('h3');
+                title.textContent = `Instance ${instance}`;
+                title.style.marginBottom = '10px';
+                title.style.color = '#667eea';
+                instanceDiv.appendChild(title);
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'instance-metrics-content';
+                instanceDiv.appendChild(contentDiv);
+                container.appendChild(instanceDiv);
+            }
+            const content = instanceDiv.querySelector('.instance-metrics-content');
+            if (content) {
+                content.innerHTML = buildPerformanceMetricsHtml(metrics);
+            }
+        }
+        
+        function addLog(type, message) {
+            const log = document.getElementById('executionLog');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>${message}</strong>
+                    <span style="font-size: 11px; color: #666;">${timestamp}</span>
+                </div>
+            `;
+            
+            log.insertBefore(entry, log.firstChild);
+            
+            // Keep only last 100 entries
+            while (log.children.length > 100) {
+                log.removeChild(log.lastChild);
+            }
+        }
+        
+        async function stopAllTests() {
+            if (!confirm('Stop all running tests?')) {
+                return;
+            }
+            
+            try {
+                await fetch('/api/stop-parallel-tests', {method: 'POST'});
+                addLog('info', '⏹️ Stop signal sent to all tests');
+            } catch (error) {
+                addLog('error', `Error stopping tests: ${error.message}`);
+            }
+        }
+        
+        async function clearLearning() {
+            if (!confirm('Clear all learned selectors? You will need to learn them again.')) {
+                return;
+            }
+            try {
+                await fetch('/api/learned-selectors', {method: 'DELETE'});
+                addLog('info', 'Cleared all learned selectors');
+                const metricsContainer = document.getElementById('metricsContainer');
+                if (metricsContainer) {
+                    metricsContainer.innerHTML = '<p style="color: #666;">Run tests to see performance metrics for each instance</p>';
+                    metricsContainer.style.display = 'block';
+                    metricsCollapsed = false;
+                    const btn = document.getElementById('metricsToggleBtn');
+                    if (btn) {
+                        btn.textContent = '🙈 Hide Metrics';
+                    }
+                }
+            } catch (error) {
+                addLog('error', 'Error clearing selectors: ' + error.message);
+            }
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', () => {
+            generateForms();
+        });
+    </script>
+</body>
+</html>

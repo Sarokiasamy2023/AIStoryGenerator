@@ -1,0 +1,10 @@
+{
+  "test_name": "Counties Textarea Example",
+  "url": "https://your-salesforce-instance.lightning.force.com",
+  "steps": [
+    "Wait for 3 seconds",
+    "Fill textarea \"Please specify the names of the counties served\" with \"El Dorado County, Sacramento County, Placer County\"",
+    "Wait for 1 second",
+    "Click \"Next\""
+  ]
+}

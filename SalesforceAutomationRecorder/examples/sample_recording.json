@@ -1,0 +1,315 @@
+[
+  {
+    "timestamp": "2025-10-21T17:15:30.123Z",
+    "label": "Username",
+    "action": "input",
+    "selector": "input#username",
+    "xpath": "//input[@id='username']",
+    "framework": "Standard",
+    "componentType": "input",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "id": "username",
+      "name": "username",
+      "type": "text",
+      "placeholder": "Username"
+    },
+    "isNested": false,
+    "parentFramework": null
+  },
+  {
+    "timestamp": "2025-10-21T17:15:32.456Z",
+    "label": "Password",
+    "action": "input",
+    "selector": "input#password",
+    "xpath": "//input[@id='password']",
+    "framework": "Standard",
+    "componentType": "input",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "id": "password",
+      "name": "password",
+      "type": "password",
+      "placeholder": "Password"
+    },
+    "isNested": false,
+    "parentFramework": null
+  },
+  {
+    "timestamp": "2025-10-21T17:15:34.789Z",
+    "label": "Log In",
+    "action": "click",
+    "selector": "button#Login",
+    "xpath": "//button[@id='Login']",
+    "framework": "Standard",
+    "componentType": "button",
+    "tagName": "button",
+    "innerText": "Log In",
+    "attributes": {
+      "id": "Login",
+      "class": "button primary",
+      "type": "submit"
+    },
+    "isNested": false,
+    "parentFramework": null
+  },
+  {
+    "timestamp": "2025-10-21T17:15:38.012Z",
+    "label": "App Launcher",
+    "action": "click",
+    "selector": "button.slds-button.appLauncher",
+    "xpath": "//button[@class='slds-button appLauncher']",
+    "framework": "Lightning",
+    "componentType": "button",
+    "tagName": "button",
+    "innerText": "App Launcher",
+    "attributes": {
+      "class": "slds-button appLauncher",
+      "aria-label": "App Launcher"
+    },
+    "isNested": false,
+    "parentFramework": null
+  },
+  {
+    "timestamp": "2025-10-21T17:15:40.345Z",
+    "label": "Search apps and items...",
+    "action": "input",
+    "selector": "lightning-input[data-aura-rendered-by='searchInput']",
+    "xpath": "//lightning-input[@data-aura-rendered-by='searchInput']",
+    "framework": "Lightning",
+    "componentType": "lightning-input",
+    "tagName": "lightning-input",
+    "innerText": "",
+    "attributes": {
+      "class": "slds-input",
+      "data-aura-rendered-by": "searchInput",
+      "placeholder": "Search apps and items..."
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:15:42.678Z",
+    "label": "Contacts",
+    "action": "click",
+    "selector": "a.slds-app-launcher__tile-body",
+    "xpath": "//a[@class='slds-app-launcher__tile-body']",
+    "framework": "Lightning",
+    "componentType": "link",
+    "tagName": "a",
+    "innerText": "Contacts",
+    "attributes": {
+      "class": "slds-app-launcher__tile-body",
+      "href": "/lightning/o/Contact/home"
+    },
+    "isNested": false,
+    "parentFramework": null
+  },
+  {
+    "timestamp": "2025-10-21T17:15:45.901Z",
+    "label": "New",
+    "action": "click",
+    "selector": "lightning-button[data-aura-class='forceActionButton']",
+    "xpath": "//lightning-button[@data-aura-class='forceActionButton']",
+    "framework": "Lightning",
+    "componentType": "lightning-button",
+    "tagName": "lightning-button",
+    "innerText": "New",
+    "attributes": {
+      "class": "slds-button slds-button_neutral",
+      "data-aura-class": "forceActionButton",
+      "title": "New"
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:15:48.234Z",
+    "label": "First Name",
+    "action": "input",
+    "selector": "input[name='firstName']",
+    "xpath": "//input[@name='firstName']",
+    "framework": "Lightning",
+    "componentType": "input",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "name": "firstName",
+      "class": "slds-input",
+      "type": "text",
+      "aria-label": "First Name"
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:15:50.567Z",
+    "label": "Last Name",
+    "action": "input",
+    "selector": "input[name='lastName']",
+    "xpath": "//input[@name='lastName']",
+    "framework": "Lightning",
+    "componentType": "input",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "name": "lastName",
+      "class": "slds-input",
+      "type": "text",
+      "aria-label": "Last Name",
+      "required": "true"
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:15:52.890Z",
+    "label": "Email",
+    "action": "input",
+    "selector": "input[name='email']",
+    "xpath": "//input[@name='email']",
+    "framework": "Lightning",
+    "componentType": "input",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "name": "email",
+      "class": "slds-input",
+      "type": "email",
+      "aria-label": "Email"
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:15:55.123Z",
+    "label": "Phone",
+    "action": "input",
+    "selector": "input[name='phone']",
+    "xpath": "//input[@name='phone']",
+    "framework": "Lightning",
+    "componentType": "input",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "name": "phone",
+      "class": "slds-input",
+      "type": "tel",
+      "aria-label": "Phone"
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:15:57.456Z",
+    "label": "Account Name",
+    "action": "click",
+    "selector": "input[data-aura-class='forceSearchLookup']",
+    "xpath": "//input[@data-aura-class='forceSearchLookup']",
+    "framework": "Lightning",
+    "componentType": "lookup",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "class": "slds-input",
+      "data-aura-class": "forceSearchLookup",
+      "placeholder": "Search Accounts...",
+      "aria-label": "Account Name"
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:16:00.789Z",
+    "label": "Save",
+    "action": "click",
+    "selector": "button[title='Save']",
+    "xpath": "//button[@title='Save']",
+    "framework": "Lightning",
+    "componentType": "button",
+    "tagName": "button",
+    "innerText": "Save",
+    "attributes": {
+      "class": "slds-button slds-button_brand",
+      "title": "Save",
+      "type": "button"
+    },
+    "isNested": true,
+    "parentFramework": "Lightning"
+  },
+  {
+    "timestamp": "2025-10-21T17:16:05.012Z",
+    "label": "Customer Information",
+    "action": "click",
+    "selector": "c-omniscript-step[data-omnistudio-field='CustomerInfo']",
+    "xpath": "//c-omniscript-step[@data-omnistudio-field='CustomerInfo']",
+    "framework": "OmniScript",
+    "componentType": "omniscript-step",
+    "tagName": "c-omniscript-step",
+    "innerText": "Customer Information",
+    "attributes": {
+      "class": "omnistudio-step",
+      "data-omnistudio-field": "CustomerInfo",
+      "data-omni-key": "step1"
+    },
+    "isNested": false,
+    "parentFramework": null
+  },
+  {
+    "timestamp": "2025-10-21T17:16:07.345Z",
+    "label": "Customer Name",
+    "action": "input",
+    "selector": "input[data-omnistudio-field='CustomerName']",
+    "xpath": "//input[@data-omnistudio-field='CustomerName']",
+    "framework": "OmniScript",
+    "componentType": "input",
+    "tagName": "input",
+    "innerText": "",
+    "attributes": {
+      "class": "nds-input",
+      "data-omnistudio-field": "CustomerName",
+      "type": "text",
+      "required": "true"
+    },
+    "isNested": true,
+    "parentFramework": "OmniScript"
+  },
+  {
+    "timestamp": "2025-10-21T17:16:09.678Z",
+    "label": "Customer Type",
+    "action": "change",
+    "selector": "select[data-omnistudio-field='CustomerType']",
+    "xpath": "//select[@data-omnistudio-field='CustomerType']",
+    "framework": "OmniScript",
+    "componentType": "dropdown",
+    "tagName": "select",
+    "innerText": "",
+    "attributes": {
+      "class": "nds-select",
+      "data-omnistudio-field": "CustomerType",
+      "name": "CustomerType"
+    },
+    "isNested": true,
+    "parentFramework": "OmniScript"
+  },
+  {
+    "timestamp": "2025-10-21T17:16:12.901Z",
+    "label": "Next",
+    "action": "click",
+    "selector": "button.omnistudio-button-next",
+    "xpath": "//button[@class='omnistudio-button-next']",
+    "framework": "OmniScript",
+    "componentType": "button",
+    "tagName": "button",
+    "innerText": "Next",
+    "attributes": {
+      "class": "omnistudio-button-next nds-button",
+      "type": "button",
+      "data-omni-action": "next"
+    },
+    "isNested": true,
+    "parentFramework": "OmniScript"
+  }
+]

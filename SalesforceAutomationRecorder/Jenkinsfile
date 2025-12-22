@@ -1,0 +1,92 @@
+pipeline {
+    agent any
+    
+    parameters {
+        choice(name: 'TEST_SUITE', choices: ['all', 'smoke', 'regression'], description: 'Test suite to run')
+        booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Run in headless mode')
+        booleanParam(name: 'RECORD_VIDEO', defaultValue: true, description: 'Record test videos')
+    }
+    
+    environment {
+        SALESFORCE_USERNAME = credentials('salesforce-username')
+        SALESFORCE_PASSWORD = credentials('salesforce-password')
+    }
+    
+    stages {
+        stage('Setup') {
+            steps {
+                echo 'Installing dependencies...'
+                bat '''
+                    python -m pip install --upgrade pip
+                    pip install playwright
+                    pip install -r requirements.txt
+                    playwright install chromium
+                '''
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                script {
+                    def headlessFlag = params.HEADLESS ? '--headless' : ''
+                    def videoFlag = params.RECORD_VIDEO ? '' : '--no-video'
+                    
+                    echo "Running ${params.TEST_SUITE} tests..."
+                    
+                    bat """
+                        python run_tests_cli.py tests/*.json ${headlessFlag} ${videoFlag} --batch
+                    """
+                }
+            }
+        }
+        
+        stage('Generate Report') {
+            steps {
+                echo 'Generating test report...'
+                bat 'python generate_report.py'
+            }
+        }
+    }
+    
+    post {
+        always {
+            // Archive test videos
+            archiveArtifacts artifacts: 'test_videos/**/*', allowEmptyArchive: true
+            
+            // Archive test report
+            publishHTML([
+                reportDir: '.',
+                reportFiles: 'test_report.html',
+                reportName: 'Test Report',
+                keepAll: true
+            ])
+            
+            // Archive auto-healing data
+            archiveArtifacts artifacts: 'auto_heal_data.json, predictive_data.json', allowEmptyArchive: true
+        }
+        
+        failure {
+            // Archive failure screenshots
+            archiveArtifacts artifacts: 'test_failure_*.png', allowEmptyArchive: true
+            
+            // Send email notification
+            emailext (
+                subject: "Test Execution Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+                body: """
+                    Test execution failed!
+                    
+                    Job: ${env.JOB_NAME}
+                    Build: ${env.BUILD_NUMBER}
+                    URL: ${env.BUILD_URL}
+                    
+                    Check the artifacts for failure screenshots and videos.
+                """,
+                to: '${DEFAULT_RECIPIENTS}'
+            )
+        }
+        
+        success {
+            echo 'All tests passed!'
+        }
+    }
+}

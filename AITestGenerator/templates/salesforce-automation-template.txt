@@ -1,0 +1,413 @@
+# Salesforce Automation Test Steps Template
+
+This template shows the exact format for detailed Salesforce automation test steps.
+
+---
+
+EXAMPLE 1: Complete Login and Form Workflow
+
+# Salesforce HSD Performance Reports - Complete Workflow Test
+ 
+# Login
+
+Navigate to https://hrsa-dcpaas--dcpuat.sandbox.my.site.com/pars/s/login/
+
+Wait for 2 seconds
+
+Type "sarokiasamy2@dmigs.com.dcp.dcpuat" into Username
+
+Type "Grantee@456" into Password
+
+Click "Log in"
+
+Wait for 2 seconds
+ 
+# Agreement Page
+
+Click "I Disagree"
+
+Click "Next"
+
+Wait for 2 seconds
+ 
+# Navigation
+
+Click "Next"
+
+Click "Finish"
+
+Wait for 3 seconds
+ 
+# Navigate to HSD Performance Reports
+
+Click "HSD PERFORMANCE REPORTS"
+
+Wait for 2 seconds
+ 
+# View Reports
+
+Click "Recently Viewed"
+
+Wait for 1 seconds
+
+Click "In Progress Reports"
+
+Wait for 2 seconds
+ 
+# Select Report
+
+Click "HSD-01059"
+
+Wait for 1 seconds
+ 
+# Start/Edit Form
+
+Click "Edit"
+
+Wait for 2 seconds
+
+Click "Next"
+ 
+# Complete Form Pages - Page 1
+
+Type "5110" into "Number of people on listserv"
+
+Type "0" into "Number of people receiving newsletter (via mail or electronic)"
+
+Type "0" into "How many newsletter issues per year (if known)?"
+
+Type "54" into "How many listserv posts distributed per year (if known)?"
+
+Type "22016" into "Number of website hits- Specify most popular sections of websites (if known) - Value"
+
+Type "The most popular sections were: (1) Hawaii State Office of Primary Care & Rural Health: Home Page, FQHC, HPSA, MUA/MUP; (2) Hawaii State Rural Health Association: Home Page, About, Programs, Membership; and (3) Project ECHO Hawaii: Home Page, Register, Behavioral Health ECHO Resources, What is ECHO?" into "Number of website hits- Specify most popular sections of websites (if known) - Specify(Allows 2000 characters)"
+
+Select "No" from "Is the audience/membership for the listserv the same as for the newsletter?"
+
+Select "Interactive" from "Is the listserv one-way information or interactive?"
+
+Select "NA/None" from "Articles"
+
+Select "Hosted or Co-Hosted" from "Conferences (hosted or co-hosted)"
+
+Select "New" from "Fact Sheets"
+
+Select "New" from "Maps"
+
+Select "New" from "Newsletter"
+
+Select "New" from "Toolkits"
+
+Select "New" from "Webinars"
+
+Select "New" from "Websites"
+
+Type "The Hawaii State Office of Primary Care & Rural Health, in partnership with the Hawaii State Rural Health Association, has completed a Maui Together Wildfire Assessment. The report highlights findings from focus groups and surveys of 2,097 residents, 1,105 fire-impacted individuals, and 57 healthcare providers. Topics include healthcare access, primary care, mental health, housing, and the economy. The assessment provides important and impactful data for policy and decision-makers." into "Describe one tool that you created to address a problem in your state."
+
+Click "Next"
+
+Wait for 1 seconds
+ 
+# Complete Form Pages - Page 2
+
+Select "New" from "Behavioral Health"
+
+Select "New" from "Community Development"
+
+Select "New" from "Grant Writing"
+
+Select "New" from "Needs Assesment"
+
+Select "New" from "Older Adults/Aging"
+
+Select "New" from "Opioids"
+
+Select "New" from "Oral Health"
+
+Select "New" from "Population health"
+
+Select "New" from "Rural Health Network"
+
+Select "New" from "Telehealth"
+
+Select "New" from "Transportation"
+
+Select "New" from "Tribals"
+
+Select "New" from "Veterans"
+
+Select "New" from "Workforce"
+
+Select "New" from "Other"
+
+Type "Sample comment" into "Other-Specify (Allows 2000 characters)"
+
+Check "Critical Access Hospitals" checkbox
+
+Type "Test" into "Collaborative effort in your state"
+
+Click "Next"
+
+Wait for 1 seconds
+
+# Complete Form Pages - Page 3
+
+Type "107" into "Face to Face"
+
+Type "Test" into "Face to Face description"
+
+Type "49" into "Academic Institutions"
+
+Type "Test" into "Academic Institutions Description"
+
+Click "Next"
+
+Wait for 1 seconds
+ 
+# Upload and Comments
+
+Click "Upload"
+
+Type "comment text" into "Comments"
+ 
+# Submit for Approval
+
+Click "Next"
+
+Wait for 1 seconds
+
+Verify "Submit" is visible
+
+Click "Submit"
+
+Wait for 3 seconds
+
+Verify "Form submitted successfully"
+
+---
+
+EXAMPLE 2: CBD Performance Reports with CSV Data
+
+# CBD Performance Reports - Form 1 Demographics Test
+ 
+# Login
+
+Navigate to https://hrsa-dcpaas--dcpuat.sandbox.my.site.com/pars/s/login/
+
+Wait for 2 seconds
+
+Type "%Username%" into Username
+
+Type "%Password%" into Password
+
+Click "Log in"
+
+Wait for 2 seconds
+ 
+# Navigate to CBD Performance Reports
+
+Click "CBD PERFORMANCE REPORTS"
+
+Wait for 1 seconds
+
+Click "Recently Viewed"
+
+Wait for 1 seconds
+
+Click "%Report ID%"
+
+Wait for 2 seconds
+
+Click "Form 1: Demographics"
+
+Wait for 2 seconds
+
+# Generate CSV
+Wait for 30 seconds
+
+Verify "An agency may not conduct or sponsor, and a person is not required to respond to, a collection of information unless it displays a currently valid OMB control number. The OMB control number for this project is 0915-0387. Public reporting burden for this collection of information is estimated to average 22 hours per response, including the time for reviewing instructions, searching existing data sources, and completing and reviewing the collection of information. Send comments regarding this burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to HRSA Reports Clearance Officer, 5600 Fishers Lane, Room 14N-39, Rockville, Maryland, 20857."
+
+Click "Next"
+
+Wait for 2 seconds
+
+Type "%Number of Counties Served%" into "Number of Counties Served"
+
+Type "%Counties Served%" into "Please specify the names of the counties served."
+
+Type "%Full Patient Panel%" into "Number of people in the Full Patient Panel"
+
+Select "%Target Population Measures%" from "Changes to Target Population Measures"
+
+Click "Save"
+
+Wait for 3 seconds
+
+Verify "Form saved successfully"
+
+---
+
+EXAMPLE 3: Error Validation Test
+
+# CBD Performance Reports - Validation Test
+ 
+# Login
+
+Navigate to https://hrsa-dcpaas--dcpuat.sandbox.my.site.com/pars/s/login/
+
+Wait for 2 seconds
+
+Type "testuser@example.com" into Username
+
+Type "TestPassword123" into Password
+
+Click "Log in"
+
+Wait for 2 seconds
+ 
+# Navigate to Form
+
+Click "CBD PERFORMANCE REPORTS"
+
+Wait for 1 seconds
+
+Click "Recently Viewed"
+
+Wait for 1 seconds
+
+Click "CBD-01361"
+
+Wait for 2 seconds
+
+Click "Form 1: Demographics"
+
+Wait for 2 seconds
+
+Click "Next"
+
+Wait for 2 seconds
+
+# Test with invalid data - exceeds character limit
+
+Type "This is a very long text that exceeds the 2000 character limit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..." into "Counties Served"
+
+Wait for 1 seconds
+
+Click "Next"
+
+Wait for 2 seconds
+
+Verify "Maximum limit is 2000 characters."
+
+Verify "Counties Served" field has error styling
+
+# Clear and enter valid data
+
+Clear "Counties Served"
+
+Wait for 1 seconds
+
+Type "Los Angeles, Orange County" into "Counties Served"
+
+Wait for 1 seconds
+
+Click "Next"
+
+Wait for 2 seconds
+
+Verify no error message is displayed
+
+Verify form proceeds to next section
+
+---
+
+FORMAT RULES:
+
+1. **Section Headers:**
+   - Use # for main sections
+   - Examples: # Login, # Navigate to Form, # Complete Form Pages
+
+2. **Navigation:**
+   - Navigate to [URL]
+   - Click "[Element Name]"
+   - Wait for X seconds
+
+3. **Data Entry:**
+   - Type "value" into "Field Name"
+   - Type "%CSV Column%" into "Field Name" (for CSV data)
+   - Select "option" from "Dropdown Name"
+   - Check "Checkbox Name" checkbox
+
+4. **Verification:**
+   - Verify "Expected text or element"
+   - Verify "Field Name" field has error styling
+   - Verify no error message is displayed
+
+5. **Wait Times:**
+   - After navigation: Wait for 1-2 seconds
+   - After form submission: Wait for 3 seconds
+   - After heavy operations (CSV generation): Wait for 30 seconds
+   - After field entry: Wait for 1 seconds
+
+6. **Comments:**
+   - Use # for comments
+   - Example: # This is a comment
+
+7. **Field Names:**
+   - Always use exact field labels in quotes
+   - Include full field descriptions
+   - Examples: "Number of people on listserv", "Counties Served"
+
+8. **CSV Placeholders:**
+   - Format: %ColumnName%
+   - Examples: %Username%, %Password%, %Report ID%, %Counties Served%
+
+---
+
+COMPLETE TEST STRUCTURE:
+
+# [Test Name]
+ 
+# Login
+Navigate to [URL]
+Wait for 2 seconds
+Type "[username]" into Username
+Type "[password]" into Password
+Click "Log in"
+Wait for 2 seconds
+ 
+# [Agreement/Disclaimer Section if applicable]
+Click "[Button]"
+Click "Next"
+Wait for 2 seconds
+ 
+# Navigate to [Module]
+Click "[MODULE NAME]"
+Wait for 2 seconds
+ 
+# View Reports
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "[Report ID]"
+Wait for 2 seconds
+ 
+# Open Form
+Click "[Form Name]"
+Wait for 2 seconds
+ 
+# Complete Form - Page 1
+Type "[value]" into "[Field Name]"
+Select "[option]" from "[Dropdown Name]"
+Check "[Checkbox Name]" checkbox
+Click "Next"
+Wait for 1 seconds
+ 
+# Complete Form - Page 2
+[Repeat field entries]
+Click "Next"
+Wait for 1 seconds
+ 
+# Submit
+Click "Submit"
+Wait for 3 seconds
+Verify "Success message"

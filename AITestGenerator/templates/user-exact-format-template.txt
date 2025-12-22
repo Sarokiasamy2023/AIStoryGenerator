@@ -1,0 +1,128 @@
+# User's Exact Format Template for Test Steps
+
+Use this template in the "Example Test Steps" field to get output in the exact format required.
+
+---
+
+COMPLETE EXAMPLE - HSD Performance Report Form:
+
+Click "HSD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "In Progress Reports"
+Wait for 1 seconds
+Click "HSD-01078"
+Wait for 1 seconds
+Click "Edit"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+Type "%Number of people on listserv%" into "Number of people on listserv"
+Wait for 1 seconds
+Type "%Number of people receiving newsletter (via mail or electronic)%" into "Number of people receiving newsletter (via mail or electronic)"
+Wait for 1 seconds
+Type "%How many newsletter issues per year (if known)?%" into "How many newsletter issues per year (if known)?"
+Wait for 1 seconds
+Type "%How many listserv posts distributed per year (if known)?%" into "How many listserv posts distributed per year (if known)?"
+Wait for 1 seconds
+Type "%Number of website hits- Specify most popular sections of websites (if known) - Value%" into "Number of website hits- Specify most popular sections of websites (if known) - Value"
+Wait for 1 seconds
+Type "%Number of website hits- Specify most popular sections of websites (if known) - Specify%" into "Number of website hits- Specify most popular sections of websites (if known) - Specify"
+Wait for 1 seconds
+Select "%Is the audience/membership for the listserv the same as for the newsletter?%" from Dropdown "Is the audience/membership for the listserv the same as for the newsletter?"
+Wait for 1 seconds
+Select "%Is the listserv one-way information or interactive?%" from Dropdown "Is the listserv one-way information or interactive?"
+Wait for 1 seconds
+Select "%Articles%" from Dropdown "Articles"
+Wait for 1 seconds
+Select "%Conferences (hosted or co-hosted)%" from Dropdown "Conferences (hosted or co-hosted)"
+Wait for 1 seconds
+Select "%Fact Sheets%" from Dropdown "Fact Sheets"
+Wait for 1 seconds
+Select "%Maps%" from Dropdown "Maps"
+Wait for 1 seconds
+Select "%Newsletter%" from Dropdown "Newsletter"
+Wait for 1 seconds
+Select "%Webinars%" from Dropdown "Webinars"
+Wait for 1 seconds
+Select "%Websites%" from Dropdown "Websites"
+Wait for 1 seconds
+Type "%Describe one tool that you created to address a problem in your state.%" into "Describe one tool that you created to address a problem in your state."
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+Select "%Behavioral Health%" from Dropdown "Behavioral Health"
+Wait for 1 seconds
+Select "%Community Development%" from Dropdown "Community Development"
+Wait for 1 seconds
+Select "%Grant Writing%" from Dropdown "Grant Writing"
+Wait for 1 seconds
+Select "%Needs Assessment%" from Dropdown "Needs Assessment"
+Wait for 1 seconds
+Select "%Older Adults/Aging%" from Dropdown "Older Adults/Aging"
+Wait for 1 seconds
+Select "%Opioids%" from Dropdown "Opioids"
+Wait for 1 seconds
+Select "%Oral Health%" from Dropdown "Oral Health"
+Wait for 1 seconds
+Select "%Population Health%" from Dropdown "Population Health"
+Wait for 1 seconds
+Select "%Rural Health Network%" from Dropdown "Rural Health Network"
+Wait for 1 seconds
+Select "%Telehealth%" from Dropdown "Telehealth"
+Wait for 1 seconds
+Select "%Transportation%" from Dropdown "Transportation"
+Wait for 1 seconds
+Select "%Tribal%" from Dropdown "Tribal"
+Wait for 1 seconds
+Select "%Veterans%" from Dropdown "Veterans"
+Wait for 1 seconds
+Select "%Workforce%" from Dropdown "Workforce"
+Wait for 1 seconds
+Select "%Other%" from Dropdown "Other"
+Wait for 1 seconds
+Type "%Other-Specify%" into "Other-Specify"
+Wait for 1 seconds
+Fill textarea "%Collaborative effort in your state%" with "Collaborative effort in your state"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+
+---
+
+FORMAT RULES:
+
+1. **Text Fields:**
+   Type "%FieldName%" into "FieldName"
+   
+2. **Dropdown Fields:**
+   Select "%FieldName%" from Dropdown "FieldName"
+   (Note: Capital D in "Dropdown")
+   
+3. **Textarea Fields:**
+   Fill textarea "%FieldName%" with "FieldName"
+   
+4. **Buttons:**
+   Click "ButtonName"
+   
+5. **Wait Statements:**
+   Wait for 1 seconds
+   (After EVERY action)
+   
+6. **CSV Placeholders:**
+   %FieldName% (no quotes inside percent signs)
+   
+7. **Comments:**
+   Use # for commented out steps
+   Example: #Select "%Toolkits%" from Dropdown "Toolkits"
+
+---
+
+USAGE:
+
+1. Copy the complete example above
+2. Paste into "Example Test Steps" field in the UI
+3. Enter your test case details
+4. Click "Generate Test Steps"
+5. AI will generate steps in this exact format

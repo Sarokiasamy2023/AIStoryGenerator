@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Generator - User Stories to Test Cases</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .tab-active {
+            border-bottom: 3px solid #667eea;
+            color: #667eea;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .badge-positive { background-color: #10b981; }
+        .badge-negative { background-color: #ef4444; }
+        .badge-edge { background-color: #f59e0b; }
+        .priority-high { color: #ef4444; }
+        .priority-medium { color: #f59e0b; }
+        .priority-low { color: #10b981; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-robot text-4xl"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold">AI Test Generator</h1>
+                        <p class="text-purple-200">Transform User Stories into Comprehensive Test Cases</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showSamples()" class="bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50 transition">
+                        <i class="fas fa-book mr-2"></i>View Samples
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Tabs -->
+        <div class="bg-white rounded-lg shadow-md mb-6">
+            <div class="flex border-b">
+                <button onclick="switchTab('story-to-cases')" id="tab-story-to-cases" class="flex-1 px-6 py-4 text-center font-semibold tab-active">
+                    <i class="fas fa-file-alt mr-2"></i>User Story → Test Cases
+                </button>
+                <button onclick="switchTab('case-to-steps')" id="tab-case-to-steps" class="flex-1 px-6 py-4 text-center font-semibold text-gray-600">
+                    <i class="fas fa-list-ol mr-2"></i>Test Case → Test Steps
+                </button>
+                <button onclick="switchTab('history')" id="tab-history" class="flex-1 px-6 py-4 text-center font-semibold text-gray-600">
+                    <i class="fas fa-history mr-2"></i>History
+                </button>
+            </div>
+        </div>
+
+        <!-- Story to Cases Tab -->
+        <div id="content-story-to-cases" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Input Section -->
+                <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-edit text-purple-600 mr-2"></i>Enter User Story
+                    </h2>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Title</label>
+                        <input type="text" id="story-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="e.g., User Login Feature">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">User Story</label>
+                        <textarea id="story-description" rows="8" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="As a [user type], I want to [action] so that [benefit]..."></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Acceptance Criteria (Optional)</label>
+                        <textarea id="story-criteria" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="- Criterion 1&#10;- Criterion 2&#10;- Criterion 3"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Example Test Cases (Optional)</label>
+                        <textarea id="story-examples" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Provide example test cases to guide the AI..."></textarea>
+                    </div>
+
+                    <button onclick="generateTestCases()" class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                        <i class="fas fa-magic mr-2"></i>Generate Test Cases
+                    </button>
+                </div>
+
+                <!-- Output Section -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-800">
+                            <i class="fas fa-clipboard-list text-purple-600 mr-2"></i>Generated Test Cases
+                        </h2>
+                        <button onclick="exportTestCases()" id="export-cases-btn" class="hidden bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                            <i class="fas fa-download mr-2"></i>Export CSV
+                        </button>
+                    </div>
+                    
+                    <div id="test-cases-output" class="min-h-[400px]">
+                        <div class="flex items-center justify-center h-64 text-gray-400">
+                            <div class="text-center">
+                                <i class="fas fa-clipboard-list text-6xl mb-4"></i>
+                                <p>Test cases will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case to Steps Tab -->
+        <div id="content-case-to-steps" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Input Section -->
+                <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-edit text-purple-600 mr-2"></i>Enter Test Case
+                    </h2>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Test Case ID</label>
+                        <input type="text" id="case-id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="e.g., TC001">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Test Case Title</label>
+                        <input type="text" id="case-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="e.g., Verify successful login with valid credentials">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Description</label>
+                        <textarea id="case-description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Detailed description of the test case..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Type</label>
+                            <select id="case-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                <option value="positive">Positive</option>
+                                <option value="negative">Negative</option>
+                                <option value="edge">Edge Case</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Priority</label>
+                            <select id="case-priority" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Preconditions</label>
+                        <textarea id="case-preconditions" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="- Precondition 1&#10;- Precondition 2"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Example Test Steps (Optional)</label>
+                        <textarea id="steps-examples" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Provide example test steps to guide the AI..."></textarea>
+                    </div>
+
+                    <button onclick="generateTestSteps()" class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                        <i class="fas fa-magic mr-2"></i>Generate Test Steps
+                    </button>
+                </div>
+
+                <!-- Output Section -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-800">
+                            <i class="fas fa-tasks text-purple-600 mr-2"></i>Generated Test Steps
+                        </h2>
+                        <button onclick="exportTestSteps()" id="export-steps-btn" class="hidden bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                            <i class="fas fa-download mr-2"></i>Export CSV
+                        </button>
+                    </div>
+                    
+                    <div id="test-steps-output" class="min-h-[400px]">
+                        <div class="flex items-center justify-center h-64 text-gray-400">
+                            <div class="text-center">
+                                <i class="fas fa-tasks text-6xl mb-4"></i>
+                                <p>Test steps will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Tab -->
+        <div id="content-history" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                    <i class="fas fa-history text-purple-600 mr-2"></i>Generation History
+                </h2>
+                <div id="history-content">
+                    <p class="text-gray-500 text-center py-8">Loading history...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Modal -->
+    <div id="loading-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-gray-700 font-semibold">Generating with AI...</p>
+            <p class="text-gray-500 text-sm mt-2">This may take a few moments</p>
+        </div>
+    </div>
+
+    <!-- Samples Modal -->
+    <div id="samples-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg p-8 max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Sample User Stories & Test Cases</h2>
+                <button onclick="closeSamples()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="samples-content"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

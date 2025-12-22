@@ -1,0 +1,149 @@
+{
+  "userStories": [
+    {
+      "id": "9d4fa834-0631-4041-901f-827bd4c029cf",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.\n\nAcceptance Criteria\n1. Counties Served – Text Field\n\nThe field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).\n\nThe field must allow up to 2000 characters.\n\nIf the user exceeds the limit, the system must display an error message:\n“Maximum limit is 2000 characters.”\n\n2. Full Patient Panel – Numeric Field\n\nThe field “Number of people in the Full Patient Panel” must accept whole numbers only.\n\nIt must accept values up to 10 digits (e.g., 0 to 9,999,999,999).\n\nIf the user enters a decimal value, the system must display an error message:\n“Allows whole numbers up to 10 digits.”\n\nIf the user enters more than 10 digits, the system must show the same error message.\n\n3. Target Population Measures – Dropdown\n\nThe field “Changes to Target Population Measures” must be a dropdown list.\n\nThe dropdown must contain only the following three values:\n\nYes\n\nNo",
+      "acceptanceCriteria": [],
+      "createdAt": "2025-12-09T16:53:19.519Z"
+    },
+    {
+      "id": "d72cf8a1-91cd-4676-b68c-e5fa12920eac",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.\n\nAcceptance Criteria\n1. Counties Served – Text Field\n\nThe field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).\n\nThe field must allow up to 2000 characters.\n\nIf the user exceeds the limit, the system must display an error message:\n“Maximum limit is 2000 characters.”\n\n2. Full Patient Panel – Numeric Field\n\nThe field “Number of people in the Full Patient Panel” must accept whole numbers only.\n\nIt must accept values up to 10 digits (e.g., 0 to 9,999,999,999).\n\nIf the user enters a decimal value, the system must display an error message:\n“Allows whole numbers up to 10 digits.”\n\nIf the user enters more than 10 digits, the system must show the same error message.\n\n3. Target Population Measures – Dropdown\n\nThe field “Changes to Target Population Measures” must be a dropdown list.\n\nThe dropdown must contain only the following three values:\n\nYes\n\nNo",
+      "acceptanceCriteria": [],
+      "createdAt": "2025-12-09T16:53:22.709Z"
+    },
+    {
+      "id": "3d87aded-ed25-43ff-9694-fc96e7a54286",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.\n\nAcceptance Criteria\n1. Counties Served – Text Field\n\nThe field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).\n\nThe field must allow up to 2000 characters.\n\nIf the user exceeds the limit, the system must display an error message:\n“Maximum limit is 2000 characters.”\n\n2. Full Patient Panel – Numeric Field\n\nThe field “Number of people in the Full Patient Panel” must accept whole numbers only.\n\nIt must accept values up to 10 digits (e.g., 0 to 9,999,999,999).\n\nIf the user enters a decimal value, the system must display an error message:\n“Allows whole numbers up to 10 digits.”\n\nIf the user enters more than 10 digits, the system must show the same error message.\n\n3. Target Population Measures – Dropdown\n\nThe field “Changes to Target Population Measures” must be a dropdown list.\n\nThe dropdown must contain only the following three values:\n\nYes\n\nNo",
+      "acceptanceCriteria": [],
+      "createdAt": "2025-12-09T16:55:51.767Z"
+    },
+    {
+      "id": "af6908ce-773b-4951-8f4f-e117936fcb1a",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.\n\nAcceptance Criteria\n1. Counties Served – Text Field\n\nThe field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).\n\nThe field must allow up to 2000 characters.\n\nIf the user exceeds the limit, the system must display an error message:\n“Maximum limit is 2000 characters.”\n\n2. Full Patient Panel – Numeric Field\n\nThe field “Number of people in the Full Patient Panel” must accept whole numbers only.\n\nIt must accept values up to 10 digits (e.g., 0 to 9,999,999,999).\n\nIf the user enters a decimal value, the system must display an error message:\n“Allows whole numbers up to 10 digits.”\n\nIf the user enters more than 10 digits, the system must show the same error message.\n\n3. Target Population Measures – Dropdown\n\nThe field “Changes to Target Population Measures” must be a dropdown list.\n\nThe dropdown must contain only the following three values:\n\nYes\n\nNo",
+      "acceptanceCriteria": [],
+      "createdAt": "2025-12-09T16:56:51.462Z"
+    },
+    {
+      "id": "e9de0f89-7470-4eed-b736-77e2904540e2",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.\n\nAcceptance Criteria\n1. Counties Served – Text Field\n\nThe field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).\n\nThe field must allow up to 2000 characters.\n\nIf the user exceeds the limit, the system must display an error message:\n“Maximum limit is 2000 characters.”\n\n2. Full Patient Panel – Numeric Field\n\nThe field “Number of people in the Full Patient Panel” must accept whole numbers only.\n\nIt must accept values up to 10 digits (e.g., 0 to 9,999,999,999).\n\nIf the user enters a decimal value, the system must display an error message:\n“Allows whole numbers up to 10 digits.”\n\nIf the user enters more than 10 digits, the system must show the same error message.\n\n3. Target Population Measures – Dropdown\n\nThe field “Changes to Target Population Measures” must be a dropdown list.\n\nThe dropdown must contain only the following three values:\n\nYes\n\nNo",
+      "acceptanceCriteria": [],
+      "createdAt": "2025-12-09T16:57:55.259Z"
+    },
+    {
+      "id": "e5be64ea-4612-4a6d-882c-0effe763dec3",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.\n\nAcceptance Criteria\n1. Counties Served – Text Field\n\nThe field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).\n\nThe field must allow up to 2000 characters.\n\nIf the user exceeds the limit, the system must display an error message:\n“Maximum limit is 2000 characters.”\n\n2. Full Patient Panel – Numeric Field\n\nThe field “Number of people in the Full Patient Panel” must accept whole numbers only.\n\nIt must accept values up to 10 digits (e.g., 0 to 9,999,999,999).\n\nIf the user enters a decimal value, the system must display an error message:\n“Allows whole numbers up to 10 digits.”\n\nIf the user enters more than 10 digits, the system must show the same error message.\n\n3. Target Population Measures – Dropdown\n\nThe field “Changes to Target Population Measures” must be a dropdown list.\n\nThe dropdown must contain only the following three values:\n\nYes\n\nNo",
+      "acceptanceCriteria": [],
+      "createdAt": "2025-12-09T17:02:57.254Z"
+    },
+    {
+      "id": "170b39b7-f11b-459d-b1c9-4ec67f04c5b5",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.",
+      "acceptanceCriteria": [
+        "1. Counties Served – Text Field",
+        "The field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).",
+        "The field must allow up to 2000 characters.",
+        "If the user exceeds the limit, the system must display an error message:",
+        "“Maximum limit is 2000 characters.”",
+        "2. Full Patient Panel – Numeric Field",
+        "The field “Number of people in the Full Patient Panel” must accept whole numbers only.",
+        "It must accept values up to 10 digits (e.g., 0 to 9,999,999,999).",
+        "If the user enters a decimal value, the system must display an error message:",
+        "“Allows whole numbers up to 10 digits.”",
+        "If the user enters more than 10 digits, the system must show the same error message.",
+        "3. Target Population Measures – Dropdown",
+        "The field “Changes to Target Population Measures” must be a dropdown list.",
+        "The dropdown must contain only the following three values:",
+        "Yes",
+        "No"
+      ],
+      "createdAt": "2025-12-09T17:19:57.306Z"
+    },
+    {
+      "id": "91c904bc-dc98-4a0e-9107-d72bde2429ae",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.",
+      "acceptanceCriteria": [
+        "1. Counties Served – Text Field",
+        "The field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).",
+        "The field must allow up to 2000 characters.",
+        "If the user exceeds the limit, the system must display an error message:",
+        "“Maximum limit is 2000 characters.”",
+        "2. Full Patient Panel – Numeric Field",
+        "The field “Number of people in the Full Patient Panel” must accept whole numbers only.",
+        "It must accept values up to 10 digits (e.g., 0 to 9,999,999,999).",
+        "If the user enters a decimal value, the system must display an error message:",
+        "“Allows whole numbers up to 10 digits.”",
+        "If the user enters more than 10 digits, the system must show the same error message.",
+        "3. Target Population Measures – Dropdown",
+        "The field “Changes to Target Population Measures” must be a dropdown list.",
+        "The dropdown must contain only the following three values:",
+        "Yes",
+        "No"
+      ],
+      "createdAt": "2025-12-09T17:26:13.990Z"
+    },
+    {
+      "id": "6de649a5-1df1-4152-b14c-8d1998f70ba1",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.",
+      "acceptanceCriteria": [
+        "1. Counties Served – Text Field",
+        "The field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).",
+        "The field must allow up to 2000 characters.",
+        "If the user exceeds the limit, the system must display an error message:",
+        "“Maximum limit is 2000 characters.”",
+        "2. Full Patient Panel – Numeric Field",
+        "The field “Number of people in the Full Patient Panel” must accept whole numbers only.",
+        "It must accept values up to 10 digits (e.g., 0 to 9,999,999,999).",
+        "If the user enters a decimal value, the system must display an error message:",
+        "“Allows whole numbers up to 10 digits.”",
+        "If the user enters more than 10 digits, the system must show the same error message.",
+        "3. Target Population Measures – Dropdown",
+        "The field “Changes to Target Population Measures” must be a dropdown list.",
+        "The dropdown must contain only the following three values:",
+        "Yes",
+        "No"
+      ],
+      "createdAt": "2025-12-09T17:37:39.078Z"
+    },
+    {
+      "id": "1330461e-1e47-433d-bad8-d9bc9bf02d37",
+      "title": "DCP",
+      "description": "As a Grantee,\nI want the fields in Form 1: Demographics of the CBD-SHCP Program to be updated\nso that the system can accept expanded data ranges and additional data formats.",
+      "acceptanceCriteria": [
+        "1. Counties Served – Text Field",
+        "The field “Please specify the names of the counties served.” must accept alphanumeric characters (including spaces and punctuation).",
+        "The field must allow up to 2000 characters.",
+        "If the user exceeds the limit, the system must display an error message:",
+        "“Maximum limit is 2000 characters.”",
+        "2. Full Patient Panel – Numeric Field",
+        "The field “Number of people in the Full Patient Panel” must accept whole numbers only.",
+        "It must accept values up to 10 digits (e.g., 0 to 9,999,999,999).",
+        "If the user enters a decimal value, the system must display an error message:",
+        "“Allows whole numbers up to 10 digits.”",
+        "If the user enters more than 10 digits, the system must show the same error message.",
+        "3. Target Population Measures – Dropdown",
+        "The field “Changes to Target Population Measures” must be a dropdown list.",
+        "The dropdown must contain only the following three values:",
+        "Yes",
+        "No"
+      ],
+      "createdAt": "2025-12-10T14:32:17.653Z"
+    },
+    {
+      "id": "b4363531-2679-4494-a370-d2fc00e335fe",
+      "title": "DCP",
+      "description": "Scenario: Complete HSD Performance Report Form\n \nGiven the user is on the login page\nWhen the user enters \"sarokiasamy2@dmigs.com.dcp.dcpuat\" into \"Username\"\nAnd the user enters \"Grantee@123\" into \"Password\"\nAnd the user clicks \"Log in\"\nAnd the user clicks \"I Disagree\"\nAnd the user clicks \"Next\"\nAnd the user clicks \"Finish\"\n \nWhen the user navigates to \"HSD PERFORMANCE REPORTS\"\nAnd the user selects \"Recently Viewed\"\nAnd the user opens \"In Progress Reports\"\nAnd the user opens the report \"HSD-01078\"\nAnd I click 'Edit' of the report\n \nWhen I click on 'Next' button\n \n# Form 2: Information Dissemination\nAnd the user enters \"100\" into \"Number of people on listserv\"\nAnd the user enters \"500\" into \"Number of people receiving newsletter (via mail or electronic)\"\nAnd the user enters \"12\" into \"How many newsletter issues per year (if known)?\"\nAnd the user enters \"24\" into \"How many listserv posts distributed per year (if known)?\"\nAnd the user enters \"10000\" into \"Number of website hits- Specify most popular sections of websites (if known) - Value\"\nAnd the user enters \"Resources and Publications\" into \"Number of website hits- Specify most popular sections of websites (if known) - Specify\"\nAnd the user selects \"Yes\" for \"Is the audience/membership for the listserv the same as for the newsletter?\"\nAnd the user selects \"Interactive\" for \"Is the listserv one-way information or interactive?\"\nAnd the user selects \"Yes\" for \"Articles\"\nAnd the user selects \"Yes\" for \"Conferences (hosted or co-hosted)\"\nAnd the user selects \"Yes\" for \"Fact Sheets\"\nAnd the user selects \"Yes\" for \"Maps\"\nAnd the user selects \"Yes\" for \"Newsletter\"\nAnd the user selects \"Yes\" for \"Webinars\"\nAnd the user selects \"Yes\" for \"Websites\"\nAnd the user enters \"Created a rural health toolkit for community health workers\" into \"Describe one tool that you created to address a problem in your state.\"\n \nWhen I click on 'Next' button\n \n# Form 3: Technical Assistance Topics\nAnd the user selects \"Yes\" for \"Behavioral Health\"\nAnd the user selects \"Yes\" for \"Community Development\"\nAnd the user selects \"Yes\" for \"Grant Writing\"\nAnd the user selects \"Yes\" for \"Needs Assessment\"\nAnd the user selects \"Yes\" for \"Older Adults/Aging\"\nAnd the user selects \"Yes\" for \"Opioids\"\nAnd the user selects \"Yes\" for \"Oral Health\"\nAnd the user selects \"Yes\" for \"Population Health\"\nAnd the user selects \"Yes\" for \"Rural Health Network\"\nAnd the user selects \"Yes\" for \"Telehealth\"\nAnd the user selects \"Yes\" for \"Transportation\"\nAnd the user selects \"Yes\" for \"Tribal\"\nAnd the user selects \"Yes\" for \"Veterans\"\nAnd the user selects \"Yes\" for \"Workforce\"\nAnd the user selects \"Yes\" for \"Other\"\nAnd the user enters \"Custom topic description\" into \"Other-Specify\"\nAnd the user enters \"Worked with local hospitals and clinics to improve rural healthcare access\" into textarea \"Collaborative effort in your state\"\n \nWhen I click on 'Next' button",
+      "acceptanceCriteria": [],
+      "createdAt": "2025-12-17T13:55:57.154Z"
+    }
+  ]
+}

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Automation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input[type="checkbox"] {
+            transform: scale(1.4);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        textarea {
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+        
+        .btn-ai {
+            background: linear-gradient(135deg, #6f42c1 0%, #9b59b6 100%);
+        }
+        
+        .execution-log {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .log-entry.success {
+            border-left-color: #28a745;
+        }
+        
+        .log-entry.error {
+            border-left-color: #dc3545;
+        }
+        
+        .log-entry.learning {
+            border-left-color: #ffc107;
+            background: #fff3cd;
+        }
+        
+        .log-entry.reuse {
+            border-left-color: #17a2b8;
+            background: #d1ecf1;
+        }
+        
+        .log-entry.recovery {
+            border-left-color: #6f42c1;
+            background: #f3e8ff;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-info { background: #17a2b8; color: white; }
+        .badge-danger { background: #dc3545; color: white; }
+        
+        .selector-display {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 5px;
+            color: #e83e8c;
+            font-size: 12px;
+        }
+        
+        .learned-selector-item {
+            background: #f8f9fa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            z-index: 1000;
+        }
+        
+        .connected {
+            background: #28a745;
+            color: white;
+        }
+        
+        .disconnected {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .example-tests {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .example-tests h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+        
+        .example-tests pre {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+
+        .dmi-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            height: 40px;
+            z-index: 1000;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="/static/dmi_logo.png" alt="DMI Logo" class="dmi-logo">
+    <div class="connection-status disconnected" id="connectionStatus">
+        ⚫ Connecting...
+    </div>
+        <div class="container">
+        <header>
+            <h1>AI Test Automation</h1>
+            <p class="subtitle">Write tests in plain text • Watch real execution • Learn & Reuse selectors</p>
+            <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="/parallel-execution" style="display: inline-block; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s;">
+                    🚀 Parallel Execution
+                </a>
+                <a href="/allure-report" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s;">
+                    📊 Allure Report
+                </a>
+            </div>
+        </header>
+        
+        <div class="grid">
+            <!-- Test Input -->
+            <div class="card">
+                <h2>📝 Test Input</h2>
+                
+                <!-- Gherkin Input Section -->
+                <div class="form-group" style="background: #f0f9ff; padding: 15px; border-radius: 8px; border: 2px solid #667eea; margin-bottom: 15px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">📝 Gherkin Scenario Input</h4>
+                    <p style="font-size: 13px; color: #4b5563; margin-bottom: 10px;">
+                        Paste your Gherkin scenario with <strong>Given/When/Then/And</strong> steps, then click "Generate Test Steps" to convert.
+                    </p>
+                    <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                        <input type="checkbox" id="useGherkinParameters" checked style="width: auto;">
+                        <span>Use parameter placeholders (e.g., <code>%Username%</code> instead of hardcoded values)</span>
+                    </label>
+                    <textarea id="gherkinInput" placeholder="Given the user is on the login page
+When the user enters &quot;admin&quot; into &quot;Username&quot;
+And the user enters &quot;password123&quot; into &quot;Password&quot;
+And the user clicks &quot;Log in&quot;
+Then the user should see &quot;Dashboard&quot;" style="min-height: 200px; font-family: 'Courier New', monospace; font-size: 13px;"></textarea>
+                    <button id="generateGherkinBtn" onclick="generateTestStepsFromGherkin()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-top: 10px;">
+                        🔄 Generate Test Steps from Gherkin
+                    </button>
+                    
+                    <!-- Progress Bar and Status -->
+                    <div id="gherkinProgressContainer" style="display: none; margin-top: 15px;">
+                        <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                <div class="spinner" style="width: 16px; height: 16px; border: 2px solid #667eea; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+                                <span id="gherkinProgressText" style="font-size: 13px; font-weight: 600; color: #667eea;">Processing Gherkin scenario...</span>
+                            </div>
+                            <div style="background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div id="gherkinProgressBar" style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                            </div>
+                            <div id="gherkinProgressLog" style="margin-top: 8px; font-size: 12px; color: #6b7280;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example Tests (Hidden by default, can be toggled) -->
+                <div class="example-tests" style="display: none;" id="exampleTestsSection">
+                    <h4>Example Test Steps (Multiple Formats Supported):</h4>
+                    <pre><strong>Format 1 (Original):</strong>
+Wait for 2 seconds
+Type "test@example.com" into "Username"
+Type "password123" into "Password"
+Click "Log in"
+
+<strong>Format 2 (Simple):</strong>
+fill username with test@example.com
+fill password with password123
+click login button</pre>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <a href="#" onclick="toggleExamples(); return false;" style="font-size: 13px; color: #667eea; text-decoration: none;">
+                        📖 Show/Hide Example Formats
+                    </a>
+                </div>
+                
+                <div class="form-group">
+                    <label>Browser:</label>
+                    <select id="browserSelect" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        <option value="chrome">Chrome</option>
+                        <option value="chromium" selected>Chromium</option>
+                        <option value="chrome-headless">Chrome (Headless)</option>
+                        <option value="edge">Edge</option>
+                        <option value="firefox">Firefox</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Website URL:</label>
+                    <input type="text" id="testUrl" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group" style="background: #fff7ed; padding: 15px; border-radius: 8px; border: 2px solid #fb923c;">
+                    <h4 style="color: #fb923c; margin-bottom: 10px;">🔐 Salesforce MFA Login</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                            <input type="radio" name="mfaOption" value="none" checked>
+                            None
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                            <input type="radio" name="mfaOption" value="dcp-external">
+                            DCP-External
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+                            <input type="radio" name="mfaOption" value="dcp-internal">
+                            DCP-Internal
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Test Steps (one per line):</label>
+                    <textarea id="testSteps" placeholder="fill username with test@example.com
+fill password with password123
+click login button"></textarea>
+                </div>
+
+                <div id="dataGenerationSettings" class="form-group" style="background: #f0f9ff; padding: 15px; border-radius: 8px; border: 2px solid #0ea5e9; display: none;">
+                    <h4 style="color: #0ea5e9; margin-bottom: 10px;">📊 Data Generation Settings (for placeholders like %Field Name%)</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <div>
+                            <label style="font-size: 13px;">Positive Scenarios:</label>
+                            <input type="number" id="positiveScenarios" min="0" value="5" style="padding: 8px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 13px;">Negative Scenarios:</label>
+                            <input type="number" id="negativeScenarios" min="0" value="5" style="padding: 8px;">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-size: 13px;">Data Type for Execution:</label>
+                        <select id="dataTypeSelection" style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                            <option value="positive">Use Positive Data</option>
+                            <option value="negative">Use Negative Data</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="enableRecovery" onchange="toggleRecoveryScenario()">
+                        Enable Recovery Scenario (run if test fails)
+                    </label>
+                </div>
+
+                <div class="form-group" id="recoveryContainer" style="display: none;">
+                    <label>Recovery Scenario Steps (one per line):</label>
+                    <textarea id="recoverySteps" placeholder="close popup
+logout
+navigate to homepage"></textarea>
+                </div>
+                
+                <button id="runTestBtn" onclick="runTest()">
+                    ▶️ Run Test (1st Run: Learn Selectors)
+                </button>
+                
+                <button class="btn-secondary" onclick="runTest()">
+                    🔄 Run Again (2nd Run: Reuse Learned)
+                </button>
+                
+                <button class="btn-ai" onclick="runTestWithAI()">
+                    🤖 Run with Gemini AI (Smart Selectors)
+                </button>
+                
+                <button class="btn-danger" onclick="clearLearning()">
+                    🗑️ Clear Learned Selectors
+                </button>
+            </div>
+            
+            <!-- Learned Selectors -->
+            <div class="card">
+                <h2>🧠 Learned Selectors</h2>
+                <button class="btn-secondary" onclick="loadLearnedSelectors()">
+                    🔄 Refresh
+                </button>
+                <div id="learnedSelectors" style="margin-top: 15px;">
+                    <p style="color: #666;">No selectors learned yet. Run a test to start learning!</p>
+                </div>
+            </div>
+            
+            <!-- Performance Metrics -->
+            <div class="card">
+                <h2>📊 Performance Metrics</h2>
+                <div id="performanceMetrics" style="margin-top: 15px;">
+                    <p style="color: #666;">Run a test to see performance metrics</p>
+                </div>
+            </div>
+
+            <div class="card" id="allureSummaryCard">
+                <h2>📈 Allure Run Summary</h2>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+                    <div style="flex: 1; min-width: 160px; background: #f0f9ff; padding: 12px; border-radius: 10px;">
+                        <div id="allureTotalRuns" style="font-size: 22px; font-weight: bold; color: #0ea5e9;">-</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 4px;">Total Runs</div>
+                    </div>
+                    <div style="flex: 1; min-width: 160px; background: #f0fdf4; padding: 12px; border-radius: 10px;">
+                        <div id="allurePassedRuns" style="font-size: 22px; font-weight: bold; color: #22c55e;">-</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 4px;">Passed</div>
+                    </div>
+                    <div style="flex: 1; min-width: 160px; background: #fef2f2; padding: 12px; border-radius: 10px;">
+                        <div id="allureFailedRuns" style="font-size: 22px; font-weight: bold; color: #dc2626;">-</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 4px;">Failed</div>
+                    </div>
+                </div>
+                <div id="allureSummaryMessage" style="margin-top: 8px; font-size: 12px; color: #666;">Loading Allure summary...</div>
+                <div id="allureLastFailureContainer" style="margin-top: 10px; padding: 10px; border-radius: 8px; border: 1px solid #fecaca; background: #fef2f2; display: none;">
+                    <div style="font-size: 13px; font-weight: 600; color: #b91c1c;">Last failure reason</div>
+                    <div id="allureLastFailureText" style="margin-top: 4px; font-size: 13px; color: #7f1d1d;"></div>
+                    <a id="allureLastFailureLink" href="/allure-report" target="_blank" style="display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 600; color: #b91c1c; text-decoration: underline;">
+                        🔍 Open this failure in Allure
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Execution Log -->
+        <div class="card">
+            <h2>🎬 Live Execution Log</h2>
+            <div class="execution-log" id="executionLog">
+                <p style="color: #666; text-align: center; padding: 20px;">
+                    Waiting for test execution...
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let ws = null;
+        
+        function connectWebSocket() {
+            ws = new WebSocket('ws://localhost:8888/ws/test');
+            
+            ws.onopen = () => {
+                updateConnectionStatus(true);
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleMessage(data);
+            };
+            
+            ws.onclose = () => {
+                updateConnectionStatus(false);
+                setTimeout(connectWebSocket, 3000);
+            };
+        }
+        
+        function updateConnectionStatus(connected) {
+            const status = document.getElementById('connectionStatus');
+            if (connected) {
+                status.className = 'connection-status connected';
+                status.textContent = '🟢 Connected';
+            } else {
+                status.className = 'connection-status disconnected';
+                status.textContent = '🔴 Disconnected';
+            }
+        }
+        
+        function handleMessage(data) {
+            switch(data.type) {
+                case 'test_start':
+                    addLog('info', `Starting test on: ${data.url}`, `Total steps: ${data.total_steps}`);
+                    break;
+                case 'browser_started':
+                    addLog('success', 'Browser started', `Navigated to: ${data.url}`);
+                    break;
+                case 'step_start':
+                    addLog('info', `Step ${data.step_number}: ${data.step_text}`);
+                    break;
+                case 'log_entry':
+                    // Real-time log from executor
+                    const logType = data.level === 'success' ? 'success' : 
+                                   data.level === 'error' ? 'error' : 
+                                   data.level === 'warning' ? 'warning' : 
+                                   data.level === 'recovery' ? 'recovery' : 'info';
+                    const details = data.details && Object.keys(data.details).length > 0 ? 
+                                   JSON.stringify(data.details, null, 2) : '';
+                    addLog(logType, data.message, details);
+                    break;
+                case 'using_learned':
+                    addLog('reuse', `🔄 Using learned selector for: ${data.target}`, 
+                           `Selector: ${data.selector}<br>Used successfully ${data.success_count} times before`);
+                    break;
+                case 'step_success':
+                    if (data.was_learned) {
+                        addLog('success', `✅ Step succeeded using learned selector`, 
+                               `Selector: ${data.selector}`);
+                    } else {
+                        addLog('success', `✅ Step succeeded`, 
+                               `Selector: ${data.selector}`);
+                    }
+                    break;
+                case 'selector_learned':
+                    addLog('learning', `🧠 NEW SELECTOR LEARNED!`, 
+                           `Target: ${data.target}<br>Selector: ${data.selector}<br>Will be reused in next run`);
+                    break;
+                case 'step_failed':
+                    addLog('error', `❌ Step ${data.step_number} failed`);
+                    break;
+                case 'test_stopped':
+                    addLog('error', `🛑 Test execution stopped`, 
+                           `Reason: ${data.reason}<br>Failed step: ${data.failed_step}`);
+                    document.getElementById('runTestBtn').disabled = false;
+                    break;
+                case 'test_complete':
+                    addLog('success', `🎉 Test completed!`, 
+                           `Total learned selectors: ${data.learned_selectors}`);
+                    loadLearnedSelectors();
+                    if (data.performance_metrics) {
+                        displayPerformanceMetrics(data.performance_metrics);
+                    }
+                    document.getElementById('runTestBtn').disabled = false;
+                    loadAllureSummary();
+                    break;
+                case 'test_error':
+                    addLog('error', `Test error: ${data.error}`);
+                    document.getElementById('runTestBtn').disabled = false;
+                    loadAllureSummary();
+                    break;
+            }
+        }
+        
+        function addLog(type, message, details = '') {
+            const log = document.getElementById('executionLog');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>${message}</strong>
+                    <span style="font-size: 11px; color: #666;">${timestamp}</span>
+                </div>
+                ${details ? `<div style="margin-top: 8px; font-size: 13px;">${details}</div>` : ''}
+            `;
+            
+            log.insertBefore(entry, log.firstChild);
+            
+            // Keep only last 50 entries
+            while (log.children.length > 50) {
+                log.removeChild(log.lastChild);
+            }
+        }
+        
+        function toggleRecoveryScenario() {
+            const checkbox = document.getElementById('enableRecovery');
+            const container = document.getElementById('recoveryContainer');
+            if (!checkbox || !container) return;
+            container.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        function hasPlaceholders(text) {
+            if (!text) return false;
+            return /%[^%]+%/.test(text);
+        }
+
+        function updateDataGenerationSettingsVisibility() {
+            const stepsEl = document.getElementById('testSteps');
+            const panel = document.getElementById('dataGenerationSettings');
+            if (!stepsEl || !panel) return;
+            panel.style.display = hasPlaceholders(stepsEl.value) ? 'block' : 'none';
+        }
+
+        async function runTest() {
+            const url = document.getElementById('testUrl').value;
+            const stepsText = document.getElementById('testSteps').value;
+            const steps = stepsText.split('\n').filter(s => s.trim());
+            const browserSelect = document.getElementById('browserSelect');
+            const browser = browserSelect ? browserSelect.value : 'chromium';
+            const headless = browser === 'chrome-headless';
+
+            const enableRecoveryEl = document.getElementById('enableRecovery');
+            const recoveryEnabled = enableRecoveryEl ? enableRecoveryEl.checked : false;
+            const recoveryTextEl = document.getElementById('recoverySteps');
+            const recoverySteps = recoveryEnabled && recoveryTextEl
+                ? recoveryTextEl.value.split('\n').filter(s => s.trim())
+                : [];
+            
+            // Get data generation settings
+            const positiveScenarios = parseInt(document.getElementById('positiveScenarios').value) || 5;
+            const negativeScenarios = parseInt(document.getElementById('negativeScenarios').value) || 5;
+            const dataTypeSelection = document.getElementById('dataTypeSelection').value || 'positive';
+
+            const mfaOptionEl = document.querySelector('input[name="mfaOption"]:checked');
+            const mfaOption = mfaOptionEl ? mfaOptionEl.value : 'none';
+            
+            if (!url || steps.length === 0) {
+                alert('Please enter URL and test steps');
+                return;
+            }
+            
+            document.getElementById('runTestBtn').disabled = true;
+            
+            try {
+                const response = await fetch('/api/execute-test', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        url: url,
+                        steps: steps,
+                        headless: headless,
+                        browser: browser,
+                        recovery_enabled: recoveryEnabled,
+                        recovery_steps: recoverySteps,
+                        positive_scenarios: positiveScenarios,
+                        negative_scenarios: negativeScenarios,
+                        data_type: dataTypeSelection,
+                        mfa_option: mfaOption
+                    })
+                });
+                
+                if (response.ok) {
+                    addLog('info', 'Test execution started...');
+                }
+            } catch (error) {
+                addLog('error', 'Error starting test: ' + error.message);
+                document.getElementById('runTestBtn').disabled = false;
+            }
+        }
+        
+        async function loadLearnedSelectors() {
+            try {
+                const response = await fetch('/api/learned-selectors');
+                const data = await response.json();
+                
+                const container = document.getElementById('learnedSelectors');
+                
+                if (data.total_learned === 0) {
+                    container.innerHTML = '<p style="color: #666;">No selectors learned yet. Run a test to start learning!</p>';
+                    return;
+                }
+                
+                let html = `<p style="margin-bottom: 15px;"><strong>Total Learned: ${data.total_learned}</strong></p>`;
+                
+                data.selectors.forEach((sel, index) => {
+                    html += `
+                        <div class="learned-selector-item">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <strong>${index + 1}. ${sel.target}</strong>
+                                <span class="badge badge-info">Used ${sel.success_count}x</span>
+                            </div>
+                            <div class="selector-display">${sel.selector}</div>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Last used: ${new Date(sel.last_used).toLocaleString()}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Error loading learned selectors:', error);
+            }
+        }
+        
+        function displayPerformanceMetrics(metrics) {
+            const container = document.getElementById('performanceMetrics');
+            
+            const totalTime = metrics.total_time.toFixed(2);
+            const selectorsReused = metrics.selectors_reused || 0;
+            const selectorsLearned = metrics.selectors_learned || 0;
+            const selectorsTried = metrics.selectors_tried || 0;
+            const aiSuggestionsUsed = metrics.ai_suggestions_used || 0;
+            const traditionalSelectorsUsed = metrics.traditional_selectors_used || 0;
+            const totalSteps = metrics.total_steps || 0;
+            
+            // Calculate efficiency
+            const efficiency = selectorsReused > 0 ? 
+                ((selectorsReused / (selectorsReused + selectorsLearned)) * 100).toFixed(0) : 0;
+            
+            // Calculate AI usage percentage
+            const totalSelectors = aiSuggestionsUsed + traditionalSelectorsUsed;
+            const aiUsagePercent = totalSelectors > 0 ? 
+                ((aiSuggestionsUsed / totalSelectors) * 100).toFixed(0) : 0;
+            
+            let html = `
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+                    <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                        <div style="font-size: 24px; font-weight: bold; color: #0ea5e9;">${totalTime}s</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">⏱️ Total Execution Time</div>
+                    </div>
+                    <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                        <div style="font-size: 24px; font-weight: bold; color: #22c55e;">${selectorsReused}</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">🔄 Selectors Reused</div>
+                    </div>
+                    <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <div style="font-size: 24px; font-weight: bold; color: #f59e0b;">${selectorsLearned}</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">🧠 Selectors Learned</div>
+                    </div>
+                    <div style="background: #fce7f3; padding: 15px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                        <div style="font-size: 24px; font-weight: bold; color: #ec4899;">${efficiency}%</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">📊 Reuse Efficiency</div>
+                    </div>
+                    <div style="background: #f3e8ff; padding: 15px; border-radius: 8px; border-left: 4px solid #9333ea;">
+                        <div style="font-size: 24px; font-weight: bold; color: #9333ea;">${aiUsagePercent}%</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">🤖 Gemini AI Usage</div>
+                    </div>
+                    <div style="background: #ede9fe; padding: 15px; border-radius: 8px; border-left: 4px solid #7c3aed;">
+                        <div style="font-size: 24px; font-weight: bold; color: #7c3aed;">${aiSuggestionsUsed}/${totalSelectors}</div>
+                        <div style="font-size: 13px; color: #666; margin-top: 5px;">💡 AI Suggestions Used</div>
+                    </div>
+                </div>
+            `;
+            
+            // Add AI Usage Details section
+            if (aiSuggestionsUsed > 0 || metrics.ai_details) {
+                html += `
+                    <div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 2px solid #9333ea;">
+                        <h4 style="color: #9333ea; margin-bottom: 10px;">🤖 Gemini AI Details</h4>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">AI Suggestions Used</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #9333ea;">${aiSuggestionsUsed}</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">Traditional Selectors</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #0ea5e9;">${traditionalSelectorsUsed}</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">AI Success Rate</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #22c55e;">${aiSuggestionsUsed > 0 ? '100' : '0'}%</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 5px;">
+                                <div style="font-size: 12px; color: #666;">Total Elements Found</div>
+                                <div style="font-size: 18px; font-weight: bold; color: #6366f1;">${totalSelectors}</div>
+                            </div>
+                        </div>
+                `;
+                
+                if (aiSuggestionsUsed > 0) {
+                    html += `
+                        <div style="margin-top: 10px; padding: 10px; background: #fef3c7; border-radius: 5px; border-left: 4px solid #f59e0b;">
+                            <div style="font-size: 12px; font-weight: bold; color: #92400e;">💡 AI Impact</div>
+                            <div style="font-size: 11px; color: #78350f; margin-top: 5px;">
+                                Gemini AI helped find ${aiSuggestionsUsed} difficult element${aiSuggestionsUsed > 1 ? 's' : ''} that traditional selectors couldn't locate.
+                                ${aiUsagePercent}% of elements required AI assistance.
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div style="margin-top: 10px; padding: 10px; background: #d1fae5; border-radius: 5px; border-left: 4px solid #22c55e;">
+                            <div style="font-size: 12px; font-weight: bold; color: #065f46;">✅ Excellent!</div>
+                            <div style="font-size: 11px; color: #047857; margin-top: 5px;">
+                                All elements were found using traditional selectors. AI was not needed for this test.
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+            }
+            
+            html += ``;
+            
+            // Add step timings breakdown
+            if (metrics.step_timings && metrics.step_timings.length > 0) {
+                html += `
+                    <div style="margin-top: 20px;">
+                        <h4 style="margin-bottom: 10px;">⏱️ Step Timings:</h4>
+                        <div style="max-height: 200px; overflow-y: auto;">
+                `;
+                
+                metrics.step_timings.forEach((timing, index) => {
+                    const statusIcon = timing.success ? '✅' : '❌';
+                    const timeColor = timing.time > 5 ? '#ef4444' : timing.time > 2 ? '#f59e0b' : '#22c55e';
+                    html += `
+                        <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #e5e7eb;">
+                            <span style="font-size: 13px;">${statusIcon} Step ${index + 1}</span>
+                            <span style="font-size: 13px; font-weight: bold; color: ${timeColor};">${timing.time.toFixed(2)}s</span>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        async function runTestWithAI() {
+            const url = document.getElementById('testUrl').value;
+            const stepsText = document.getElementById('testSteps').value;
+            const steps = stepsText.split('\n').filter(s => s.trim());
+            const browserSelect = document.getElementById('browserSelect');
+            const browser = browserSelect ? browserSelect.value : 'chromium';
+            const headless = browser === 'chrome-headless';
+
+            const enableRecoveryEl = document.getElementById('enableRecovery');
+            const recoveryEnabled = enableRecoveryEl ? enableRecoveryEl.checked : false;
+            const recoveryTextEl = document.getElementById('recoverySteps');
+            const recoverySteps = recoveryEnabled && recoveryTextEl
+                ? recoveryTextEl.value.split('\n').filter(s => s.trim())
+                : [];
+            
+            // Get data generation settings
+            const positiveScenarios = parseInt(document.getElementById('positiveScenarios').value) || 5;
+            const negativeScenarios = parseInt(document.getElementById('negativeScenarios').value) || 5;
+            const dataTypeSelection = document.getElementById('dataTypeSelection').value || 'positive';
+
+            const mfaOptionEl = document.querySelector('input[name="mfaOption"]:checked');
+            const mfaOption = mfaOptionEl ? mfaOptionEl.value : 'none';
+            
+            if (!url || steps.length === 0) {
+                alert('Please enter URL and test steps');
+                return;
+            }
+            
+            // Check if Gemini AI is enabled
+            try {
+                const statusResponse = await fetch('/api/gemini-status');
+                const status = await statusResponse.json();
+                
+                if (!status.enabled) {
+                    addLog('warning', '⚠️ Gemini AI is not enabled', 
+                           'Set GEMINI_API_KEY environment variable and restart server');
+                    if (!confirm('Gemini AI is not enabled. Run test anyway with traditional selectors?')) {
+                        return;
+                    }
+                } else {
+                    addLog('info', '🤖 Gemini AI is ENABLED', 
+                           'AI will be consulted if traditional selectors fail');
+                }
+            } catch (error) {
+                console.error('Error checking Gemini status:', error);
+            }
+            
+            document.getElementById('runTestBtn').disabled = true;
+            
+            try {
+                const response = await fetch('/api/execute-test', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        url: url,
+                        steps: steps,
+                        headless: headless,
+                        browser: browser,
+                        use_ai: true,  // Flag to indicate AI should be used
+                        recovery_enabled: recoveryEnabled,
+                        recovery_steps: recoverySteps,
+                        positive_scenarios: positiveScenarios,
+                        negative_scenarios: negativeScenarios,
+                        data_type: dataTypeSelection,
+                        mfa_option: mfaOption
+                    })
+                });
+                
+                if (response.ok) {
+                    addLog('info', '🤖 Test execution started with Gemini AI...');
+                }
+            } catch (error) {
+                addLog('error', 'Error starting test: ' + error.message);
+                document.getElementById('runTestBtn').disabled = false;
+            }
+        }
+        
+        async function loadAllureSummary() {
+            try {
+                const response = await fetch('/api/allure-summary');
+                if (!response.ok) {
+                    throw new Error('Failed to load Allure summary');
+                }
+                const data = await response.json();
+                const totalEl = document.getElementById('allureTotalRuns');
+                const passedEl = document.getElementById('allurePassedRuns');
+                const failedEl = document.getElementById('allureFailedRuns');
+                const messageEl = document.getElementById('allureSummaryMessage');
+                const total = data && typeof data.total === 'number' ? data.total : 0;
+                const passed = data && typeof data.passed === 'number' ? data.passed : 0;
+                const failed = data && typeof data.failed === 'number' ? data.failed : 0;
+                if (totalEl) totalEl.textContent = total;
+                if (passedEl) passedEl.textContent = passed;
+                if (failedEl) failedEl.textContent = failed;
+                if (messageEl) {
+                    if (total === 0) {
+                        messageEl.textContent = 'No Allure results found yet. Run tests to generate data.';
+                    } else {
+                        messageEl.textContent = 'Summary based on Allure results.';
+                    }
+                }
+
+                const failureContainer = document.getElementById('allureLastFailureContainer');
+                const failureText = document.getElementById('allureLastFailureText');
+                const failureLink = document.getElementById('allureLastFailureLink');
+                const lastName = data && data.last_failed_name ? String(data.last_failed_name) : '';
+                const lastMessage = data && data.last_failed_message ? String(data.last_failed_message) : '';
+                const lastUuid = data && data.last_failed_uuid ? String(data.last_failed_uuid) : '';
+                if (failureContainer && failureText) {
+                    if (failed > 0 && lastMessage) {
+                        failureContainer.style.display = 'block';
+                        failureText.textContent = lastName ? `${lastName}: ${lastMessage}` : lastMessage;
+                        if (failureLink) {
+                            if (lastUuid) {
+                                failureLink.style.display = 'inline-block';
+                                failureLink.href = `/allure-report#/testcase/${lastUuid}`;
+                            } else {
+                                // Fallback: just open the main Allure report
+                                failureLink.style.display = 'inline-block';
+                                failureLink.href = '/allure-report';
+                            }
+                        }
+                    } else {
+                        failureContainer.style.display = 'none';
+                        failureText.textContent = '';
+                        if (failureLink) {
+                            failureLink.style.display = 'none';
+                        }
+                    }
+                }
+            } catch (error) {
+                const messageEl = document.getElementById('allureSummaryMessage');
+                if (messageEl) {
+                    messageEl.textContent = 'Unable to load Allure summary.';
+                }
+            }
+        }
+
+        async function clearLearning() {
+            if (!confirm('Clear all learned selectors? You will need to learn them again.')) {
+                return;
+            }
+            
+            try {
+                await fetch('/api/learned-selectors', {method: 'DELETE'});
+                addLog('info', 'Cleared all learned selectors');
+                loadLearnedSelectors();
+                // Clear performance metrics
+                document.getElementById('performanceMetrics').innerHTML = '<p style="color: #666;">Run a test to see performance metrics</p>';
+            } catch (error) {
+                addLog('error', 'Error clearing selectors: ' + error.message);
+            }
+        }
+
+        // Toggle example tests visibility
+        function toggleExamples() {
+            const examplesSection = document.getElementById('exampleTestsSection');
+            if (examplesSection) {
+                examplesSection.style.display = examplesSection.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // Generate test steps from Gherkin input
+        async function generateTestStepsFromGherkin() {
+            const gherkinInput = document.getElementById('gherkinInput');
+            const testStepsTextarea = document.getElementById('testSteps');
+            const useParameters = document.getElementById('useGherkinParameters').checked;
+            const progressContainer = document.getElementById('gherkinProgressContainer');
+            const progressBar = document.getElementById('gherkinProgressBar');
+            const progressText = document.getElementById('gherkinProgressText');
+            const progressLog = document.getElementById('gherkinProgressLog');
+            const generateBtn = document.getElementById('generateGherkinBtn');
+            
+            const gherkinText = gherkinInput.value.trim();
+            
+            if (!gherkinText) {
+                addLog('error', 'Please enter Gherkin scenario text');
+                return;
+            }
+            
+            // Show progress container and disable button
+            progressContainer.style.display = 'block';
+            generateBtn.disabled = true;
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Initializing conversion...';
+            progressLog.textContent = '';
+            
+            addLog('info', '🔄 Starting Gherkin to test steps conversion...');
+            
+            try {
+                // Update progress: Parsing Gherkin
+                progressBar.style.width = '20%';
+                progressText.textContent = 'Parsing Gherkin scenario...';
+                progressLog.textContent = 'Analyzing Given/When/Then/And steps';
+                addLog('info', '📝 Parsing Gherkin scenario...');
+                
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                // Update progress: Sending to AI
+                progressBar.style.width = '40%';
+                progressText.textContent = 'Sending to AI service...';
+                progressLog.textContent = 'Connecting to AITestGenerator on port 3000';
+                addLog('info', '🤖 Connecting to AI service...');
+                
+                const response = await fetch('/api/convert-gherkin-steps', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        gherkin_text: gherkinText,
+                        use_parameters: useParameters
+                    })
+                });
+                
+                // Update progress: Processing AI response
+                progressBar.style.width = '70%';
+                progressText.textContent = 'AI is generating test steps...';
+                progressLog.textContent = 'Using GPT-4 to convert Gherkin to automation steps';
+                addLog('info', '⚙️ AI processing Gherkin scenario...');
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    progressBar.style.width = '100%';
+                    progressText.textContent = 'Error occurred';
+                    progressLog.textContent = data.error || 'Conversion failed';
+                    addLog('error', data.error || 'Error converting Gherkin');
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                        generateBtn.disabled = false;
+                    }, 3000);
+                    return;
+                }
+                
+                // Update progress: Formatting steps
+                progressBar.style.width = '90%';
+                progressText.textContent = 'Formatting test steps...';
+                progressLog.textContent = `Processing ${data.total_steps} generated steps`;
+                addLog('info', `📋 Formatting ${data.total_steps} test steps...`);
+                
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                // Populate test steps textarea
+                if (data.steps && data.steps.length > 0) {
+                    testStepsTextarea.value = data.steps.join('\n');
+                    
+                    // Update progress: Complete
+                    progressBar.style.width = '100%';
+                    progressText.textContent = '✅ Conversion complete!';
+                    progressLog.textContent = `Successfully generated ${data.total_steps} test steps from Gherkin scenario`;
+                    
+                    const source = data.source || 'Unknown';
+                    addLog('success', `✅ Generated ${data.total_steps} test steps from Gherkin scenario (Source: ${source})`);
+                    
+                    // Trigger the data generation settings visibility check
+                    updateDataGenerationSettingsVisibility();
+                    
+                    // Hide progress after 3 seconds
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                    }, 3000);
+                } else {
+                    progressBar.style.width = '100%';
+                    progressText.textContent = 'No steps generated';
+                    progressLog.textContent = 'AI returned empty response';
+                    addLog('warning', 'No test steps generated');
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                    }, 3000);
+                }
+                
+            } catch (error) {
+                progressBar.style.width = '100%';
+                progressText.textContent = '❌ Error occurred';
+                progressLog.textContent = error.message;
+                addLog('error', 'Error converting Gherkin: ' + error.message);
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                }, 3000);
+            } finally {
+                generateBtn.disabled = false;
+            }
+        }
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            connectWebSocket();
+            loadLearnedSelectors();
+            loadAllureSummary();
+            updateDataGenerationSettingsVisibility();
+            const stepsEl = document.getElementById('testSteps');
+            if (stepsEl) {
+                stepsEl.addEventListener('input', updateDataGenerationSettingsVisibility);
+                stepsEl.addEventListener('change', updateDataGenerationSettingsVisibility);
+            }
+        });
+    </script>
+</body>
+</html>

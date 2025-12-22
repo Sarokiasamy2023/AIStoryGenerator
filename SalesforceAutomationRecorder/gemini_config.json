@@ -1,0 +1,35 @@
+{
+  "gemini_ai": {
+    "enabled": true,
+    "model": "gemini-pro",
+    "max_retries": 3,
+    "timeout_seconds": 30,
+    "cache_enabled": true,
+    "cache_ttl_hours": 24,
+    "learning_history_enabled": true,
+    "learning_history_file": "gemini_learning_history.json"
+  },
+  "selector_strategies": {
+    "use_traditional_first": true,
+    "traditional_timeout_ms": 2000,
+    "ai_timeout_ms": 3000,
+    "max_traditional_attempts": 10,
+    "max_ai_suggestions": 15
+  },
+  "performance": {
+    "track_metrics": true,
+    "save_screenshots_on_failure": true,
+    "debug_mode": false,
+    "verbose_logging": true
+  },
+  "api_limits": {
+    "max_requests_per_minute": 60,
+    "max_html_length": 8000,
+    "enable_rate_limiting": true
+  },
+  "fallback": {
+    "use_traditional_on_ai_failure": true,
+    "suggest_alternatives": true,
+    "max_alternatives": 5
+  }
+}

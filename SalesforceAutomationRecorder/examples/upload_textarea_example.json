@@ -1,0 +1,17 @@
+{
+  "test_name": "File Upload and Textarea Example",
+  "url": "https://your-salesforce-instance.lightning.force.com",
+  "steps": [
+    "Wait for 3 seconds",
+    "Click \"New Record\"",
+    "Wait for 2 seconds",
+    "Type \"Test User\" into \"Name\"",
+    "Type \"test@example.com\" into \"Email\"",
+    "Fill textarea \"Description\" with \"This is a test description with multiple lines of text. It demonstrates the textarea functionality.\"",
+    "Upload \"test_files/sample_document.pdf\" to \"Document Upload\"",
+    "Wait for 2 seconds",
+    "Click \"Save\"",
+    "Wait for 2 seconds",
+    "Verify \"Record saved successfully\" is visible"
+  ]
+}

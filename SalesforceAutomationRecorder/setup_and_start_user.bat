@@ -1,0 +1,58 @@
+@echo off
+echo ======================================================================
+echo   Salesforce Automation Recorder - Full Setup and Start (User Mode)
+echo ======================================================================
+echo.
+
+REM Step 1: Install Dependencies with --user flag
+echo [1/3] Installing Python dependencies (user mode)...
+echo ======================================================================
+pip install --user -r requirements.txt
+if errorlevel 1 (
+    echo ERROR: Failed to install Python dependencies!
+    pause
+    exit /b 1
+)
+echo   Python dependencies installed successfully
+echo.
+
+echo [2/3] Installing Playwright Chromium...
+echo ======================================================================
+playwright install chromium
+if errorlevel 1 (
+    echo ERROR: Failed to install Playwright Chromium!
+    pause
+    exit /b 1
+)
+echo   Playwright Chromium installed successfully
+echo.
+
+REM Step 2: Kill existing sessions
+echo [3/3] Killing any existing server sessions on port 8888...
+echo ======================================================================
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :8888 2^>nul') do (
+    echo   Killing PID: %%a
+    taskkill /F /PID %%a >nul 2>&1
+)
+timeout /t 2 /nobreak >nul
+echo   Existing sessions terminated
+echo.
+
+REM Step 3: Set API Key (optional)
+echo Setting Gemini API Key...
+set GEMINI_API_KEY=AIzaSyCPRLzHy2fmpjWX_n7odENX3K5U3hbUUnQ
+echo   API Key: SET
+echo.
+
+REM Step 4: Start new server session
+echo ======================================================================
+echo   Starting New Server Session on Port 8888
+echo ======================================================================
+echo.
+echo Server will be available at: http://localhost:8888
+echo Press Ctrl+C to stop the server
+echo.
+
+python ui_real_test_server.py
+
+pause

@@ -1,0 +1,20 @@
+{
+  "filename": "my_test_20251023_161505.webm",
+  "path": "test_videos\\my_test_20251023_161505.webm",
+  "test_name": "my_test",
+  "start_time": "2025-10-23T16:15:05.530643",
+  "annotations": [
+    {
+      "step_index": 1,
+      "action": "click",
+      "selector": "button:has-text(\"HSD PERFORMANCE REPORTS\"), a:has-",
+      "success": false,
+      "timestamp": "2025-10-23T16:15:26.609644",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 21.079001
+    }
+  ],
+  "end_time": "2025-10-23T16:15:31.425256",
+  "duration": 25.894613
+}

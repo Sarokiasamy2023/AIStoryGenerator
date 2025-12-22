@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gherkin Analysis - Convert Scenarios to Test Steps</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f5f7;
+            color: #222;
+        }
+        header {
+            background: #1f2933;
+            color: #fff;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 24px auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+            padding: 16px 20px;
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        textarea {
+            width: 100%;
+            min-height: 400px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 12px;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .status {
+            font-size: 13px;
+            color: #4b5563;
+            margin-top: 8px;
+        }
+        .steps-output {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .copy-btn {
+            background: #059669;
+            margin-left: 8px;
+        }
+        .copy-btn:hover {
+            background: #047857;
+        }
+        .example-link {
+            color: #2563eb;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+        .example-link:hover {
+            color: #1d4ed8;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div>
+        <h1 style="margin: 0; font-size: 20px;">Gherkin Analysis</h1>
+        <div style="font-size: 12px; color: #9ca3af;">Convert Gherkin scenarios (Given/When/Then/And) to executable test steps</div>
+    </div>
+</header>
+<div class="container">
+    <div class="card">
+        <h2>Input: Gherkin Scenario</h2>
+        <p style="font-size: 13px; color: #4b5563;">
+            Paste your Gherkin scenario with <strong>Given/When/Then/And</strong> steps.
+            <span class="example-link" onclick="loadExample()">Load example</span>
+        </p>
+        <div style="margin-bottom: 8px;">
+            <label style="font-size: 13px; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="useParameters" checked style="width: auto;">
+                <span>Use parameter placeholders (e.g., <code>%Username%</code> instead of hardcoded values)</span>
+            </label>
+        </div>
+        <textarea id="gherkinInput" placeholder="Given the user is on the login page
+When the user enters the username &quot;admin&quot;
+And the user enters the password &quot;password123&quot;
+And the user clicks &quot;Log in&quot;
+Then the user should see &quot;Dashboard&quot;"></textarea>
+        <div>
+            <button onclick="convertGherkin()">🔄 Convert to Test Steps</button>
+            <button class="copy-btn" onclick="copyInput()">📋 Copy Input</button>
+        </div>
+        <div id="status" class="status"></div>
+    </div>
+
+    <div class="card">
+        <h2>Output: Executable Test Steps</h2>
+        <p style="font-size: 13px; color: #4b5563;">
+            Generated test steps ready to use with your test executor.
+        </p>
+        <div id="stepsOutput" class="steps-output">No steps generated yet.</div>
+        <div>
+            <button class="copy-btn" onclick="copyOutput()">📋 Copy All Steps</button>
+        </div>
+    </div>
+
+    <div class="card full-width">
+        <h2>Supported Patterns</h2>
+        <div style="font-size: 13px; line-height: 1.6;">
+            <strong>Login:</strong>
+            <ul>
+                <li><code>enters the username "value"</code> → <code>Type "value" into "Username"</code></li>
+                <li><code>enters the password "value"</code> → <code>Type "value" into "Password"</code></li>
+            </ul>
+            <strong>Navigation:</strong>
+            <ul>
+                <li><code>clicks "button"</code> → <code>Click "button"</code></li>
+                <li><code>navigates to "page"</code> → <code>Click "page"</code> + Wait</li>
+                <li><code>opens "item"</code> → <code>Click "item"</code> + Wait</li>
+                <li><code>selects "option"</code> → <code>Click "option"</code> + Wait</li>
+            </ul>
+            <strong>Data Entry:</strong>
+            <ul>
+                <li><code>enters "value" into field</code> → <code>Type "value" into "field"</code></li>
+                <li><code>enters ... data:</code> (with table) → Multiple Type steps + Click "Next"</li>
+                <li><code>checks "checkbox"</code> → <code>Check "checkbox"</code></li>
+                <li><code>selects "option" for field</code> → <code>select "option" from Dropdown "field"</code></li>
+            </ul>
+            <strong>Verification:</strong>
+            <ul>
+                <li><code>should see "text"</code> → <code>Verify "text"</code></li>
+                <li><code>displays the ... text</code> → <code>Verify "..."</code></li>
+            </ul>
+            <strong>File Upload:</strong>
+            <ul>
+                <li><code>uploads the ... file</code> → <code>Upload file "..." to "Upload Files"</code> + Click "Done"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+async function convertGherkin() {
+    const inputEl = document.getElementById('gherkinInput');
+    const outputEl = document.getElementById('stepsOutput');
+    const statusEl = document.getElementById('status');
+    const useParametersEl = document.getElementById('useParameters');
+
+    const gherkinText = inputEl.value.trim();
+
+    if (!gherkinText) {
+        statusEl.textContent = 'Please enter Gherkin scenario text.';
+        return;
+    }
+
+    statusEl.textContent = 'Converting...';
+    outputEl.textContent = 'Processing...';
+
+    try {
+        const resp = await fetch('/api/convert-gherkin-steps', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                gherkin_text: gherkinText,
+                use_parameters: useParametersEl.checked
+            })
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+            statusEl.textContent = data.error || 'Error converting Gherkin.';
+            outputEl.textContent = JSON.stringify(data, null, 2);
+            return;
+        }
+
+        statusEl.textContent = `✅ Generated ${data.total_steps} test steps from ${data.gherkin_count} Gherkin steps.`;
+
+        if (!data.steps || data.steps.length === 0) {
+            outputEl.textContent = 'No steps generated.';
+            return;
+        }
+
+        // Format output
+        outputEl.textContent = data.steps.join('\n');
+
+    } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Unexpected error converting Gherkin.';
+        outputEl.textContent = String(err);
+    }
+}
+
+function copyInput() {
+    const inputEl = document.getElementById('gherkinInput');
+    navigator.clipboard.writeText(inputEl.value);
+    alert('Input copied to clipboard!');
+}
+
+function copyOutput() {
+    const outputEl = document.getElementById('stepsOutput');
+    navigator.clipboard.writeText(outputEl.textContent);
+    alert('Test steps copied to clipboard!');
+}
+
+function loadExample() {
+    const exampleGherkin = `Given the user is on the PARS login page
+When the user enters the username "sarokiasamy2@dmigs.com.dcp.dcpuat"
+And the user enters the password "Grantee@123"
+And the user clicks "Log in"
+And the user acknowledges the terms by clicking "I Disagree"
+And the user clicks "Next"
+And the user clicks "Finish"
+
+When the user navigates to "CBD PERFORMANCE REPORTS"
+And the user selects "Recently Viewed"
+And the user opens "In Progress Reports"
+And the user opens the report "CBD-01361"
+
+When the user opens "Form 1: Demographics"
+Then the system displays the OMB information text
+
+When the user clicks "Next"
+
+When the user enters demographics data:
+      | Number of Counties Served | 3     |
+      | Target Population         | 34000 |
+      | Full Patient Panel        | 158   |
+And the user enters "Loudoun" into the Counties Served field
+And the user uploads the demographics file
+And the user clicks "Done"
+And the user enters "Test Comments" into the comments field
+And the user selects "No" for Changes to Target Population Measures
+And the user clicks "Next"`;
+
+    document.getElementById('gherkinInput').value = exampleGherkin;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+Test the complete HSD Performance Reports workflow:
+
+Navigation:
+- Click on "HSD PERFORMANCE REPORTS"
+- Wait for page to load
+- Click "Recently Viewed" 
+- Click "In Progress Reports"
+- Click on report "HSD-01059"
+- Click "Edit" button
+- Click "Next" to proceed to form
+
+Form Filling:
+- Enter "5110" in Number of people on listserv field
+- Enter "0" in Number of people receiving newsletter field
+- Enter "0" in Newsletter issues per year field
+- Enter "54" in Listserv posts per year field
+- Enter "22016" in Website hits field
+
+Dropdown Selections:
+- Select "No" from "Is the audience/membership for the listserv the same as for the newsletter?"
+- Select "Interactive" from "Is the listserv one-way information or interactive?"
+- Select "NA/None" from Articles dropdown
+- Select "Hosted or Co-Hosted" from Conferences dropdown
+- Select "New" from Fact Sheets dropdown
+- Select "New" from Maps dropdown
+- Select "New" from Newsletter dropdown
+- Select "New" from Toolkits dropdown
+- Select "New" from Webinars dropdown
+- Select "New" from Websites dropdown
+
+Submission:
+- Click "Next" button
+- Click "Next" again to submit the form
+- Verify successful submission

@@ -1,0 +1,15 @@
+{
+  "test_name": "Both Textarea Syntaxes Work",
+  "url": "https://your-salesforce-instance.lightning.force.com",
+  "steps": [
+    "Wait for 2 seconds",
+    "Type \"Loudoun\" into \"Please specify the names of the counties served.\"",
+    "Wait for 1 second",
+    "Click \"Next\""
+  ],
+  "notes": [
+    "This example shows that 'Type ... into' syntax works for textareas.",
+    "The system automatically detects it's a textarea and uses enhanced strategies.",
+    "Alternative syntax: Fill textarea \"counties served\" with \"Loudoun\""
+  ]
+}

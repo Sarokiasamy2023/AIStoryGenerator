@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Automation Recorder - Control Panel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" fill="#667eea" stroke="#764ba2" stroke-width="2"/>
+                    <circle cx="20" cy="20" r="8" fill="white"/>
+                    <circle cx="20" cy="20" r="4" fill="#667eea"/>
+                </svg>
+                <h1>Salesforce Automation Recorder</h1>
+            </div>
+            <div class="status-badge" id="status-badge">
+                <span class="status-dot"></span>
+                <span id="status-text">Ready</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Configuration Section -->
+            <section class="card">
+                <h2>📋 Configuration</h2>
+                <div class="form-group">
+                    <label for="url-input">Salesforce URL</label>
+                    <input 
+                        type="url" 
+                        id="url-input" 
+                        placeholder="https://your-instance.lightning.force.com"
+                        value="https://login.salesforce.com"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="output-input">Output Filename</label>
+                    <input 
+                        type="text" 
+                        id="output-input" 
+                        placeholder="recording_output.json"
+                        value="recording_output.json"
+                    >
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="auto-save" checked>
+                        <span>Auto-save on stop</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="capture-screenshots" checked>
+                        <span>Capture screenshots</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Control Section -->
+            <section class="card">
+                <h2>🎮 Controls</h2>
+                <div class="button-group">
+                    <button class="btn btn-primary" id="start-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <circle cx="10" cy="10" r="8"/>
+                        </svg>
+                        Start Recording
+                    </button>
+                    <button class="btn btn-danger" id="stop-btn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <rect x="4" y="4" width="12" height="12"/>
+                        </svg>
+                        Stop Recording
+                    </button>
+                    <button class="btn btn-success" id="export-btn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 3v10m0 0l-4-4m4 4l4-4M3 17h14"/>
+                        </svg>
+                        Export JSON
+                    </button>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="card">
+                <h2>📊 Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-interactions">0</div>
+                        <div class="stat-label">Total Interactions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="lightning-count">0</div>
+                        <div class="stat-label">Lightning</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="omniscript-count">0</div>
+                        <div class="stat-label">OmniScript</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="recording-time">00:00</div>
+                        <div class="stat-label">Recording Time</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Captured Interactions Section -->
+            <section class="card">
+                <h2>📝 Captured Interactions</h2>
+                <div class="interactions-header">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Search interactions..."
+                        class="search-input"
+                    >
+                    <button class="btn btn-secondary btn-sm" id="clear-btn">Clear All</button>
+                </div>
+                <div class="interactions-list" id="interactions-list">
+                    <div class="empty-state">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="32" cy="32" r="30" stroke="#e0e0e0" stroke-width="2"/>
+                            <path d="M32 20v24M20 32h24" stroke="#e0e0e0" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <p>No interactions captured yet</p>
+                        <small>Start recording to capture user interactions</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JSON Preview Section -->
+            <section class="card">
+                <h2>🔍 JSON Preview</h2>
+                <div class="json-preview">
+                    <pre id="json-output"><code>[]</code></pre>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="copy-json-btn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4 2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4a2 2 0 012-2z"/>
+                    </svg>
+                    Copy JSON
+                </button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Salesforce Automation Recorder v1.0 | Built with Playwright & Python</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "HSD_Complete_Workflow",
+  "description": "Complete HSD form workflow test",
+  "login": {
+    "url": "https://hrsa-dcpaas--dcpuat.sandbox.my.site.com/pars/s/login/",
+    "username": "your_username",
+    "password": "your_password"
+  },
+  "steps": [
+    {
+      "action": "click",
+      "selector": "text=HSD PERFORMANCE REPORTS",
+      "description": "Click HSD Performance Reports"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"Edit\"), a:has-text(\"Edit\")",
+      "description": "Click Edit button"
+    },
+    {
+      "action": "fill",
+      "selector": "label:has-text(\"Number of people on listserv\") >> xpath=following::input[1]",
+      "value": "100",
+      "description": "Fill number of people"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Status\") >> xpath=following::select[1]",
+      "value": "Active",
+      "description": "Select status"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"Save\")",
+      "description": "Click Save button"
+    },
+    {
+      "action": "wait",
+      "value": "2",
+      "description": "Wait for save to complete"
+    }
+  ]
+}

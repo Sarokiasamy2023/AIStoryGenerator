@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Test Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .panel h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .step-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .step-info {
+            flex: 1;
+        }
+        
+        .step-number {
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 10px;
+        }
+        
+        .step-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .logs {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-running {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .status-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status-idle {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .quick-selectors {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .quick-selectors h3 {
+            font-size: 14px;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .quick-selectors code {
+            display: block;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-size: 12px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Salesforce Test Builder</h1>
+            <p>Build and run your tests visually - No coding required!</p>
+        </div>
+        
+        <div class="content">
+            <!-- Left Panel: Build Test -->
+            <div class="panel">
+                <h2>📝 Build Your Test</h2>
+                
+                <div class="form-group">
+                    <label>Test Name:</label>
+                    <input type="text" id="testName" placeholder="My Test Scenario" value="My Test">
+                </div>
+                
+                <div class="form-group">
+                    <label>🤖 AI Test Generator (Optional - Gemini):</label>
+                    <div id="geminiStatus" style="padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                        <small>Checking Gemini status...</small>
+                    </div>
+                    <textarea id="aiDescription" rows="4" placeholder="Describe your test in plain English:
+
+Example: Test the HSD form workflow - navigate to reports, edit a record, fill all required fields with test data, and submit the form"></textarea>
+                    <button class="btn btn-secondary" onclick="generateTestWithAI()" style="width: 100%; margin-top: 10px;">
+                        🤖 Generate Test with AI
+                    </button>
+                    <small style="color: #666; display: block; margin-top: 5px;">
+                        💡 <strong>Setup:</strong> Get free API key at <a href="https://ai.google.dev/" target="_blank">ai.google.dev</a> (See GEMINI_SETUP.md)
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label>🔐 Login Configuration (Optional):</label>
+                    <input type="text" id="loginUrl" placeholder="URL (e.g., https://example.com)" style="margin-bottom: 5px;">
+                    <input type="text" id="loginUsername" placeholder="Username (optional)" style="margin-bottom: 5px;">
+                    <input type="password" id="loginPassword" placeholder="Password (optional)">
+                    <small style="color: #666;">
+                        💡 <strong>Options:</strong><br>
+                        • Leave all blank = Default Salesforce login<br>
+                        • URL only = Navigate without login<br>
+                        • URL + credentials = Login to custom app
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label>📄 Paste Your Test in Plain English:</label>
+                    <p style="background: #fff3cd; padding: 10px; border-radius: 5px; font-size: 13px; margin-bottom: 10px;">
+                        ⚠️ <strong>Note:</strong> Login is handled automatically! Only add steps AFTER login.
+                    </p>
+                    <textarea id="plainEnglishInput" rows="15" placeholder="Example (steps AFTER login):
+Click &quot;HSD PERFORMANCE REPORTS&quot;
+Wait for 2 seconds
+Click &quot;HSD-01059&quot;
+Type &quot;5110&quot; into Number of people on listserv
+Select &quot;Yes&quot; from Dropdown Is the audience
+Click &quot;Submit&quot;"></textarea>
+                </div>
+                
+                <button class="btn btn-primary" onclick="convertPlainEnglish()" style="width: 100%; font-size: 18px; padding: 15px;">
+                    🔄 Convert to Test Steps
+                </button>
+                
+                <div class="quick-selectors" style="margin-top: 15px;">
+                    <h3>💡 Supported Commands:</h3>
+                    <code>Click "Button Name"</code>
+                    <code>Type "text" into Field Name</code>
+                    <code>Select "Option" from Dropdown Field</code>
+                    <code>Wait for 2 seconds</code>
+                    <code>Check "Checkbox Name"</code>
+                </div>
+                
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">📋 Generated Test Steps:</h3>
+                <div id="stepsList"></div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="runTest()">▶️ Run Test</button>
+                    <button class="btn btn-secondary" onclick="saveTest()">💾 Save Test</button>
+                    <button class="btn btn-danger" onclick="clearSteps()">🗑️ Clear All</button>
+                </div>
+            </div>
+            
+            <!-- Right Panel: Test Output -->
+            <div class="panel">
+                <h2>📊 Test Execution 
+                    <span id="statusBadge" class="status-badge status-idle">Idle</span>
+                </h2>
+                <div class="logs" id="logs">
+                    Waiting for test execution...
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let steps = [];
+        let statusInterval = null;
+        
+        function convertPlainEnglish() {
+            const text = document.getElementById('plainEnglishInput').value;
+            if (!text.trim()) {
+                alert('Please enter test steps in plain English');
+                return;
+            }
+            
+            steps = [];
+            const lines = text.split('\n');
+            
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (!trimmed || trimmed.startsWith('#')) continue;
+                
+                // Click
+                if (trimmed.toLowerCase().startsWith('click')) {
+                    const match = trimmed.match(/click\s+"([^"]+)"/i);
+                    if (match) {
+                        const element = match[1];
+                        let selector;
+                        
+                        if (element.toLowerCase() === 'next') selector = 'button:has-text("Next")';
+                        else if (element.toLowerCase() === 'finish') selector = 'button:has-text("Finish")';
+                        else if (element.toLowerCase() === 'submit') selector = 'button:has-text("Submit")';
+                        else if (element.toLowerCase() === 'edit') selector = 'button:has-text("Edit"), a:has-text("Edit")';
+                        else if (element.toLowerCase() === 'view') selector = 'button:has-text("View"), a:has-text("View")';
+                        else selector = `text=${element}`;
+                        
+                        steps.push({ action: 'click', selector, value: '' });
+                    }
+                }
+                // Type
+                else if (trimmed.toLowerCase().startsWith('type')) {
+                    const match = trimmed.match(/type\s+"([^"]+)"\s+into\s+(.+)/i);
+                    if (match) {
+                        const value = match[1];
+                        let field = match[2].trim();
+                        // Remove surrounding quotes if present
+                        field = field.replace(/^["']|["']$/g, '');
+                        // Escape internal quotes for selector
+                        const fieldEscaped = field.replace(/"/g, '\\"');
+                        const selector = `input[placeholder="${fieldEscaped}"], input[name*="${field.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}"], label:has-text("${fieldEscaped}") + input`;
+                        steps.push({ action: 'fill', selector, value });
+                    }
+                }
+                // Select
+                else if (trimmed.toLowerCase().startsWith('select')) {
+                    const match = trimmed.match(/select\s+"([^"]+)"\s+from\s+(?:dropdown\s+)?(.+)/i);
+                    if (match) {
+                        const value = match[1];
+                        let field = match[2].trim();
+                        // Remove surrounding quotes if present
+                        field = field.replace(/^["']|["']$/g, '');
+                        // Escape internal quotes for selector
+                        const fieldEscaped = field.replace(/"/g, '\\"');
+                        // Remove special characters for name matching
+                        const fieldName = field.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '');
+                        const selector = `select[name*="${fieldName}"], label:has-text("${fieldEscaped}") + select`;
+                        steps.push({ action: 'select', selector, value });
+                    }
+                }
+                // Wait
+                else if (trimmed.toLowerCase().startsWith('wait')) {
+                    const match = trimmed.match(/(\d+)\s*second/i);
+                    if (match) {
+                        steps.push({ action: 'wait', selector: '', value: match[1] });
+                    }
+                }
+                // Check
+                else if (trimmed.toLowerCase().includes('checkbox') || trimmed.toLowerCase().startsWith('check')) {
+                    const match = trimmed.match(/(?:check|select)\s+"([^"]+)"/i);
+                    if (match) {
+                        const element = match[1];
+                        const selector = `label:has-text("${element}") input[type="checkbox"]`;
+                        steps.push({ action: 'check', selector, value: '' });
+                    }
+                }
+            }
+            
+            renderSteps();
+            alert(`✅ Converted ${steps.length} steps! Click "Run Test" to execute.`);
+        }
+        
+        function addStep() {
+            const action = document.getElementById('actionType').value;
+            const selector = document.getElementById('selector').value;
+            const value = document.getElementById('value').value;
+            
+            if (action !== 'wait' && !selector) {
+                alert('Please enter a selector');
+                return;
+            }
+            
+            if ((action === 'fill' || action === 'select' || action === 'wait') && !value) {
+                alert('Please enter a value');
+                return;
+            }
+            
+            steps.push({ action, selector, value });
+            renderSteps();
+            
+            // Clear inputs
+            document.getElementById('selector').value = '';
+            document.getElementById('value').value = '';
+        }
+        
+        function removeStep(index) {
+            steps.splice(index, 1);
+            renderSteps();
+        }
+        
+        function renderSteps() {
+            const stepsList = document.getElementById('stepsList');
+            if (steps.length === 0) {
+                stepsList.innerHTML = '<p style="color: #999; text-align: center;">No steps added yet</p>';
+                return;
+            }
+            
+            stepsList.innerHTML = steps.map((step, index) => `
+                <div class="step-item">
+                    <div class="step-info">
+                        <span class="step-number">Step ${index + 1}:</span>
+                        <strong>${step.action.toUpperCase()}</strong>
+                        ${step.selector ? `<br><small>${step.selector}</small>` : ''}
+                        ${step.value ? `<br><small>Value: ${step.value}</small>` : ''}
+                    </div>
+                    <div class="step-actions">
+                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;" onclick="removeStep(${index})">✖</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function clearSteps() {
+            if (confirm('Clear all steps?')) {
+                steps = [];
+                renderSteps();
+            }
+        }
+        
+        async function runTest() {
+            if (steps.length === 0) {
+                alert('Please add at least one step');
+                return;
+            }
+            
+            // Get login credentials
+            const loginUrl = document.getElementById('loginUrl').value.trim();
+            const loginUsername = document.getElementById('loginUsername').value.trim();
+            const loginPassword = document.getElementById('loginPassword').value.trim();
+            
+            document.getElementById('logs').textContent = 'Starting test...\n';
+            document.getElementById('statusBadge').textContent = 'Running';
+            document.getElementById('statusBadge').className = 'status-badge status-running';
+            
+            try {
+                const response = await fetch('/run_test', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        steps,
+                        login: {
+                            url: loginUrl || null,
+                            username: loginUsername || null,
+                            password: loginPassword || null
+                        }
+                    })
+                });
+                
+                if (response.ok) {
+                    // Start polling for status
+                    statusInterval = setInterval(updateStatus, 1000);
+                } else {
+                    const error = await response.json();
+                    document.getElementById('logs').textContent = 'Error: ' + error.error;
+                }
+            } catch (error) {
+                document.getElementById('logs').textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function updateStatus() {
+            try {
+                const response = await fetch('/test_status');
+                const status = await response.json();
+                
+                document.getElementById('logs').textContent = status.logs.join('\n');
+                
+                if (!status.running) {
+                    clearInterval(statusInterval);
+                    if (status.success) {
+                        document.getElementById('statusBadge').textContent = 'Success';
+                        document.getElementById('statusBadge').className = 'status-badge status-success';
+                    } else {
+                        document.getElementById('statusBadge').textContent = 'Failed';
+                        document.getElementById('statusBadge').className = 'status-badge status-danger';
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+            }
+        }
+        
+        async function saveTest() {
+            if (steps.length === 0) {
+                alert('Please add at least one step');
+                return;
+            }
+            
+            const testName = document.getElementById('testName').value;
+            
+            try {
+                const response = await fetch('/save_test', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: testName, steps })
+                });
+                
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                alert('Error saving test: ' + error.message);
+            }
+        }
+        
+        // Check Gemini status on load
+        async function checkGeminiStatus() {
+            try {
+                const response = await fetch('/gemini_status');
+                const status = await response.json();
+                const statusDiv = document.getElementById('geminiStatus');
+                
+                if (status.available) {
+                    statusDiv.innerHTML = '<div style="background: #e8f5e9; padding: 10px; border-radius: 5px;"><strong>✅ Gemini AI Ready!</strong><br><small style="color: #2e7d32;">Generate tests from natural language descriptions</small></div>';
+                } else {
+                    statusDiv.innerHTML = '<div style="background: #fff3cd; padding: 10px; border-radius: 5px;"><strong>⚠️ Gemini Not Configured</strong><br><small style="color: #856404;">Optional feature - manual test building still works!<br>Setup: See GEMINI_SETUP.md (2 minutes)</small></div>';
+                }
+            } catch (error) {
+                console.error('Error checking Gemini status:', error);
+            }
+        }
+        
+        // Generate test with AI
+        async function generateTestWithAI() {
+            const description = document.getElementById('aiDescription').value.trim();
+            
+            if (!description) {
+                alert('Please enter a test description');
+                return;
+            }
+            
+            const statusDiv = document.getElementById('geminiStatus');
+            statusDiv.innerHTML = '<div style="background: #e3f2fd; padding: 10px; border-radius: 5px;"><strong>🤖 Generating test with AI...</strong><br><small>This may take 2-3 seconds</small></div>';
+            
+            try {
+                const response = await fetch('/generate_test_ai', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ description })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Clear existing steps
+                    steps = [];
+                    
+                    // Add generated steps
+                    result.steps.forEach(step => {
+                        steps.push(step);
+                    });
+                    
+                    // Update test name if provided
+                    if (result.test_name) {
+                        document.getElementById('testName').value = result.test_name;
+                    }
+                    
+                    // Render steps
+                    renderSteps();
+                    
+                    // Show success message
+                    statusDiv.innerHTML = '<div style="background: #e8f5e9; padding: 10px; border-radius: 5px;"><strong>✅ ' + result.message + '</strong><br><small style="color: #2e7d32;">Review the steps below and click "Run Test"</small></div>';
+                    
+                    // Scroll to steps
+                    document.querySelector('.panel:nth-child(2)').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    statusDiv.innerHTML = '<div style="background: #f8d7da; padding: 10px; border-radius: 5px;"><strong>❌ ' + result.message + '</strong></div>';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '<div style="background: #f8d7da; padding: 10px; border-radius: 5px;"><strong>❌ Error:</strong> ' + error.message + '</div>';
+            }
+        }
+        
+        // Initialize
+        renderSteps();
+        checkGeminiStatus();
+    </script>
+</body>
+</html>

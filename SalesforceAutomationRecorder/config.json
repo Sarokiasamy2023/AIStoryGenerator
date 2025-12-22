@@ -1,0 +1,34 @@
+{
+  "browser": {
+    "headless": false,
+    "slowMo": 100,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  "recording": {
+    "captureScreenshots": true,
+    "highlightColor": "#00ff00",
+    "highlightDuration": 500,
+    "autoSave": true,
+    "outputDirectory": "./recordings"
+  },
+  "selectors": {
+    "preferredStrategy": "css",
+    "generateMultiple": true,
+    "includeXPath": true
+  },
+  "frameworks": {
+    "lightning": {
+      "tags": ["lightning-", "force-"],
+      "classes": ["slds-", "forceStyle"],
+      "attributes": ["data-aura-", "data-lightning-"]
+    },
+    "omniscript": {
+      "tags": ["c-omniscript-", "c-omni-"],
+      "classes": ["vlocity_", "omnistudio-", "nds-"],
+      "attributes": ["data-omnistudio-", "data-omni-"]
+    }
+  }
+}

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Automation Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .selector-item {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .selector-code {
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .selector-meta {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .confidence-bar {
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .healing-demo {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .healing-success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-info { background: #17a2b8; color: white; }
+        .badge-danger { background: #dc3545; color: white; }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #667eea;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 AI-Powered Test Automation</h1>
+            <p class="subtitle">Interactive Demo Dashboard</p>
+        </header>
+        
+        <div class="grid">
+            <!-- Selector Generator -->
+            <div class="card">
+                <h2>🎯 Selector Generator</h2>
+                <div class="form-group">
+                    <label>Element Type:</label>
+                    <select id="elementType">
+                        <option value="input">Input Field</option>
+                        <option value="button">Button</option>
+                        <option value="select">Dropdown</option>
+                        <option value="a">Link</option>
+                        <option value="lightning-button">Lightning Button</option>
+                        <option value="lightning-input">Lightning Input</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Element Text/Label:</label>
+                    <input type="text" id="elementText" placeholder="e.g., Email Address">
+                </div>
+                
+                <div class="form-group">
+                    <label>Placeholder (optional):</label>
+                    <input type="text" id="placeholder" placeholder="e.g., Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label>Name Attribute (optional):</label>
+                    <input type="text" id="nameAttr" placeholder="e.g., email">
+                </div>
+                
+                <button onclick="generateSelectors()">Generate Selectors</button>
+                
+                <div id="selectorResults" class="results" style="display:none;"></div>
+            </div>
+            
+            <!-- Self-Healing Simulator -->
+            <div class="card">
+                <h2>🔧 Self-Healing Simulator</h2>
+                <div class="form-group">
+                    <label>Old Selector (broken):</label>
+                    <input type="text" id="oldSelector" value="button.old-submit-class">
+                </div>
+                
+                <div class="form-group">
+                    <label>Element Description:</label>
+                    <input type="text" id="healingDesc" value="Submit button">
+                </div>
+                
+                <button onclick="simulateHealing()">Simulate Healing</button>
+                
+                <div id="healingResults" class="results" style="display:none;"></div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <!-- Learning Feedback -->
+            <div class="card">
+                <h2>🎓 Learning Feedback</h2>
+                <div class="form-group">
+                    <label>Incorrect Selector:</label>
+                    <input type="text" id="incorrectSelector" value="button.submit">
+                </div>
+                
+                <div class="form-group">
+                    <label>Correct Selector:</label>
+                    <input type="text" id="correctSelector" value="button[data-action='submit']">
+                </div>
+                
+                <div class="form-group">
+                    <label>Reason:</label>
+                    <select id="feedbackReason">
+                        <option value="Data attributes are more stable">Data attributes more stable</option>
+                        <option value="ID selector is more unique">ID selector more unique</option>
+                        <option value="ARIA label improves accessibility">ARIA label better</option>
+                        <option value="Text selector is more reliable">Text selector reliable</option>
+                    </select>
+                </div>
+                
+                <button onclick="recordFeedback()">Record Feedback</button>
+                
+                <div id="feedbackResults" class="results" style="display:none;"></div>
+            </div>
+            
+            <!-- Statistics Dashboard -->
+            <div class="card">
+                <h2>📊 Live Statistics</h2>
+                <button onclick="loadStatistics()">Refresh Statistics</button>
+                
+                <div id="statsDisplay" class="results" style="display:none;">
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value" id="totalFeedback">0</div>
+                            <div class="stat-label">Feedback Records</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="patternsLearned">0</div>
+                            <div class="stat-label">Patterns Learned</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="healingSuccess">0%</div>
+                            <div class="stat-label">Healing Success</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="avgHealingTime">0ms</div>
+                            <div class="stat-label">Avg Healing Time</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = '';
+        
+        async function generateSelectors() {
+            const elementType = document.getElementById('elementType').value;
+            const elementText = document.getElementById('elementText').value;
+            const placeholder = document.getElementById('placeholder').value;
+            const nameAttr = document.getElementById('nameAttr').value;
+            
+            const elementData = {
+                tagName: elementType,
+                innerText: elementText,
+                attributes: {}
+            };
+            
+            if (placeholder) elementData.attributes.placeholder = placeholder;
+            if (nameAttr) elementData.attributes.name = nameAttr;
+            if (elementType === 'input') elementData.attributes.type = 'text';
+            
+            showLoading('selectorResults');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/generate-selectors`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({element_data: elementData})
+                });
+                
+                const data = await response.json();
+                displaySelectors(data.selectors);
+            } catch (error) {
+                showError('selectorResults', error.message);
+            }
+        }
+        
+        function displaySelectors(selectors) {
+            const container = document.getElementById('selectorResults');
+            container.style.display = 'block';
+            
+            let html = '<h3>Generated Selectors:</h3>';
+            selectors.forEach((sel, index) => {
+                const confidence = Math.round(sel.confidence * 100);
+                html += `
+                    <div class="selector-item">
+                        <div class="selector-code">${index + 1}. ${sel.selector}</div>
+                        <div class="selector-meta">
+                            <span class="badge badge-info">${sel.strategy}</span>
+                            <span class="badge badge-success">${confidence}% confidence</span>
+                        </div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: ${confidence}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        async function simulateHealing() {
+            const oldSelector = document.getElementById('oldSelector').value;
+            const description = document.getElementById('healingDesc').value;
+            
+            showLoading('healingResults');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/simulate-healing`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        old_selector: oldSelector,
+                        element_description: description
+                    })
+                });
+                
+                const data = await response.json();
+                displayHealing(data);
+            } catch (error) {
+                showError('healingResults', error.message);
+            }
+        }
+        
+        function displayHealing(data) {
+            const container = document.getElementById('healingResults');
+            container.style.display = 'block';
+            
+            const confidence = Math.round(data.confidence * 100);
+            
+            container.innerHTML = `
+                <div class="healing-demo healing-success">
+                    <h3>✅ Healing Successful!</h3>
+                    <p><strong>Old Selector:</strong> <code>${data.old_selector}</code></p>
+                    <p><strong>New Selector:</strong> <code>${data.new_selector}</code></p>
+                    <p><strong>Confidence:</strong> <span class="badge badge-success">${confidence}%</span></p>
+                    <p><strong>Healing Time:</strong> ${data.healing_time_ms}ms</p>
+                    <p><strong>Method:</strong> ${data.method}</p>
+                </div>
+            `;
+        }
+        
+        async function recordFeedback() {
+            const incorrect = document.getElementById('incorrectSelector').value;
+            const correct = document.getElementById('correctSelector').value;
+            const reason = document.getElementById('feedbackReason').value;
+            
+            showLoading('feedbackResults');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/record-feedback`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        incorrect_selector: incorrect,
+                        correct_selector: correct,
+                        element_data: {tagName: 'button', innerText: 'Submit'},
+                        reason: reason
+                    })
+                });
+                
+                const data = await response.json();
+                displayFeedback(data);
+            } catch (error) {
+                showError('feedbackResults', error.message);
+            }
+        }
+        
+        function displayFeedback(data) {
+            const container = document.getElementById('feedbackResults');
+            container.style.display = 'block';
+            
+            container.innerHTML = `
+                <div class="healing-demo healing-success">
+                    <h3>✅ Feedback Recorded!</h3>
+                    <p><strong>Feedback ID:</strong> ${data.feedback_id}</p>
+                    <p><strong>Learning Insight:</strong> ${data.learning_insight}</p>
+                    <p>The system will now prefer this selector strategy for similar elements.</p>
+                </div>
+            `;
+        }
+        
+        async function loadStatistics() {
+            showLoading('statsDisplay');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/statistics`);
+                const data = await response.json();
+                displayStatistics(data);
+            } catch (error) {
+                showError('statsDisplay', error.message);
+            }
+        }
+        
+        function displayStatistics(data) {
+            const container = document.getElementById('statsDisplay');
+            container.style.display = 'block';
+            
+            document.getElementById('totalFeedback').textContent = 
+                data.learning.total_feedback_records || 0;
+            document.getElementById('patternsLearned').textContent = 
+                data.learning.pattern_library.total_patterns || 0;
+            document.getElementById('healingSuccess').textContent = 
+                data.healing.success_rate + '%' || '0%';
+            document.getElementById('avgHealingTime').textContent = 
+                Math.round(data.healing.average_healing_time_ms || 0) + 'ms';
+        }
+        
+        function showLoading(containerId) {
+            const container = document.getElementById(containerId);
+            container.style.display = 'block';
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+        }
+        
+        function showError(containerId, message) {
+            const container = document.getElementById(containerId);
+            container.style.display = 'block';
+            container.innerHTML = `<div class="healing-demo" style="border-left-color: #dc3545;">
+                <strong>Error:</strong> ${message}
+            </div>`;
+        }
+        
+        // Load statistics on page load
+        window.addEventListener('load', () => {
+            loadStatistics();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+EXAMPLE: CBD-SHCP Form Demographics - Detailed Automation Test Steps
+
+Test Case: Verify Counties Served Field accepts valid alphanumeric input
+
+AUTOMATION STEPS:
+
+Click "CBD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "CBD-00241"
+Wait for 2 seconds
+Click "Form 1: Demographics"
+Wait for 2 seconds
+
+-- Generate CSV
+Wait for 30 seconds
+
+Verify "An agency may not conduct or sponsor, and a person is not required to respond to, a collection of information unless it displays a currently valid OMB control number. The OMB control number for this project is 0915-0387. Public reporting burden for this collection of information is estimated to average 22 hours per response, including the time for reviewing instructions, searching existing data sources, and completing and reviewing the collection of information. Send comments regarding this burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to HRSA Reports Clearance Officer, 5600 Fishers Lane, Room 14N-39, Rockville, Maryland, 20857."
+
+Click "Next"
+Wait for 2 seconds
+
+Verify "Counties Served" field is visible
+Verify "Full Patient Panel" field is visible
+Verify "Changes to Target Population Measures" dropdown is visible
+
+Type "%Counties Served%" into "Counties Served" -- Replace with values from csv
+Wait for 1 seconds
+
+Verify text is entered in "Counties Served" field
+Verify no error message is displayed
+
+Click "Save"
+Wait for 3 seconds
+
+Verify "Form saved successfully"
+
+---
+
+Test Case: Verify Counties Served Field rejects more than 2000 characters
+
+AUTOMATION STEPS:
+
+Click "CBD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "CBD-00241"
+Wait for 2 seconds
+Click "Form 1: Demographics"
+Wait for 2 seconds
+
+-- Generate CSV
+Wait for 30 seconds
+
+Verify "An agency may not conduct or sponsor, and a person is not required to respond to, a collection of information unless it displays a currently valid OMB control number. The OMB control number for this project is 0915-0387. Public reporting burden for this collection of information is estimated to average 22 hours per response, including the time for reviewing instructions, searching existing data sources, and completing and reviewing the collection of information. Send comments regarding this burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to HRSA Reports Clearance Officer, 5600 Fishers Lane, Room 14N-39, Rockville, Maryland, 20857."
+
+Click "Next"
+Wait for 2 seconds
+
+-- Test with text exceeding 2000 characters
+Type "%Counties Served 2001 Chars%" into "Counties Served" -- Replace with values from csv
+Wait for 1 seconds
+
+Click "Next"
+Wait for 2 seconds
+
+Verify "Maximum limit is 2000 characters."
+Verify "Counties Served" field has error styling
+
+-- Verify form cannot proceed
+Verify "Next" button is disabled or form does not advance
+
+---
+
+Test Case: Verify Full Patient Panel accepts valid whole numbers
+
+AUTOMATION STEPS:
+
+Click "CBD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "CBD-00241"
+Wait for 2 seconds
+Click "Form 1: Demographics"
+Wait for 2 seconds
+
+-- Generate CSV
+Wait for 30 seconds
+
+Verify "An agency may not conduct or sponsor, and a person is not required to respond to, a collection of information unless it displays a currently valid OMB control number. The OMB control number for this project is 0915-0387. Public reporting burden for this collection of information is estimated to average 22 hours per response, including the time for reviewing instructions, searching existing data sources, and completing and reviewing the collection of information. Send comments regarding this burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to HRSA Reports Clearance Officer, 5600 Fishers Lane, Room 14N-39, Rockville, Maryland, 20857."
+
+Click "Next"
+Wait for 2 seconds
+
+Type "%Full Patient Panel%" into "Full Patient Panel" -- Replace with values from csv
+Wait for 1 seconds
+
+Verify number is entered in "Full Patient Panel" field
+Verify no error message is displayed
+
+Click "Save"
+Wait for 3 seconds
+
+Verify "Form saved successfully"
+
+---
+
+Test Case: Verify Full Patient Panel rejects decimal values
+
+AUTOMATION STEPS:
+
+Click "CBD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "CBD-00241"
+Wait for 2 seconds
+Click "Form 1: Demographics"
+Wait for 2 seconds
+
+-- Generate CSV
+Wait for 30 seconds
+
+Verify "An agency may not conduct or sponsor, and a person is not required to respond to, a collection of information unless it displays a currently valid OMB control number. The OMB control number for this project is 0915-0387. Public reporting burden for this collection of information is estimated to average 22 hours per response, including the time for reviewing instructions, searching existing data sources, and completing and reviewing the collection of information. Send comments regarding this burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to HRSA Reports Clearance Officer, 5600 Fishers Lane, Room 14N-39, Rockville, Maryland, 20857."
+
+Click "Next"
+Wait for 2 seconds
+
+-- Test with decimal value (should fail)
+Type "123.45" into "Full Patient Panel"
+Wait for 1 seconds
+
+Click "Next"
+Wait for 2 seconds
+
+Verify "Allows whole numbers up to 10 digits."
+Verify "Full Patient Panel" field has error styling
+
+-- Clear and test with valid value
+Clear "Full Patient Panel"
+Wait for 1 seconds
+
+Type "12345" into "Full Patient Panel"
+Wait for 1 seconds
+
+Click "Next"
+Wait for 2 seconds
+
+Verify no error message is displayed
+Verify form proceeds to next section
+
+---
+
+Test Case: Verify Target Population Measures dropdown displays all options
+
+AUTOMATION STEPS:
+
+Click "CBD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "CBD-00241"
+Wait for 2 seconds
+Click "Form 1: Demographics"
+Wait for 2 seconds
+
+-- Generate CSV
+Wait for 30 seconds
+
+Verify "An agency may not conduct or sponsor, and a person is not required to respond to, a collection of information unless it displays a currently valid OMB control number. The OMB control number for this project is 0915-0387. Public reporting burden for this collection of information is estimated to average 22 hours per response, including the time for reviewing instructions, searching existing data sources, and completing and reviewing the collection of information. Send comments regarding this burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to HRSA Reports Clearance Officer, 5600 Fishers Lane, Room 14N-39, Rockville, Maryland, 20857."
+
+Click "Next"
+Wait for 2 seconds
+
+Click "Changes to Target Population Measures" dropdown
+Wait for 1 seconds
+
+Verify dropdown contains "Yes"
+Verify dropdown contains "No"
+Verify dropdown contains "N/A"
+
+Select "%Target Population Measures%" from "Changes to Target Population Measures" -- Replace with values from csv
+Wait for 1 seconds
+
+Verify "%Target Population Measures%" is selected in "Changes to Target Population Measures"
+
+Click "Save"
+Wait for 3 seconds
+
+Verify "Form saved successfully"
+
+---
+
+CSV DATA FILE FORMAT:
+
+Counties Served,Full Patient Panel,Target Population Measures,Counties Served 2001 Chars
+"Los Angeles, Orange County, San Diego",12345,Yes,"[2001 character string here]"
+"San Francisco, Alameda",67890,No,"[2001 character string here]"
+"Sacramento, Placer, El Dorado",54321,N/A,"[2001 character string here]"
+
+---
+
+USAGE INSTRUCTIONS:
+
+1. Copy the automation steps above
+2. Paste into the "Example Test Steps" field in the AI Test Generator
+3. Enter your test case details
+4. Click "Generate Test Steps"
+5. The AI will generate steps in this exact format with:
+   - Navigation steps
+   - Wait times
+   - CSV data placeholders
+   - Verification steps
+   - Comments
+
+6. Export the generated steps as TXT file
+7. Use with your automation framework

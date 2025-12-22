@@ -1,0 +1,16 @@
+Navigate to https://hrsa-dcpaas--dcpuat.sandbox.my.site.com/pars/s/login/
+Wait for 2 seconds
+Type "sarokiasamy2@dmigs.com.dcp.dcpuat" into Username
+Type "Grantee@123" into Password
+Click "Log in"
+Wait for 5 seconds
+Click "Next"
+Wait for 2 seconds
+Click "Finish"
+Wait for 3 seconds
+Click "HSD PERFORMANCE REPORTS"
+Wait for 2 seconds
+Click "HSD-01059"
+Wait for 2 seconds
+Click "Grantee Data Entry"
+Wait for 2 seconds

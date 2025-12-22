@@ -1,0 +1,13 @@
+{
+  "test_name": "LWC Textarea Fill Example",
+  "url": "https://your-salesforce-instance.lightning.force.com",
+  "steps": [
+    "Wait for 3 seconds",
+    "Click \"New Record\"",
+    "Wait for 2 seconds",
+    "Type \"Test Name\" into \"Name\"",
+    "Fill textarea \"Comments\" with \"This is a test comment for the LWC textarea field. The system will try multiple strategies to ensure the text is entered correctly.\"",
+    "Wait for 1 second",
+    "Click \"Save\""
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "test_name": "Counties Textarea Example (Short Label)",
+  "url": "https://your-salesforce-instance.lightning.force.com",
+  "steps": [
+    "Wait for 3 seconds",
+    "Fill textarea \"counties served\" with \"El Dorado County, Sacramento County, Placer County\"",
+    "Wait for 1 second",
+    "Click \"Next\""
+  ],
+  "notes": [
+    "This example uses a partial match of the label text.",
+    "The system will find textareas near text containing 'counties served'.",
+    "You can use either the full label or a distinctive part of it."
+  ]
+}

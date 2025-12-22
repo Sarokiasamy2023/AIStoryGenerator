@@ -1,0 +1,594 @@
+{
+  "username": {
+    "selector": "input[placeholder='Username']",
+    "target": "Username",
+    "action": "fill",
+    "success_count": 11,
+    "first_learned": "2025-12-15T08:59:31.559151",
+    "last_used": "2025-12-17T14:40:14.387310"
+  },
+  "password": {
+    "selector": "input[placeholder='Password']",
+    "target": "Password",
+    "action": "fill",
+    "success_count": 11,
+    "first_learned": "2025-12-15T08:59:32.502119",
+    "last_used": "2025-12-17T14:40:15.308049"
+  },
+  "log_in": {
+    "selector": "button:has-text('Log in')",
+    "target": "Log in",
+    "action": "click",
+    "success_count": 11,
+    "first_learned": "2025-12-15T08:59:33.422548",
+    "last_used": "2025-12-17T14:40:16.250303"
+  },
+  "i_disagree": {
+    "selector": "text=/I Disagree/i",
+    "target": "I Disagree",
+    "action": "click",
+    "success_count": 11,
+    "first_learned": "2025-12-15T09:00:29.558252",
+    "last_used": "2025-12-17T14:40:20.890173"
+  },
+  "finish": {
+    "selector": "button:has-text('Finish')",
+    "target": "Finish",
+    "action": "click",
+    "success_count": 11,
+    "first_learned": "2025-12-15T09:00:31.995702",
+    "last_used": "2025-12-17T14:40:23.341705"
+  },
+  "recently_viewed": {
+    "selector": "xpath=//span[normalize-space(.)='Recently Viewed']",
+    "target": "Recently Viewed",
+    "action": "click",
+    "success_count": 11,
+    "first_learned": "2025-12-15T09:00:49.933856",
+    "last_used": "2025-12-17T14:40:34.030025"
+  },
+  "in_progress_reports": {
+    "selector": "xpath=//span[normalize-space(.)='In Progress Reports']",
+    "target": "In Progress Reports",
+    "action": "click",
+    "success_count": 11,
+    "first_learned": "2025-12-15T09:01:02.780502",
+    "last_used": "2025-12-17T14:40:36.792371"
+  },
+  "hsd-01078": {
+    "selector": "a:has-text('HSD-01078')",
+    "target": "HSD-01078",
+    "action": "click",
+    "success_count": 11,
+    "first_learned": "2025-12-15T09:01:07.549667",
+    "last_used": "2025-12-17T14:40:39.540236"
+  },
+  "edit": {
+    "selector": "a:has-text('Edit')",
+    "target": "Edit",
+    "action": "click",
+    "success_count": 11,
+    "first_learned": "2025-12-15T09:01:12.299325",
+    "last_used": "2025-12-17T14:40:44.709962"
+  },
+  "number_of_people_on_listserv": {
+    "selector": "xpath=//*[normalize-space(text())='Number of people on listserv']//following::input[1]",
+    "target": "Number of people on listserv",
+    "action": "fill",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:01:23.208367",
+    "last_used": "2025-12-17T14:40:54.215869"
+  },
+  "number_of_people_receiving_newsletter_(via_mail_or_electronic)": {
+    "selector": "xpath=//*[normalize-space(text())='Number of people receiving newsletter (via mail or electronic)']//following::input[1]",
+    "target": "Number of people receiving newsletter (via mail or electronic)",
+    "action": "fill",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:01:29.684486",
+    "last_used": "2025-12-17T14:40:56.691866"
+  },
+  "how_many_newsletter_issues_per_year_(if_known)?": {
+    "selector": "xpath=//*[normalize-space(text())='How many newsletter issues per year (if known)?']//following::input[1]",
+    "target": "How many newsletter issues per year (if known)?",
+    "action": "fill",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:01:36.181534",
+    "last_used": "2025-12-17T14:40:59.171721"
+  },
+  "how_many_listserv_posts_distributed_per_year_(if_known)?": {
+    "selector": "xpath=//*[normalize-space(text())='How many listserv posts distributed per year (if known)?']//following::input[1]",
+    "target": "How many listserv posts distributed per year (if known)?",
+    "action": "fill",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:01:42.680466",
+    "last_used": "2025-12-17T14:41:01.634243"
+  },
+  "number_of_website_hits-_specify_most_popular_sections_of_websites_(if_known)_-_value": {
+    "selector": "xpath=//*[normalize-space(text())='Number of website hits- Specify most popular sections of websites (if known) - Value']//following::input[1]",
+    "target": "Number of website hits- Specify most popular sections of websites (if known) - Value",
+    "action": "fill",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:01:49.176448",
+    "last_used": "2025-12-17T14:41:04.104459"
+  },
+  "number_of_website_hits-_specify_most_popular_sections_of_websites_(if_known)_-_specify": {
+    "selector": "xpath=//*[normalize-space(text())='Number of website hits- Specify most popular sections of websites (if known) - Specify']//following::input[1]",
+    "target": "Number of website hits- Specify most popular sections of websites (if known) - Specify",
+    "action": "fill",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:01:55.727100",
+    "last_used": "2025-12-17T14:41:06.582328"
+  },
+  "is_the_audience/membership_for_the_listserv_the_same_as_for_the_newsletter?": {
+    "selector": "text='Is the audience/membership for the listserv the same as for the newsletter?' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Is the audience/membership for the listserv the same as for the newsletter?",
+    "action": "select",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:02:10.349431",
+    "last_used": "2025-12-17T14:41:09.083654"
+  },
+  "is_the_listserv_one-way_information_or_interactive?": {
+    "selector": "text='Is the listserv one-way information or interactive?' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Is the listserv one-way information or interactive?",
+    "action": "select",
+    "success_count": 10,
+    "first_learned": "2025-12-15T09:02:33.801426",
+    "last_used": "2025-12-17T14:41:54.414056"
+  },
+  "articles": {
+    "selector": "text='Articles' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Articles",
+    "action": "select",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:03:27.241928",
+    "last_used": "2025-12-17T14:41:57.632563"
+  },
+  "conferences_(hosted_or_co-hosted)": {
+    "selector": "text='Conferences (hosted or co-hosted)' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Conferences (hosted or co-hosted)",
+    "action": "select",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:03:42.553672",
+    "last_used": "2025-12-17T14:42:00.844158"
+  },
+  "fact_sheets": {
+    "selector": "text='Fact Sheets' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Fact Sheets",
+    "action": "select",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:03:57.931630",
+    "last_used": "2025-12-17T14:42:04.067588"
+  },
+  "maps": {
+    "selector": "text='Maps' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Maps",
+    "action": "select",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:04:13.281333",
+    "last_used": "2025-12-17T14:42:07.333126"
+  },
+  "newsletter": {
+    "selector": "text='Newsletter' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Newsletter",
+    "action": "select",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:04:28.693533",
+    "last_used": "2025-12-17T14:42:10.558888"
+  },
+  "toolkits": {
+    "selector": "text='Toolkits' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Toolkits",
+    "action": "select",
+    "success_count": 1,
+    "first_learned": "2025-12-15T09:04:44.106338",
+    "last_used": "2025-12-15T09:04:44.106357"
+  },
+  "webinars": {
+    "selector": "text='Webinars' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Webinars",
+    "action": "select",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:04:59.478796",
+    "last_used": "2025-12-17T14:42:13.774697"
+  },
+  "websites": {
+    "selector": "text='Websites' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Websites",
+    "action": "select",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:05:14.881495",
+    "last_used": "2025-12-17T14:42:17.006998"
+  },
+  "describe_one_tool_that_you_created_to_address_a_problem_in_your_state.": {
+    "selector": "xpath=//*[normalize-space(text())='Describe one tool that you created to address a problem in your state.']//following::textarea[1]",
+    "target": "Describe one tool that you created to address a problem in your state.",
+    "action": "fill",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:05:32.367578",
+    "last_used": "2025-12-17T14:42:20.204593"
+  },
+  "community_development": {
+    "selector": "text='Community Development' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Community Development",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:06:05.471386",
+    "last_used": "2025-12-17T14:42:29.053161"
+  },
+  "grant_writing": {
+    "selector": "text='Grant Writing' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Grant Writing",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:06:20.884752",
+    "last_used": "2025-12-17T14:42:32.298149"
+  },
+  "needs_assessment": {
+    "selector": "text='Needs Assessment' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Needs Assessment",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:06:36.283942",
+    "last_used": "2025-12-17T14:42:35.528213"
+  },
+  "older_adults/aging": {
+    "selector": "text='Older Adults/Aging' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Older Adults/Aging",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:06:51.668978",
+    "last_used": "2025-12-17T14:42:38.748579"
+  },
+  "opioids": {
+    "selector": "text='Opioids' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Opioids",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:07:07.142121",
+    "last_used": "2025-12-17T14:42:41.983831"
+  },
+  "oral_health": {
+    "selector": "text='Oral Health' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Oral Health",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:07:22.573575",
+    "last_used": "2025-12-17T14:42:45.221564"
+  },
+  "population_health": {
+    "selector": "text='Population Health' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Population Health",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:07:37.978506",
+    "last_used": "2025-12-17T14:42:48.465809"
+  },
+  "rural_health_network": {
+    "selector": "text='Rural Health Network' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Rural Health Network",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:07:53.423198",
+    "last_used": "2025-12-17T14:42:51.683035"
+  },
+  "telehealth": {
+    "selector": "text='Telehealth' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Telehealth",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:08:08.849941",
+    "last_used": "2025-12-17T14:42:54.898611"
+  },
+  "transportation": {
+    "selector": "text='Transportation' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Transportation",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:08:24.312990",
+    "last_used": "2025-12-17T14:42:58.125749"
+  },
+  "tribal": {
+    "selector": "text='Tribal' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Tribal",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:08:39.721806",
+    "last_used": "2025-12-17T14:43:01.383617"
+  },
+  "veterans": {
+    "selector": "text='Veterans' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Veterans",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:08:55.141419",
+    "last_used": "2025-12-17T14:43:04.609145"
+  },
+  "workforce": {
+    "selector": "text='Workforce' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Workforce",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:09:10.569817",
+    "last_used": "2025-12-17T14:43:07.883421"
+  },
+  "other": {
+    "selector": "text='Other' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Other",
+    "action": "select",
+    "success_count": 8,
+    "first_learned": "2025-12-15T09:09:26.019084",
+    "last_used": "2025-12-17T14:43:11.156758"
+  },
+  "other-specify": {
+    "selector": "xpath=//*[normalize-space(text())='Other-Specify']//following::textarea[1]",
+    "target": "Other-Specify",
+    "action": "textarea",
+    "success_count": 19,
+    "first_learned": "2025-12-15T09:09:29.334281",
+    "last_used": "2025-12-17T14:45:09.689041"
+  },
+  "collaborative_effort_in_your_state": {
+    "selector": "xpath=//*[normalize-space(text())='Collaborative effort in your state']//following::textarea[1]",
+    "target": "Collaborative effort in your state",
+    "action": "textarea",
+    "success_count": 9,
+    "first_learned": "2025-12-15T09:09:31.880762",
+    "last_used": "2025-12-17T14:43:47.141530"
+  },
+  "behavioral_health": {
+    "selector": "text='Behavioral Health' >> xpath=following::input[@role='combobox'][1]",
+    "target": "Behavioral Health",
+    "action": "select",
+    "success_count": 6,
+    "first_learned": "2025-12-17T12:51:24.275627",
+    "last_used": "2025-12-17T14:42:25.791047"
+  },
+  "next": {
+    "selector": "button:has-text('Next')",
+    "target": "Next",
+    "action": "click",
+    "success_count": 24,
+    "first_learned": "2025-12-17T12:58:41.375731",
+    "last_used": "2025-12-17T14:45:12.463134"
+  },
+  "face_to_face": {
+    "selector": "xpath=//*[normalize-space(text())='Face to Face']//following::input[1]",
+    "target": "Face to Face",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:20:42.737966",
+    "last_used": "2025-12-17T14:43:52.686181"
+  },
+  "face_to_face_description": {
+    "selector": "xpath=//*[normalize-space(text())='Face to Face description']//following::input[1]",
+    "target": "Face to Face description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:20:49.224963",
+    "last_used": "2025-12-17T14:43:55.140262"
+  },
+  "in-depth_telephone_and_email_interactions": {
+    "selector": "xpath=//*[normalize-space(text())='In-Depth Telephone and email interactions']//following::input[1]",
+    "target": "In-Depth Telephone and email interactions",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:20:55.790601",
+    "last_used": "2025-12-17T14:43:57.608006"
+  },
+  "in-depth_telephone_and_email_interactions_description": {
+    "selector": "xpath=//*[normalize-space(text())='In-Depth Telephone and email interactions description']//following::input[1]",
+    "target": "In-Depth Telephone and email interactions description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:02.320453",
+    "last_used": "2025-12-17T14:44:00.045244"
+  },
+  "thru_teleconference": {
+    "selector": "xpath=//*[normalize-space(text())='Thru Teleconference']//following::input[1]",
+    "target": "Thru Teleconference",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:08.909414",
+    "last_used": "2025-12-17T14:44:02.561907"
+  },
+  "thru_teleconference_description": {
+    "selector": "xpath=//*[normalize-space(text())='Thru Teleconference description']//following::input[1]",
+    "target": "Thru Teleconference description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:15.392963",
+    "last_used": "2025-12-17T14:44:04.989263"
+  },
+  "webinar_technology": {
+    "selector": "xpath=//*[normalize-space(text())='Webinar Technology']//following::input[1]",
+    "target": "Webinar Technology",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:21.930777",
+    "last_used": "2025-12-17T14:44:07.524036"
+  },
+  "webinar_technology_description": {
+    "selector": "xpath=//*[normalize-space(text())='Webinar Technology description']//following::input[1]",
+    "target": "Webinar Technology description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:28.382585",
+    "last_used": "2025-12-17T14:44:09.954307"
+  },
+  "other-value": {
+    "selector": "xpath=//*[normalize-space(text())='Other-Value']//following::input[1]",
+    "target": "Other-Value",
+    "action": "fill",
+    "success_count": 10,
+    "first_learned": "2025-12-17T13:21:34.946590",
+    "last_used": "2025-12-17T14:45:07.165458"
+  },
+  "academic_institutions": {
+    "selector": "xpath=//*[normalize-space(text())='Academic Institutions']//following::input[1]",
+    "target": "Academic Institutions",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:44.305248",
+    "last_used": "2025-12-17T14:44:17.734852"
+  },
+  "academic_institutions_description": {
+    "selector": "xpath=//*[normalize-space(text())='Academic Institutions description']//following::input[1]",
+    "target": "Academic Institutions description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:50.874802",
+    "last_used": "2025-12-17T14:44:20.204742"
+  },
+  "agencies": {
+    "selector": "xpath=//*[normalize-space(text())='Agencies']//following::input[1]",
+    "target": "Agencies",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:21:57.426794",
+    "last_used": "2025-12-17T14:44:22.706251"
+  },
+  "agencies_description": {
+    "selector": "xpath=//*[normalize-space(text())='Agencies description']//following::input[1]",
+    "target": "Agencies description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:03.900821",
+    "last_used": "2025-12-17T14:44:25.156705"
+  },
+  "associations": {
+    "selector": "xpath=//*[normalize-space(text())='Associations']//following::input[1]",
+    "target": "Associations",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:10.475374",
+    "last_used": "2025-12-17T14:44:27.620948"
+  },
+  "associations_description": {
+    "selector": "xpath=//*[normalize-space(text())='Associations description']//following::input[1]",
+    "target": "Associations description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:16.950961",
+    "last_used": "2025-12-17T14:44:30.069376"
+  },
+  "clinics": {
+    "selector": "xpath=//*[normalize-space(text())='Clinics']//following::input[1]",
+    "target": "Clinics",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:23.516699",
+    "last_used": "2025-12-17T14:44:32.557901"
+  },
+  "clinics_description": {
+    "selector": "xpath=//*[normalize-space(text())='Clinics description']//following::input[1]",
+    "target": "Clinics description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:30.019074",
+    "last_used": "2025-12-17T14:44:35.018034"
+  },
+  "communities": {
+    "selector": "xpath=//*[normalize-space(text())='Communities']//following::input[1]",
+    "target": "Communities",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:36.581462",
+    "last_used": "2025-12-17T14:44:37.505737"
+  },
+  "communities_description": {
+    "selector": "xpath=//*[normalize-space(text())='Communities description']//following::input[1]",
+    "target": "Communities description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:43.064772",
+    "last_used": "2025-12-17T14:44:39.964920"
+  },
+  "emergency_medical_service": {
+    "selector": "xpath=//*[normalize-space(text())='Emergency Medical Service']//following::input[1]",
+    "target": "Emergency Medical Service",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:49.624871",
+    "last_used": "2025-12-17T14:44:42.473422"
+  },
+  "emergency_medical_service_description": {
+    "selector": "xpath=//*[normalize-space(text())='Emergency Medical Service description']//following::input[1]",
+    "target": "Emergency Medical Service description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:22:56.125033",
+    "last_used": "2025-12-17T14:44:44.909778"
+  },
+  "government_officials": {
+    "selector": "xpath=//*[normalize-space(text())='Government Officials']//following::input[1]",
+    "target": "Government Officials",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:02.680419",
+    "last_used": "2025-12-17T14:44:47.391136"
+  },
+  "government_officials_description": {
+    "selector": "xpath=//*[normalize-space(text())='Government Officials description']//following::input[1]",
+    "target": "Government Officials description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:09.174963",
+    "last_used": "2025-12-17T14:44:49.827981"
+  },
+  "hospitals": {
+    "selector": "xpath=//*[normalize-space(text())='Hospitals']//following::input[1]",
+    "target": "Hospitals",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:15.671852",
+    "last_used": "2025-12-17T14:44:52.330080"
+  },
+  "hospitals_description": {
+    "selector": "xpath=//*[normalize-space(text())='Hospitals description']//following::input[1]",
+    "target": "Hospitals description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:22.169979",
+    "last_used": "2025-12-17T14:44:54.754047"
+  },
+  "networks": {
+    "selector": "xpath=//*[normalize-space(text())='Networks']//following::input[1]",
+    "target": "Networks",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:28.729879",
+    "last_used": "2025-12-17T14:44:57.207796"
+  },
+  "networks_description": {
+    "selector": "xpath=//*[normalize-space(text())='Networks description']//following::input[1]",
+    "target": "Networks description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:35.204450",
+    "last_used": "2025-12-17T14:44:59.657467"
+  },
+  "providers": {
+    "selector": "xpath=//*[normalize-space(text())='Providers']//following::input[1]",
+    "target": "Providers",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:41.743898",
+    "last_used": "2025-12-17T14:45:02.174157"
+  },
+  "providers_description": {
+    "selector": "xpath=//*[normalize-space(text())='Providers description']//following::input[1]",
+    "target": "Providers description",
+    "action": "fill",
+    "success_count": 5,
+    "first_learned": "2025-12-17T13:23:48.247567",
+    "last_used": "2025-12-17T14:45:04.653144"
+  },
+  "submit_for_review": {
+    "selector": "lightning-button:has-text('Submit for Review')",
+    "target": "Submit for Review",
+    "action": "click",
+    "success_count": 1,
+    "first_learned": "2025-12-17T14:46:45.960915",
+    "last_used": "2025-12-17T14:46:45.960936"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "filename": "Test_20251023_161629.webm",
+  "path": "test_videos\\Test_20251023_161629.webm",
+  "test_name": "Test",
+  "start_time": "2025-10-23T16:16:29.280852",
+  "annotations": [
+    {
+      "step_index": 1,
+      "action": "click",
+      "selector": "text=HSD PERFORMANCE REPORTS",
+      "success": true,
+      "timestamp": "2025-10-23T16:16:50.497433",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 21.216581
+    },
+    {
+      "step_index": 3,
+      "action": "click",
+      "selector": "text=Recently Viewed",
+      "success": true,
+      "timestamp": "2025-10-23T16:16:52.964556",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 23.683704
+    },
+    {
+      "step_index": 5,
+      "action": "click",
+      "selector": "text=In Progress Reports",
+      "success": true,
+      "timestamp": "2025-10-23T16:16:54.597496",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 25.316644
+    },
+    {
+      "step_index": 7,
+      "action": "click",
+      "selector": "text=HSD-01059",
+      "success": true,
+      "timestamp": "2025-10-23T16:16:56.257156",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 26.976304
+    },
+    {
+      "step_index": 9,
+      "action": "click",
+      "selector": "button:has-text(\"Edit\"), a:has-text(\"Edit\")",
+      "success": true,
+      "timestamp": "2025-10-23T16:17:00.831264",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 31.550412
+    },
+    {
+      "step_index": 11,
+      "action": "click",
+      "selector": "button:has-text(\"Next\")",
+      "success": true,
+      "timestamp": "2025-10-23T16:17:04.275982",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 34.99513
+    }
+  ],
+  "end_time": "2025-10-23T16:19:44.952806",
+  "duration": 195.671954
+}

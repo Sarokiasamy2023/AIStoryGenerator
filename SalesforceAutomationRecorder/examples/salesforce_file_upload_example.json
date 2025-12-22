@@ -1,0 +1,12 @@
+{
+  "test_name": "Salesforce File Attachments Upload",
+  "url": "https://your-salesforce-instance.lightning.force.com",
+  "steps": [
+    "Wait for 3 seconds",
+    "Click \"File Attachments\"",
+    "Wait for 2 seconds",
+    "Upload \"test_files/sample_document.pdf\" to \"Upload Files\"",
+    "Wait for 3 seconds",
+    "Click \"Next\""
+  ]
+}

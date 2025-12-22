@@ -1,0 +1,105 @@
+Test Case Format Template for CBD-SHCP Program
+
+Use this format for all generated test cases:
+
+---
+
+Test Case ID: CBD_TC_XXX
+Test Role: Grantee
+Bureau/Program: CBD-SHCP
+Module/Section: Performance Reports
+Test Case Description: [Brief description of what is being tested]
+
+Test Steps:
+1. Login as PO/VC
+2. Navigate to CBD Performance Reports
+3. Click on "In Progress Reports"
+4. Click on the Report "CBD-01361"
+5. Click on "Form1: Demographics"
+
+[Action being tested - describe what the user does with the field]
+
+Expected Result:
+[What should happen - success or error message]
+User should able to Navigate to the Form
+
+---
+
+EXAMPLE 1 - Positive Test:
+
+Test Case ID: CBD_TC_001
+Test Role: Grantee
+Bureau/Program: CBD-SHCP
+Module/Section: Performance Reports
+Test Case Description: Verify Counties Served Field in Form 1: Demographics accepts valid alphanumeric input
+
+Test Steps:
+1. Login as PO/VC
+2. Navigate to CBD Performance Reports
+3. Click on "In Progress Reports"
+4. Click on the Report "CBD-01361"
+5. Click on "Form1: Demographics"
+
+User enters valid alphanumeric text with spaces and punctuation in the field "Counties Served" (e.g., "Los Angeles, Orange County & San Diego")
+
+Expected Result:
+Field accepts input and saves successfully.
+User should able to Navigate to the Form
+
+---
+
+EXAMPLE 2 - Negative Test:
+
+Test Case ID: CBD_TC_002
+Test Role: Grantee
+Bureau/Program: CBD-SHCP
+Module/Section: Performance Reports
+Test Case Description: Verify Counties Served Field in Form 1: Demographics rejects more than 2000 characters
+
+Test Steps:
+1. Login as PO/VC
+2. Navigate to CBD Performance Reports
+3. Click on "In Progress Reports"
+4. Click on the Report "CBD-01361"
+5. Click on "Form1: Demographics"
+
+User enters more than 2000 characters for the field "Counties Served"
+
+Expected Result:
+System shows error: "Maximum limit is 2000 characters."
+User should able to Navigate to the Form
+
+---
+
+EXAMPLE 3 - Edge Case:
+
+Test Case ID: CBD_TC_003
+Test Role: Grantee
+Bureau/Program: CBD-SHCP
+Module/Section: Performance Reports
+Test Case Description: Verify Counties Served Field in Form 1: Demographics with boundary value 1999 characters
+
+Test Steps:
+1. Login as PO/VC
+2. Navigate to CBD Performance Reports
+3. Click on "In Progress Reports"
+4. Click on the Report "CBD-01361"
+5. Click on "Form1: Demographics"
+
+User enters exactly 1999 characters for the field "Counties Served"
+
+Expected Result:
+Field accepts input with no error.
+User can add one more character.
+User should able to Navigate to the Form
+
+---
+
+IMPORTANT FORMATTING RULES:
+1. Always start with navigation steps 1-5
+2. Describe the user action after step 5
+3. Expected Result should state what happens (success, error message, or validation)
+4. Always end with "User should able to Navigate to the Form"
+5. For error messages, use format: System shows error: "[exact error message]"
+6. For successful operations: "Field accepts input and saves successfully."
+7. Test Case IDs should follow pattern: CBD_TC_XXX (sequential numbering)

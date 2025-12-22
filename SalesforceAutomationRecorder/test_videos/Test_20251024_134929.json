@@ -1,0 +1,20 @@
+{
+  "filename": "Test_20251024_134929.webm",
+  "path": "test_videos\\Test_20251024_134929.webm",
+  "test_name": "Test",
+  "start_time": "2025-10-24T13:49:29.563664",
+  "annotations": [
+    {
+      "step_index": 3,
+      "action": "click",
+      "selector": "button:has-text('Login')",
+      "success": true,
+      "timestamp": "2025-10-24T13:49:45.009255",
+      "coordinates": null,
+      "screenshot": null,
+      "time_offset": 15.445591
+    }
+  ],
+  "end_time": "2025-10-24T13:49:52.694793",
+  "duration": 23.131129
+}

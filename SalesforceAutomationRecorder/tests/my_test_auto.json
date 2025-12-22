@@ -1,0 +1,256 @@
+{
+  "name": "my_test",
+  "description": "Auto-generated from text file",
+  "login": {
+    "url": "https://hrsa-dcpaas--dcpuat.sandbox.my.site.com/pars/s/login/",
+    "username": "sarokiasamy2@dmigs.com.dcp.dcpuat",
+    "password": "Grantee@123"
+  },
+  "steps": [
+    {
+      "action": "click",
+      "selector": "button:has-text(\"HSD PERFORMANCE REPORTS\"), a:has-text(\"HSD PERFORMANCE REPORTS\")",
+      "description": "Click HSD PERFORMANCE REPORTS"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"Recently Viewed\"), a:has-text(\"Recently Viewed\")",
+      "description": "Click Recently Viewed"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"In Progress Reports\"), a:has-text(\"In Progress Reports\")",
+      "description": "Click In Progress Reports"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"HSD-01059\"), a:has-text(\"HSD-01059\")",
+      "description": "Click HSD-01059"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"Edit\"), a:has-text(\"Edit\")",
+      "description": "Click Edit"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"Next\"), a:has-text(\"Next\")",
+      "description": "Click Next"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "fill",
+      "selector": "label:has-text(\"Number of people on listserv\") >> xpath=following::input[1]",
+      "value": "5110",
+      "description": "Type 5110 into Number of people on listserv"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "fill",
+      "selector": "label:has-text(\"Number of people receiving newsletter (via mail or electronic)\") >> xpath=following::input[1]",
+      "value": "0",
+      "description": "Type 0 into Number of people receiving newsletter (via mail or electronic)"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "fill",
+      "selector": "label:has-text(\"How many newsletter issues per year (if known)?\") >> xpath=following::input[1]",
+      "value": "0",
+      "description": "Type 0 into How many newsletter issues per year (if known)?"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "fill",
+      "selector": "label:has-text(\"How many listserv posts distributed per year (if known)?\") >> xpath=following::input[1]",
+      "value": "54",
+      "description": "Type 54 into How many listserv posts distributed per year (if known)?"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "fill",
+      "selector": "label:has-text(\"Number of website hits- Specify most popular sections of websites (if known) - Value\") >> xpath=following::input[1]",
+      "value": "22016",
+      "description": "Type 22016 into Number of website hits- Specify most popular sections of websites (if known) - Value"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Is the audience/membership for the listserv the same as for the newsletter?\") >> xpath=following::select[1]",
+      "value": "No",
+      "description": "Select No from Is the audience/membership for the listserv the same as for the newsletter?"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Is the listserv one-way information or interactive?\") >> xpath=following::select[1]",
+      "value": "Interactive",
+      "description": "Select Interactive from Is the listserv one-way information or interactive?"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Articles\") >> xpath=following::select[1]",
+      "value": "NA/None",
+      "description": "Select NA/None from Articles"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Conferences (hosted or co-hosted)\") >> xpath=following::select[1]",
+      "value": "Hosted or Co-Hosted",
+      "description": "Select Hosted or Co-Hosted from Conferences (hosted or co-hosted)"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Fact Sheets\") >> xpath=following::select[1]",
+      "value": "New",
+      "description": "Select New from Fact Sheets"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Maps\") >> xpath=following::select[1]",
+      "value": "New",
+      "description": "Select New from Maps"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Newsletter\") >> xpath=following::select[1]",
+      "value": "New",
+      "description": "Select New from Newsletter"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Toolkits\") >> xpath=following::select[1]",
+      "value": "New",
+      "description": "Select New from Toolkits"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Webinars\") >> xpath=following::select[1]",
+      "value": "New",
+      "description": "Select New from Webinars"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "select",
+      "selector": "label:has-text(\"Websites\") >> xpath=following::select[1]",
+      "value": "New",
+      "description": "Select New from Websites"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"Next\"), a:has-text(\"Next\")",
+      "description": "Click Next"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text(\"Next\"), a:has-text(\"Next\")",
+      "description": "Click Next"
+    },
+    {
+      "action": "wait",
+      "value": "1",
+      "description": "Wait for 1 seconds"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+Type "sarokiasamy2@dmigs.com.dcp.dcpuat" into "Username"
+Type "Grantee@123" into "Password"
+Click "Log in"
+Wait for 2 seconds
+Click "I Disagree"
+Click "Next"
+Click "Finish"
+Wait for 1 seconds
+Click "HSD PERFORMANCE REPORTS"
+Wait for 1 seconds
+Click "Recently Viewed"
+Wait for 1 seconds
+Click "In Progress Reports"
+Wait for 1 seconds
+Click "HSD-01078"
+Wait for 1 seconds
+Click "Edit"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+--------
+Page 1
+Type "%Number of people on listserv%" into "Number of people on listserv"
+Wait for 1 seconds
+Type "%Number of website hits- Specify most popular sections of websites (if known) - Value%" into "Number of website hits- Specify most popular sections of websites (if known) - Value"
+Wait for 1 seconds
+Type "%Number of website hits- Specify most popular sections of websites (if known) - Specify%" into "Number of website hits- Specify most popular sections of websites (if known) - Specify"
+Wait for 1 seconds
+Select "%Is the audience/membership for the listserv the same as for the newsletter?%" from Dropdown "Is the audience/membership for the listserv the same as for the newsletter?"
+Wait for 1 seconds
+Select "%Is the listserv one-way information or interactive?%" from dropdown "Is the listserv one-way information or interactive?"
+Wait for 1 seconds
+Type "%Describe one tool that you created to address a problem in your state.%" into "Describe one tool that you created to address a problem in your state."
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+--------
+Page 2
+Select "%Community Development%" from Dropdown "Community Development"
+Wait for 1 seconds
+Select "%Other-Specify%" from Dropdown "Other-Specify"
+Wait for 1 seconds
+Select "%Select at least one measure option%" from Dropdown "Select at least one measure option"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds
+--------
+Page 3
+Type "%Face to Face%" into "Face to Face"
+Wait for 1 seconds
+Type "%Face to Face description%" into "Face to Face description"
+Wait for 1 seconds
+Click "Next"
+Wait for 1 seconds

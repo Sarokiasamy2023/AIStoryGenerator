@@ -1,0 +1,18 @@
+Field_API_Name,Field_Label,Field_Type,Value
+Number_of_people_on_listserv__c,Number of people on listserv,text,5110
+Number_of_people_receiving_newsletter__c,Number of people receiving newsletter (via mail or electronic),text,0558035317
+How_many_newsletter_issues_per_year__c,How many newsletter issues per year (if known)?,text,n/A
+How_many_listserv_posts_distributed_per__c,How many listserv posts distributed per year (if known)?,text,5203
+Number_of_website_hits_Specify_most_pop__c,Number of website hits- Specify most popular sections of websites (if known) - Value,text,8957
+Number_of_website_hits_Description__c,Number of website hits- Specify most popular sections of websites (if known) - Specify,textarea,Them.
+Is_the_audience_membership_for_the_lists__c,Is the audience/membership for the listserv the same as for the newsletter?,dropdown,No
+Is_the_listserv_one_way_information_or_i__c,Is the listserv one-way information or interactive?,dropdown,Interactive
+Articles__c,Articles,dropdown,Updated
+Conferences_hosted_or_co_hosted__c,Conferences (hosted or co-hosted),dropdown,Attended
+Fact_Sheets__c,Fact Sheets,dropdown,NA/None
+Maps__c,Maps,dropdown,Updated
+Newsletter__c,Newsletter,dropdown,New
+Toolkits__c,Toolkits,dropdown,NA/None
+Webinars__c,Webinars,dropdown,Updated
+Websites__c,Websites,dropdown,Updated
+Describe_one_tool_that_you_created_to_ad__c,Describe one tool that you created to address a problem in your state,textarea,Nor kid story why bad kid. Remember business factor figure wait.

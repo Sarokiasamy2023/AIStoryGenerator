@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 from datetime import datetime
 import httpx
+import subprocess
 from enhanced_test_executor import EnhancedTestExecutor
 from gemini_enhanced_executor import GeminiEnhancedExecutor
 from gemini_locator import get_gemini_locator
@@ -30,6 +31,68 @@ from pdf_testcase_generator import PdfTestCaseGenerator
 from ai_gherkin_converter import get_ai_gherkin_converter
 
 app = FastAPI(title="Real Test Execution with Learning")
+
+PROJECT_ROOT = Path(__file__).parent
+
+
+def _latest_mtime_ms(path: Path, glob_pattern: str) -> int:
+    latest = 0
+    try:
+        for p in path.glob(glob_pattern):
+            try:
+                ts = int(p.stat().st_mtime * 1000)
+                if ts > latest:
+                    latest = ts
+            except Exception:
+                continue
+    except Exception:
+        return 0
+    return latest
+
+
+def _get_allure_freshness() -> dict:
+    results_dir = PROJECT_ROOT / "allure-results"
+    report_dir = PROJECT_ROOT / "allure-report"
+    return {
+        "results_latest_mtime_ms": _latest_mtime_ms(results_dir, "*-result.json"),
+        "report_suites_mtime_ms": int((report_dir / "data" / "suites.json").stat().st_mtime * 1000) if (report_dir / "data" / "suites.json").exists() else 0,
+        "report_index_mtime_ms": int((report_dir / "index.html").stat().st_mtime * 1000) if (report_dir / "index.html").exists() else 0,
+    }
+
+
+async def _generate_allure_html_report() -> dict:
+    """Best-effort: generate Allure HTML report from current allure-results.
+
+    Uses the bundled Allure CLI under ./Allure/bin/allure.bat.
+    """
+    allure_bat = PROJECT_ROOT / "Allure" / "bin" / "allure.bat"
+    results_dir = PROJECT_ROOT / "allure-results"
+    report_dir = PROJECT_ROOT / "allure-report"
+
+    if not allure_bat.exists():
+        return {"ok": False, "reason": "allure_cli_missing", "stdout": "", "stderr": "", "freshness": _get_allure_freshness()}
+    if not results_dir.exists():
+        return {"ok": False, "reason": "results_dir_missing", "stdout": "", "stderr": "", "freshness": _get_allure_freshness()}
+
+    cmd = [str(allure_bat), "generate", str(results_dir), "-o", str(report_dir), "--clean"]
+    try:
+        proc = await asyncio.to_thread(
+            subprocess.run,
+            cmd,
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        return {
+            "ok": proc.returncode == 0,
+            "returncode": proc.returncode,
+            "stdout": proc.stdout or "",
+            "stderr": proc.stderr or "",
+            "freshness": _get_allure_freshness(),
+        }
+    except Exception:
+        return {"ok": False, "reason": "exception", "stdout": "", "stderr": "", "freshness": _get_allure_freshness()}
 
 # Serve static assets (e.g., logo) from the ui folder
 static_dir = Path(__file__).parent / "ui"
@@ -111,7 +174,15 @@ async def gemini_status():
 
 @app.get("/api/allure-summary")
 async def allure_summary():
-    results_dir = Path("allure-results")
+    freshness = _get_allure_freshness()
+    # Keep summary in sync with the HTML report. If results are newer, regenerate first.
+    if freshness.get("results_latest_mtime_ms", 0) > max(
+        freshness.get("report_suites_mtime_ms", 0),
+        freshness.get("report_index_mtime_ms", 0),
+    ):
+        await _generate_allure_html_report()
+
+    results_dir = PROJECT_ROOT / "allure-results"
     total = 0
     passed = 0
     failed = 0
@@ -186,7 +257,7 @@ async def allure_summary():
 
     # If an Allure HTML report exists, prefer its testcase UID for deep-linking
     try:
-        report_suites_path = Path("allure-report") / "data" / "suites.json"
+        report_suites_path = PROJECT_ROOT / "allure-report" / "data" / "suites.json"
         if report_suites_path.exists():
             suites_data = json.loads(report_suites_path.read_text(encoding="utf-8"))
             for container in suites_data.get("children", []):
@@ -217,6 +288,10 @@ async def allure_summary():
     if others < 0:
         others = 0
 
+    last_failed_url = None
+    if last_failed_uuid:
+        last_failed_url = f"/allure-report/index.html#/testcase/{last_failed_uuid}"
+
     return JSONResponse({
         "total": total,
         "passed": passed,
@@ -225,7 +300,15 @@ async def allure_summary():
         "last_failed_name": last_failed_name,
         "last_failed_message": last_failed_message,
         "last_failed_uuid": last_failed_uuid,
+        "last_failed_url": last_failed_url,
     })
+
+
+@app.post("/api/regenerate-allure-report")
+async def regenerate_allure_report():
+    """Force regenerate the Allure HTML report and return diagnostics."""
+    diag = await _generate_allure_html_report()
+    return JSONResponse(diag)
 
 @app.post("/api/gemini-generate-selectors")
 async def generate_selectors_with_gemini(request: dict):
@@ -732,6 +815,22 @@ async def run_test_with_updates(url: str, steps: list, headless: bool, use_ai: b
             attachments=attachments,
             parameters=[{"name": "url", "value": url}],
         )
+
+        report_diag = await _generate_allure_html_report()
+        if report_diag.get("ok"):
+            await broadcast_message({
+                'type': 'log_entry',
+                'level': 'success',
+                'message': '📊 Allure HTML report updated',
+                'details': report_diag.get('freshness', {})
+            })
+        else:
+            await broadcast_message({
+                'type': 'log_entry',
+                'level': 'warning',
+                'message': '⚠️ Allure HTML report not updated (missing CLI or generation failed)',
+                'details': report_diag.get('freshness', {})
+            })
         
     except Exception as e:
         await broadcast_message({
@@ -767,6 +866,22 @@ async def run_test_with_updates(url: str, steps: list, headless: bool, use_ai: b
             parameters=[{"name": "url", "value": url}],
             status_details=str(e),
         )
+
+        report_diag = await _generate_allure_html_report()
+        if report_diag.get("ok"):
+            await broadcast_message({
+                'type': 'log_entry',
+                'level': 'success',
+                'message': '📊 Allure HTML report updated',
+                'details': report_diag.get('freshness', {})
+            })
+        else:
+            await broadcast_message({
+                'type': 'log_entry',
+                'level': 'warning',
+                'message': '⚠️ Allure HTML report not updated (missing CLI or generation failed)',
+                'details': report_diag.get('freshness', {})
+            })
 
 @app.get("/api/learned-selectors")
 async def get_learned_selectors():
@@ -1306,7 +1421,15 @@ async def allure_report():
     We redirect to /allure-report/index.html so that all relative asset
     paths (styles.css, app.js, plugin/*) resolve under /allure-report/.
     """
-    report_index = Path(__file__).parent / "allure-report" / "index.html"
+    freshness = _get_allure_freshness()
+    # If results are newer than the generated report, rebuild it on-demand.
+    if freshness.get("results_latest_mtime_ms", 0) > max(
+        freshness.get("report_suites_mtime_ms", 0),
+        freshness.get("report_index_mtime_ms", 0),
+    ):
+        await _generate_allure_html_report()
+
+    report_index = PROJECT_ROOT / "allure-report" / "index.html"
     if report_index.exists():
         # Redirect so the browser URL ends with /allure-report/index.html
         # and relative asset URLs resolve to /allure-report/*
@@ -1326,7 +1449,7 @@ async def allure_report():
 @app.get("/allure-report/{path:path}")
 async def allure_report_static(path: str):
     """Serve static assets for the Allure HTML report (CSS, JS, plugins)."""
-    report_dir = Path(__file__).parent / "allure-report"
+    report_dir = PROJECT_ROOT / "allure-report"
     file_path = report_dir / path
     if file_path.exists() and file_path.is_file():
         return FileResponse(str(file_path))

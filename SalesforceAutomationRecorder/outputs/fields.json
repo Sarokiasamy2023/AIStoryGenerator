@@ -1,0 +1,675 @@
+{
+    "1": {
+        "Number_of_people_on_listserv__c": {
+            "label": "Number of people on listserv",
+            "required": true,
+            "type": "text",
+            "pattern": "^(?:\\d{1,10}|n\\/a|N\\/a|n\\/A|N\\/A)$",
+            "minlength": "1",
+            "maxlength": "10",
+            "options": []
+        },
+        "Number_of_people_receiving_newsletter__c": {
+            "label": "Number of people receiving newsletter (via mail or electronic)",
+            "required": true,
+            "type": "text",
+            "pattern": "^(?:\\d{1,10}|n\\/a|N\\/a|n\\/A|N\\/A)$",
+            "minlength": "1",
+            "maxlength": "10",
+            "options": []
+        },
+        "How_many_newsletter_issues_per_year__c": {
+            "label": "How many newsletter issues per year (if known)?",
+            "required": true,
+            "type": "text",
+            "pattern": "^(?:\\d{1,10}|n\\/a|N\\/a|n\\/A|N\\/A)$",
+            "minlength": "1",
+            "maxlength": "10",
+            "options": []
+        },
+        "How_many_listserv_posts_distributed_per__c": {
+            "label": "How many listserv posts distributed per year (if known)?",
+            "required": true,
+            "type": "text",
+            "pattern": "^(?:\\d{1,10}|n\\/a|N\\/a|n\\/A|N\\/A)$",
+            "minlength": "1",
+            "maxlength": "10",
+            "options": []
+        },
+        "Number_of_website_hits_Specify_most_pop__c": {
+            "label": "Number of website hits- Specify most popular sections of websites (if known) - Value",
+            "required": true,
+            "type": "text",
+            "pattern": "^(?:\\d{1,10}|n\\/a|N\\/a|n\\/A|N\\/A)$",
+            "minlength": "1",
+            "maxlength": "10",
+            "options": []
+        },
+        "Number_of_website_hits_Description__c": {
+            "label": "Number of website hits- Specify most popular sections of websites (if known) - Specify",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Is_the_audience_membership_for_the_lists__c": {
+            "label": "Is the audience/membership for the listserv the same as for the newsletter?",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Yes",
+                "No"
+            ]
+        },
+        "Is_the_listserv_one_way_information_or_i__c": {
+            "label": "Is the listserv one-way information or interactive?",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "One-Way",
+                "Interactive"
+            ]
+        },
+        "Articles__c": {
+            "label": "Articles",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Updated",
+                "NA/None",
+                "New"
+            ]
+        },
+        "Conferences_hosted_or_co_hosted__c": {
+            "label": "Conferences (hosted or co-hosted)",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Hosted or Co-hosted",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Fact_Sheets__c": {
+            "label": "Fact Sheets",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "New",
+                "Updated",
+                "NA/None"
+            ]
+        },
+        "Maps__c": {
+            "label": "Maps",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "New",
+                "Updated",
+                "NA/None"
+            ]
+        },
+        "Newsletter__c": {
+            "label": "Newsletter",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "New",
+                "Updated",
+                "NA/None"
+            ]
+        },
+        "Webinars__c": {
+            "label": "Webinars",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "New",
+                "Updated",
+                "NA/None"
+            ]
+        },
+        "Websites__c": {
+            "label": "Websites",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "New",
+                "Updated",
+                "NA/None"
+            ]
+        },
+        "Describe_one_tool_that_you_created_to_ad__c": {
+            "label": "Describe one tool that you created to address a problem in your state.",
+            "required": true,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "1",
+            "maxlength": "500",
+            "options": []
+        }
+    },
+    "2": {
+        "Behavioral_Health__c": {
+            "label": "Behavioral Health",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Community_Development__c": {
+            "label": "Community Development",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Grant_Writing__c": {
+            "label": "Grant Writing",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Needs_Assessment__c": {
+            "label": "Needs Assessment",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Older_Adults_Aging__c": {
+            "label": "Older Adults/Aging",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Opioids__c": {
+            "label": "Opioids",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Oral_Health__c": {
+            "label": "Oral Health",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Population_Health__c": {
+            "label": "Population Health",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Rural_Health_Network__c": {
+            "label": "Rural Health Network",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Telehealth__c": {
+            "label": "Telehealth",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Transportation__c": {
+            "label": "Transportation",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Tribal__c": {
+            "label": "Tribal",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Veterans__c": {
+            "label": "Veterans",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Workforce__c": {
+            "label": "Workforce",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        },
+        "Other_Please_Specify__c": {
+            "label": "Other",
+            "required": true,
+            "type": "select",
+            "pattern": null,
+            "minlength": null,
+            "maxlength": null,
+            "options": [
+                "-- Clear --",
+                "Convened",
+                "Attended",
+                "NA/None"
+            ]
+        }
+    },
+    "3": {
+        "Face_to_Face__c": {
+            "label": "Face to Face",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Face_to_Face_description__c": {
+            "label": "Face to Face description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "In_Depth_Telephone_and_email_interaction__c": {
+            "label": "In-Depth Telephone and email interactions",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "In_Depth_Telephone_and_email_description__c": {
+            "label": "In-Depth Telephone and email interactions description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Thru_Teleconference__c": {
+            "label": "Thru Teleconference",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Thru_Teleconference_description__c": {
+            "label": "Thru Teleconference description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Webinar_Technology__c": {
+            "label": "Webinar Technology",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Webinar_Technology_description__c": {
+            "label": "Webinar Technology description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Other_Types_of_TA_Provided__c": {
+            "label": "Other-Value",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Other_Types_of_TA_Provided_Description__c": {
+            "label": "Other-Specify",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Academic_Institutions__c": {
+            "label": "Academic Institutions",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Academic_Institutions_description__c": {
+            "label": "Academic Institutions description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Agencies__c": {
+            "label": "Agencies",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Agencies_description__c": {
+            "label": "Agencies description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Associations__c": {
+            "label": "Associations",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Associations_description__c": {
+            "label": "Associations description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Clinics__c": {
+            "label": "Clinics",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Clinics_description__c": {
+            "label": "Clinics description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Communities__c": {
+            "label": "Communities",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Communities_description__c": {
+            "label": "Communities description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Emergency_Medical_Service__c": {
+            "label": "Emergency Medical Service",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Emergency_Medical_Service_description__c": {
+            "label": "Emergency Medical Service description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Government_Officials__c": {
+            "label": "Government Officials",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Government_Officials_description__c": {
+            "label": "Government Officials description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Hospitals__c": {
+            "label": "Hospitals",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Hospitals_description__c": {
+            "label": "Hospitals description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Networks_TA__c": {
+            "label": "Networks",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Networks_description__c": {
+            "label": "Networks description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        },
+        "Providers__c": {
+            "label": "Providers",
+            "required": false,
+            "type": "number",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": null,
+            "options": []
+        },
+        "Providers_description__c": {
+            "label": "Providers description",
+            "required": false,
+            "type": "textarea",
+            "pattern": null,
+            "minlength": "0",
+            "maxlength": "2000",
+            "options": []
+        }
+    }
+}

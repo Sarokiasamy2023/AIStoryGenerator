@@ -386,13 +386,13 @@ click login button"></textarea>
 
                 <div id="dataGenerationSettings" class="form-group" style="background: #f0f9ff; padding: 15px; border-radius: 8px; border: 2px solid #0ea5e9; display: none;">
                     <h4 style="color: #0ea5e9; margin-bottom: 10px;">📊 Data Generation Settings (for placeholders like %Field Name%)</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <div id="dataGenerationCounts" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                         <div>
-                            <label style="font-size: 13px;">Positive Scenarios:</label>
+                            <label style="font-size: 13px;">Positive Data:</label>
                             <input type="number" id="positiveScenarios" min="0" value="5" style="padding: 8px;">
                         </div>
                         <div>
-                            <label style="font-size: 13px;">Negative Scenarios:</label>
+                            <label style="font-size: 13px;">Negative Data:</label>
                             <input type="number" id="negativeScenarios" min="0" value="5" style="padding: 8px;">
                         </div>
                     </div>
@@ -623,11 +623,49 @@ navigate to homepage"></textarea>
             return /%[^%]+%/.test(text);
         }
 
-        function updateDataGenerationSettingsVisibility() {
+        const dataStatusCache = {
+            dataExists: null,
+            checkedAtMs: 0
+        };
+
+        async function getDataExistsCached() {
+            const now = Date.now();
+            if (dataStatusCache.dataExists !== null && (now - dataStatusCache.checkedAtMs) < 3000) {
+                return dataStatusCache.dataExists;
+            }
+            try {
+                const res = await fetch('/api/data-status');
+                if (!res.ok) {
+                    return null;
+                }
+                const data = await res.json();
+                const exists = !!(data && data.data_exists);
+                dataStatusCache.dataExists = exists;
+                dataStatusCache.checkedAtMs = now;
+                return exists;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        async function updateDataGenerationSettingsVisibility() {
             const stepsEl = document.getElementById('testSteps');
             const panel = document.getElementById('dataGenerationSettings');
+            const counts = document.getElementById('dataGenerationCounts');
             if (!stepsEl || !panel) return;
-            panel.style.display = hasPlaceholders(stepsEl.value) ? 'block' : 'none';
+
+            const has = hasPlaceholders(stepsEl.value);
+            panel.style.display = has ? 'block' : 'none';
+            if (!has) {
+                if (counts) counts.style.display = 'grid';
+                return;
+            }
+
+            const dataExists = await getDataExistsCached();
+            if (counts) {
+                // If data.csv exists, only show the dropdown for selecting positive/negative rows.
+                counts.style.display = (dataExists === true) ? 'none' : 'grid';
+            }
         }
 
         async function runTest() {

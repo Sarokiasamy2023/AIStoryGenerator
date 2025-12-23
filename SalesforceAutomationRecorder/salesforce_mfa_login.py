@@ -781,7 +781,53 @@ async def login_with_mfa_async(
                     page = popup_page
                 except PlaywrightAsyncTimeoutError:
                     await page.wait_for_load_state('networkidle')
-                await page.wait_for_timeout(750)
+                await page.wait_for_timeout(1000)
+
+                try:
+                    login_gov_selectors = [
+                        'text=/login\.gov/i',
+                        'role=button[name=/login\.gov/i]',
+                        'a:has-text("LOGIN.GOV")',
+                        'button:has-text("LOGIN.GOV")',
+                        'img[alt*="login" i]',
+                        'img[src*="login" i]',
+                    ]
+                    for sel in login_gov_selectors:
+                        try:
+                            loc = page.locator(sel).first
+                            if await loc.is_visible(timeout=2500):
+                                await emit('info', "🔐 MFA: Clicking 'login.gov'", {'env': env_key, 'selector': sel})
+                                await loc.click()
+                                await page.wait_for_timeout(1000)
+                                break
+                        except Exception:
+                            continue
+                except Exception:
+                    pass
+
+                try:
+                    agree_selectors = [
+                        'role=button[name=/agree/i]',
+                        'button:has-text("Agree")',
+                        'text=/^Agree$/i',
+                        'a:has-text("Agree")',
+                        'input[value="Agree" i]',
+                        'role=button[name=/i\s*agree/i]',
+                        'button:has-text("I Agree")',
+                        'text=/I\s*Agree/i',
+                    ]
+                    for sel in agree_selectors:
+                        try:
+                            loc = page.locator(sel).first
+                            if await loc.is_visible(timeout=2500):
+                                await emit('info', "🔐 MFA: Clicking 'Agree'", {'env': env_key, 'selector': sel})
+                                await loc.click()
+                                await page.wait_for_timeout(1000)
+                                break
+                        except Exception:
+                            continue
+                except Exception:
+                    pass
         except Exception:
             pass
 
@@ -819,43 +865,70 @@ async def login_with_mfa_async(
             return False
 
     async def handle_post_login_steps_async():
+        step_wait_ms = 2000 if env_key == 'dcp-external' else 1000
+
+        async def click_first_visible(selectors: List[str], timeout_ms: int = 1500, force: bool = False) -> bool:
+            frames = []
+            try:
+                frames = list(page.frames)
+            except Exception:
+                frames = []
+            if not frames:
+                frames = [page.main_frame]
+
+            for frame in frames:
+                for selector in selectors:
+                    try:
+                        loc = frame.locator(selector).first
+                        if await loc.is_visible(timeout=timeout_ms):
+                            if force:
+                                await loc.click(force=True)
+                            else:
+                                await loc.click()
+                            return True
+                    except Exception:
+                        continue
+            return False
+
         try:
-            await page.wait_for_timeout(2000)
-            for selector in POST_LOGIN_DISAGREE_TOGGLE_SELECTORS:
-                try:
-                    btn = page.locator(selector).first
-                    if await btn.is_visible(timeout=2000):
-                        await btn.click(force=True)
-                        await page.wait_for_timeout(2000)
-                        break
-                except Exception:
-                    continue
+            if env_key != 'dcp-external':
+                await page.wait_for_timeout(step_wait_ms)
+
+            toggled = await click_first_visible(POST_LOGIN_DISAGREE_TOGGLE_SELECTORS, timeout_ms=2000, force=True)
+            if not toggled:
+                agree_toggle_selectors = [
+                    'role=switch[name=/I\s*Agree/i]',
+                    'role=checkbox[name=/I\s*Agree/i]',
+                    'label:has-text("I Agree")',
+                    'text=/I\s*Agree/i',
+                ]
+                toggled = await click_first_visible(agree_toggle_selectors, timeout_ms=2000, force=True)
+
+            # DCP-external requirement: after clicking I Disagree (or fallback), wait 2 seconds.
+            if env_key == 'dcp-external' and toggled:
+                await page.wait_for_timeout(2000)
+            else:
+                await page.wait_for_timeout(step_wait_ms)
         except Exception:
             pass
 
         try:
-            for selector in POST_LOGIN_NEXT_SELECTORS:
-                try:
-                    btn = page.locator(selector).first
-                    if await btn.is_visible(timeout=1500):
-                        await btn.click()
-                        await page.wait_for_timeout(2000)
-                        break
-                except Exception:
-                    continue
+            if env_key != 'dcp-external':
+                await page.wait_for_timeout(step_wait_ms)
+
+            if await click_first_visible(POST_LOGIN_NEXT_SELECTORS, timeout_ms=2000, force=False):
+                # DCP-external requirement: after clicking Next, wait 2 seconds.
+                if env_key == 'dcp-external':
+                    await page.wait_for_timeout(2000)
+                else:
+                    await page.wait_for_timeout(step_wait_ms)
         except Exception:
             pass
 
         try:
-            for selector in POST_LOGIN_FINISH_SELECTORS:
-                try:
-                    btn = page.locator(selector).first
-                    if await btn.is_visible(timeout=1500):
-                        await btn.click(force=True)
-                        await page.wait_for_timeout(2000)
-                        break
-                except Exception:
-                    continue
+            await page.wait_for_timeout(step_wait_ms)
+            if await click_first_visible(POST_LOGIN_FINISH_SELECTORS, timeout_ms=2500, force=True):
+                await page.wait_for_timeout(step_wait_ms)
         except Exception:
             pass
 
@@ -912,12 +985,14 @@ async def login_with_mfa_async(
         if username_sel and not email_filled:
             await emit('info', '🔐 MFA: Filling username', {'env': env_key})
             await page.fill(username_sel, email)
+            await page.wait_for_timeout(1000)
 
         try:
             password_by_label = page.get_by_label(re.compile(r'^\s*Password\s*$', re.I)).first
             if await password_by_label.is_visible(timeout=4000):
                 await emit('info', '🔐 MFA: Filling password', {'env': env_key})
                 await password_by_label.fill(password)
+                await page.wait_for_timeout(1000)
             else:
                 raise Exception("Password label not visible")
         except Exception:
@@ -935,6 +1010,7 @@ async def login_with_mfa_async(
                     if await loc.is_visible(timeout=1500):
                         await emit('info', '🔐 MFA: Filling password', {'env': env_key})
                         await page.fill(sel, password)
+                        await page.wait_for_timeout(1000)
                         break
                 except Exception:
                     continue
@@ -969,6 +1045,18 @@ async def login_with_mfa_async(
         if await check_login_success_async():
             await handle_post_login_steps_async()
             return True
+
+        # DCP-external sometimes shows the banner agreement flow before any
+        # "login success" signals (like Log Out). Attempt to complete it anyway.
+        if env_key == 'dcp-external':
+            try:
+                await emit('info', '🔐 MFA: Checking for banner agreement flow', {'env': env_key})
+                await handle_post_login_steps_async()
+                await page.wait_for_timeout(2000)
+                if await check_login_success_async():
+                    return True
+            except Exception:
+                pass
 
         mfa_selectors = [
             'input#emc',
@@ -1024,6 +1112,8 @@ async def login_with_mfa_async(
             await emit('info', '🔐 MFA: Entering verification code (TOTP)', {'env': env_key})
             await page.fill(mfa_sel, "")
             await page.fill(mfa_sel, code)
+            if env_key == 'dcp-external':
+                await page.wait_for_timeout(2000)
 
             for submit_sel in submit_selectors:
                 try:
@@ -1035,7 +1125,18 @@ async def login_with_mfa_async(
                 except Exception:
                     continue
 
-            await page.wait_for_timeout(2000 if env_key == 'dcp-internal' else 2500)
+            await page.wait_for_timeout(2000 if env_key in ('dcp-internal', 'dcp-external') else 2500)
+
+            # DCP-external frequently lands on the banner agreement screen after TOTP submit.
+            # Run the post-login steps regardless of "success" state, then re-check.
+            if env_key == 'dcp-external':
+                try:
+                    await emit('info', '🔐 MFA: Completing banner agreement steps', {'env': env_key})
+                    await handle_post_login_steps_async()
+                    await page.wait_for_timeout(2000)
+                except Exception:
+                    pass
+
             if await check_login_success_async():
                 await handle_post_login_steps_async()
                 return True
